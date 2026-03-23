@@ -11,9 +11,9 @@ const ORDER_STATUS_CONFIG: Record<
   { label: string; bg: string; text: string }
 > = {
   paid: { label: "결제완료", bg: "bg-info-bg", text: "text-info" },
-  password_set: { label: "비밀번호설정", bg: "bg-indigo-50", text: "text-indigo-600" },
+  password_set: { label: "비밀번호설정", bg: "bg-neutral-100", text: "text-neutral-600" },
   pin_revealed: { label: "핀해제", bg: "bg-success-bg", text: "text-success" },
-  gifted: { label: "선물완료", bg: "bg-purple-50", text: "text-purple-600" },
+  gifted: { label: "선물완료", bg: "bg-neutral-100", text: "text-neutral-900" },
   cancelled: { label: "취소", bg: "bg-error-bg", text: "text-error" },
 };
 

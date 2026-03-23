@@ -62,7 +62,7 @@ export default function AdminSettingsPage() {
           className={cn(
             "flex items-center gap-2 rounded-lg border px-4 py-3 text-sm",
             serverMessage.type === "success"
-              ? "border-green-500/20 bg-green-500/10 text-green-600 dark:text-green-400"
+              ? "border-neutral-1000/20 bg-neutral-1000/10 text-neutral-600 dark:text-neutral-400"
               : "border-destructive/20 bg-destructive/10 text-destructive"
           )}
         >

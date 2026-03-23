@@ -58,10 +58,10 @@ const PIN_STATUS_LABEL: Record<PinStatus, string> = {
 };
 
 const PIN_STATUS_STYLE: Record<PinStatus, string> = {
-  waiting: "bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-300",
-  assigned: "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300",
+  waiting: "bg-neutral-100 text-neutral-700 dark:bg-neutral-950/30 dark:text-neutral-300",
+  assigned: "bg-neutral-100 text-neutral-700 dark:bg-neutral-950/30 dark:text-neutral-300",
   consumed: "bg-gray-100 text-gray-600 dark:bg-gray-800/50 dark:text-gray-300",
-  returned: "bg-green-50 text-green-700 dark:bg-green-950/30 dark:text-green-300",
+  returned: "bg-neutral-100 text-neutral-700 dark:bg-neutral-950/30 dark:text-neutral-300",
 };
 
 type PinFilterTab = "all" | PinStatus;
@@ -586,11 +586,11 @@ export function AdminPinsClient() {
                         {item.total > 0 && (
                           <div className="flex h-full">
                             <div
-                              className="bg-blue-500 transition-all"
+                              className="bg-neutral-1000 transition-all"
                               style={{ width: `${(item.waiting / item.total) * 100}%` }}
                             />
                             <div
-                              className="bg-amber-400 transition-all"
+                              className="bg-neutral-400 transition-all"
                               style={{ width: `${(item.assigned / item.total) * 100}%` }}
                             />
                             <div
@@ -599,7 +599,7 @@ export function AdminPinsClient() {
                             />
                             {item.returned > 0 && (
                               <div
-                                className="bg-green-500 transition-all"
+                                className="bg-neutral-1000 transition-all"
                                 style={{ width: `${(item.returned / item.total) * 100}%` }}
                               />
                             )}
@@ -609,15 +609,15 @@ export function AdminPinsClient() {
 
                       {/* 수치 */}
                       <div className="grid grid-cols-4 gap-2">
-                        <div className="flex flex-col items-center gap-0.5 rounded-md bg-blue-50 px-2 py-1.5 dark:bg-blue-950/30">
-                          <span className="text-[10px] font-medium text-blue-600 dark:text-blue-400">미사용</span>
-                          <span className="text-[14px] font-bold text-blue-700 dark:text-blue-300">
+                        <div className="flex flex-col items-center gap-0.5 rounded-md bg-neutral-100 px-2 py-1.5 dark:bg-neutral-950/30">
+                          <span className="text-[10px] font-medium text-neutral-600 dark:text-neutral-400">미사용</span>
+                          <span className="text-[14px] font-bold text-neutral-700 dark:text-neutral-300">
                             {item.waiting.toLocaleString()}
                           </span>
                         </div>
-                        <div className="flex flex-col items-center gap-0.5 rounded-md bg-amber-50 px-2 py-1.5 dark:bg-amber-950/30">
-                          <span className="text-[10px] font-medium text-amber-600 dark:text-amber-400">할당</span>
-                          <span className="text-[14px] font-bold text-amber-700 dark:text-amber-300">
+                        <div className="flex flex-col items-center gap-0.5 rounded-md bg-neutral-100 px-2 py-1.5 dark:bg-neutral-950/30">
+                          <span className="text-[10px] font-medium text-neutral-600 dark:text-neutral-400">할당</span>
+                          <span className="text-[14px] font-bold text-neutral-700 dark:text-neutral-300">
                             {item.assigned.toLocaleString()}
                           </span>
                         </div>
@@ -627,9 +627,9 @@ export function AdminPinsClient() {
                             {item.consumed.toLocaleString()}
                           </span>
                         </div>
-                        <div className="flex flex-col items-center gap-0.5 rounded-md bg-green-50 px-2 py-1.5 dark:bg-green-950/30">
-                          <span className="text-[10px] font-medium text-green-600 dark:text-green-400">반환</span>
-                          <span className="text-[14px] font-bold text-green-700 dark:text-green-300">
+                        <div className="flex flex-col items-center gap-0.5 rounded-md bg-neutral-100 px-2 py-1.5 dark:bg-neutral-950/30">
+                          <span className="text-[10px] font-medium text-neutral-600 dark:text-neutral-400">반환</span>
+                          <span className="text-[14px] font-bold text-neutral-700 dark:text-neutral-300">
                             {item.returned.toLocaleString()}
                           </span>
                         </div>

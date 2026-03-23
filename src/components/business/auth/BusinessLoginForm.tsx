@@ -76,8 +76,8 @@ export function BusinessLoginForm({ onLoggedIn }: BusinessLoginFormProps) {
     <div className="flex flex-col gap-6">
       {/* 헤더 */}
       <div className="flex flex-col items-center gap-3 text-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-100 border border-violet-200/80 shadow-sm">
-          <LogIn size={26} className="text-violet-600" strokeWidth={1.75} />
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-neutral-100 border border-neutral-200/80 shadow-sm">
+          <LogIn size={26} className="text-foreground" strokeWidth={1.75} />
         </div>
         <div>
           <h2 className="text-xl font-bold text-foreground tracking-tight">업체 로그인</h2>
@@ -191,7 +191,7 @@ export function BusinessLoginForm({ onLoggedIn }: BusinessLoginFormProps) {
           disabled={isLoading}
           className={cn(
             "mt-1 h-12 w-full rounded-xl font-bold text-[15px] transition-all duration-200",
-            "bg-violet-600 hover:bg-violet-700 active:scale-[0.98] text-white"
+            "bg-black hover:bg-neutral-800 active:scale-[0.98] text-white"
           )}
         >
           {isLoading ? (

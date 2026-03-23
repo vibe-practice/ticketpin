@@ -45,7 +45,7 @@ export default function GlobalError({
                 marginBottom: "0.5rem",
                 fontSize: "2.25rem",
                 fontWeight: "bold",
-                color: "#18181b",
+                color: "#171717",
               }}
             >
               500
@@ -55,7 +55,7 @@ export default function GlobalError({
                 marginBottom: "1rem",
                 fontSize: "1.25rem",
                 fontWeight: 600,
-                color: "#18181b",
+                color: "#171717",
               }}
             >
               서버 오류가 발생했어요
@@ -63,7 +63,7 @@ export default function GlobalError({
             <p
               style={{
                 marginBottom: "2rem",
-                color: "#71717a",
+                color: "#737373",
               }}
             >
               일시적인 문제가 발생했습니다. 잠시 후 다시 시도해주세요.
@@ -75,7 +75,7 @@ export default function GlobalError({
                 padding: "0 1.5rem",
                 borderRadius: "0.5rem",
                 border: "none",
-                backgroundColor: "#7c3aed",
+                backgroundColor: "#171717",
                 color: "#fff",
                 fontSize: "0.875rem",
                 fontWeight: 500,

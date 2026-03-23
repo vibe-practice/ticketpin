@@ -496,7 +496,7 @@ export function AdminSettlementsClient() {
                 </>
               )}
               {isSameDaySettlement && (currentSettlement.status === "pending" || currentSettlement.status === "confirmed") && (
-                <span className="text-[11px] text-amber-600">당일에는 정산이 불가능합니다</span>
+                <span className="text-[11px] text-neutral-600">당일에는 정산이 불가능합니다</span>
               )}
             </>
           ) : (
@@ -666,7 +666,7 @@ export function AdminSettlementsClient() {
                     </>
                   )}
                   {isSameDaySettlement && (currentSettlement.status === "pending" || currentSettlement.status === "confirmed") && (
-                    <p className="w-full text-[11px] text-amber-600">당일에는 정산이 불가능합니다</p>
+                    <p className="w-full text-[11px] text-neutral-600">당일에는 정산이 불가능합니다</p>
                   )}
                 </>
               ) : (
@@ -680,7 +680,7 @@ export function AdminSettlementsClient() {
       {/* ── 요약 카드 ──────────────────────────────────────────── */}
       {selectedBusiness && (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-5 md:gap-4">
-          <SummaryCard icon={Gift} label="선물 건수" value={`${summary.giftCount}건`} color="text-amber-600" bgColor="bg-amber-50" />
+          <SummaryCard icon={Gift} label="선물 건수" value={`${summary.giftCount}건`} color="text-neutral-600" bgColor="bg-neutral-100" />
           <SummaryCard icon={CreditCard} label="선물 총액" value={`${summary.totalAmount.toLocaleString()}원`} color="text-foreground" bgColor="bg-muted" />
           <SummaryCard icon={Percent} label="수수료율" value={`${selectedBusiness.commission_rate}%`} color="text-info" bgColor="bg-info-bg" />
           <SummaryCard icon={TrendingUp} label="정산 금액" value={`${summary.settlementAmount.toLocaleString()}원`} color="text-primary" bgColor="bg-brand-primary-soft" highlight />

@@ -1,80 +1,103 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useScrollSlider } from "@/hooks/useScrollSlider";
+import { useState } from "react";
+import { ChevronRight, TrendingUp } from "lucide-react";
 import { ProductCard } from "./ProductCard";
-import { Button } from "@/components/ui/button";
-import type { ProductWithCategory } from "@/types";
+import type { ProductWithCategory, Category } from "@/types";
+import { cn } from "@/lib/utils";
 
 interface PopularSliderProps {
   products: ProductWithCategory[];
+  categories?: Pick<Category, "id" | "name" | "slug">[];
 }
 
-export function PopularSlider({ products }: PopularSliderProps) {
-  const { scrollRef, canScrollLeft, canScrollRight, scroll } = useScrollSlider();
+export function PopularSlider({ products, categories = [] }: PopularSliderProps) {
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   if (products.length === 0) return null;
 
+  // 카테고리 탭 목록: 전체 + 실제 카테고리
+  const tabs = [
+    { id: null, name: "전체" },
+    ...categories.map((c) => ({ id: c.id, name: c.name })),
+  ];
+
+  // 활성 카테고리로 필터링
+  const filtered = activeCategory
+    ? products.filter((p) => p.category.id === activeCategory)
+    : products;
+
   return (
-    <section className="py-10 sm:py-12">
-      <div className="mb-6 flex items-end justify-between sm:mb-7">
+    <section className="py-8 lg:py-10">
+      {/* 섹션 헤더 */}
+      <div className="mb-5 flex items-end justify-between">
         <div>
-          <p className="mb-1 text-[13px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-            MOST POPULAR
-          </p>
-          <h2 className="text-xl font-bold leading-tight tracking-tight text-foreground sm:text-2xl">
-            지금 가장 인기있는 상품권
+          <div className="mb-1 flex items-center gap-1.5">
+            <TrendingUp size={14} strokeWidth={2} className="text-muted-foreground" />
+            <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              Most Popular
+            </p>
+          </div>
+          <h2 className="text-[20px] font-bold tracking-[-0.025em] text-foreground lg:text-[22px]">
+            이벤트 특가 추천상품
           </h2>
         </div>
-        <div className="flex items-center gap-2">
-          {(canScrollLeft || canScrollRight) && (
-            <div className="hidden sm:flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="icon-sm"
-                onClick={() => scroll("left")}
-                disabled={!canScrollLeft}
-                aria-label="이전"
-                className="rounded-full shadow-sm hover:border-primary hover:text-primary disabled:opacity-30"
-              >
-                <ChevronLeft size={16} />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon-sm"
-                onClick={() => scroll("right")}
-                disabled={!canScrollRight}
-                aria-label="다음"
-                className="rounded-full shadow-sm hover:border-primary hover:text-primary disabled:opacity-30"
-              >
-                <ChevronRight size={16} />
-              </Button>
-            </div>
-          )}
-          <Link
-            href="/category"
-            className="flex items-center gap-0.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            전체보기
-            <ChevronRight size={15} strokeWidth={1.75} />
-          </Link>
-        </div>
+        <Link
+          href="/category"
+          className="flex items-center gap-0.5 text-[14px] font-semibold text-muted-foreground transition-colors hover:text-foreground"
+        >
+          전체보기
+          <ChevronRight size={14} strokeWidth={2} />
+        </Link>
       </div>
 
-      <div
-        ref={scrollRef}
-        className="flex gap-3 overflow-x-auto scroll-smooth sm:gap-4"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      {/* 카테고리 탭 */}
+      {tabs.length > 1 && (
+        <div className="mb-5 flex flex-wrap gap-1.5">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id ?? "all"}
+              type="button"
+              onClick={() => setActiveCategory(tab.id)}
+              className={cn(
+                "rounded-full px-3.5 py-1.5 text-[14px] font-semibold transition-all duration-150",
+                activeCategory === tab.id
+                  ? "bg-neutral-950 text-white"
+                  : "border border-neutral-200 bg-white text-secondary-foreground hover:bg-neutral-100"
+              )}
+            >
+              {tab.name}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* 상품 그리드 4개/줄 */}
+      {filtered.length > 0 ? (
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {filtered.slice(0, 8).map((product, idx) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              rank={idx + 1}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex items-center justify-center py-12 text-[15px] text-muted-foreground">
+          해당 카테고리에 상품이 없습니다.
+        </div>
+      )}
+
+      {/* 전체 보기 버튼 */}
+      <Link
+        href="/category"
+        className="mt-5 flex items-center justify-center gap-1 rounded-lg border border-neutral-200 bg-white py-3 text-[15px] font-semibold text-secondary-foreground transition-all hover:border-neutral-400 hover:text-foreground"
       >
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            className="flex-shrink-0 w-[calc(50%-6px)] sm:w-[calc(33.333%-10.667px)] lg:w-[calc(20%-12.8px)]"
-          />
-        ))}
-      </div>
+        전체 보기
+        <ChevronRight size={15} strokeWidth={2} />
+      </Link>
     </section>
   );
 }

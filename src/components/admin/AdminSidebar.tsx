@@ -176,7 +176,7 @@ export function AdminSidebar({
         className={cn(
           // 기본: fixed + 다크 배경
           "fixed left-0 top-0 z-50 flex h-screen flex-col",
-          "bg-slate-900 border-r border-slate-700/60",
+          "bg-neutral-900 border-r border-neutral-700/60",
           // 너비 트랜지션
           "transition-[width] duration-200 ease-out overflow-hidden",
           collapsed ? "w-[72px]" : "w-[240px]",
@@ -188,12 +188,12 @@ export function AdminSidebar({
         {/* ── 로고 영역 ────────────────────────────────────────── */}
         <div
           className={cn(
-            "flex h-16 items-center border-b border-slate-700/60 shrink-0",
+            "flex h-16 items-center border-b border-neutral-700/60 shrink-0",
             collapsed ? "justify-center px-0" : "px-5 gap-3"
           )}
         >
           {/* 아이콘 로고 */}
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary shadow-[0_0_12px_rgb(124_58_237/0.4)]">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary shadow-sm">
             <Ticket size={16} className="text-white" strokeWidth={2} />
           </div>
 
@@ -207,7 +207,7 @@ export function AdminSidebar({
             <p className="whitespace-nowrap text-sm font-bold text-white leading-tight">
               티켓핀
             </p>
-            <p className="whitespace-nowrap text-[11px] font-medium text-slate-400 leading-tight">
+            <p className="whitespace-nowrap text-[11px] font-medium text-neutral-400 leading-tight">
               관리자 콘솔
             </p>
           </div>
@@ -231,7 +231,7 @@ export function AdminSidebar({
                       collapsed ? "h-10 w-10 justify-center mx-auto" : "h-10 gap-3 px-3",
                       active
                         ? "bg-primary/15 text-primary"
-                        : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+                        : "text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100"
                     )}
                   >
                     {/* 활성 좌측 바 */}
@@ -254,7 +254,7 @@ export function AdminSidebar({
 
                     {/* 접힌 상태 툴팁 */}
                     {collapsed && (
-                      <span className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-slate-800 px-2.5 py-1.5 text-xs font-medium text-white shadow-lg group-hover:block">
+                      <span className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-neutral-800 px-2.5 py-1.5 text-xs font-medium text-white shadow-lg group-hover:block">
                         {item.label}
                       </span>
                     )}
@@ -281,7 +281,7 @@ export function AdminSidebar({
                       collapsed ? "h-10 w-10 justify-center mx-auto" : "h-10 gap-3 px-3",
                       isGroupActive
                         ? "bg-primary/15 text-primary"
-                        : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+                        : "text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100"
                     )}
                   >
                     {isGroupActive && (
@@ -311,7 +311,7 @@ export function AdminSidebar({
 
                     {/* 접힌 상태 툴팁 */}
                     {collapsed && (
-                      <span className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-slate-800 px-2.5 py-1.5 text-xs font-medium text-white shadow-lg group-hover:block">
+                      <span className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-neutral-800 px-2.5 py-1.5 text-xs font-medium text-white shadow-lg group-hover:block">
                         {item.label}
                       </span>
                     )}
@@ -319,7 +319,7 @@ export function AdminSidebar({
 
                   {/* 서브메뉴 */}
                   {!collapsed && isOpen && (
-                    <div className="mt-0.5 ml-3 space-y-0.5 border-l border-slate-700/60 pl-4">
+                    <div className="mt-0.5 ml-3 space-y-0.5 border-l border-neutral-700/60 pl-4">
                       {item.children.map((child) => {
                         const ChildIcon = child.icon;
                         const childActive = isChildActive(child.href, item.children);
@@ -332,7 +332,7 @@ export function AdminSidebar({
                               "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-all duration-150",
                               childActive
                                 ? "text-primary"
-                                : "text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+                                : "text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100"
                             )}
                           >
                             <ChildIcon
@@ -353,14 +353,14 @@ export function AdminSidebar({
         </nav>
 
         {/* ── 하단: 접기/펼치기 버튼 ───────────────────────────── */}
-        <div className="shrink-0 border-t border-slate-700/60 p-2">
+        <div className="shrink-0 border-t border-neutral-700/60 p-2">
           <button
             type="button"
             onClick={() => onCollapse(!collapsed)}
             aria-label={collapsed ? "사이드바 펼치기" : "사이드바 접기"}
             className={cn(
-              "flex w-full items-center rounded-lg px-3 py-2.5 text-slate-400",
-              "hover:bg-slate-800 hover:text-slate-100 transition-all duration-150",
+              "flex w-full items-center rounded-lg px-3 py-2.5 text-neutral-400",
+              "hover:bg-neutral-800 hover:text-neutral-100 transition-all duration-150",
               collapsed ? "justify-center" : "gap-3"
             )}
           >

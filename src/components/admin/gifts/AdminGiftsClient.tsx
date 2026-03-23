@@ -32,10 +32,10 @@ const VOUCHER_STATUS_OPTS = [
 
 const VOUCHER_STATUS_STYLE: Record<VoucherStatus, string> = {
   issued: "bg-info-bg text-info",
-  temp_verified: "bg-amber-50 text-amber-600",
+  temp_verified: "bg-neutral-100 text-neutral-600",
   password_set: "bg-brand-primary-soft text-primary",
   pin_revealed: "bg-success-bg text-success",
-  gifted: "bg-amber-50 text-amber-600",
+  gifted: "bg-neutral-100 text-neutral-600",
   cancelled: "bg-error-bg text-error",
 };
 
@@ -637,7 +637,7 @@ export function AdminGiftsClient() {
                       className={cn(
                         "rounded-md border px-3 py-2",
                         node.voucher_id === expandedGift.source_voucher_id
-                          ? "border-amber-300 bg-amber-50"
+                          ? "border-neutral-300 bg-neutral-100"
                           : node.voucher_id === expandedGift.new_voucher_id
                             ? "border-primary/30 bg-brand-primary-soft"
                             : "border-border bg-muted/40"

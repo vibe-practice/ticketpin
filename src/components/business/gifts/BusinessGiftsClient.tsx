@@ -88,13 +88,13 @@ function SummaryCard({ icon, label, value, sub, accent }: SummaryCardProps) {
     <div
       className={cn(
         "flex items-center gap-4 rounded-xl border border-border bg-card p-5 shadow-sm",
-        accent && "border-violet-200 bg-violet-50"
+        accent && "border-neutral-200 bg-neutral-50"
       )}
     >
       <div
         className={cn(
           "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl",
-          accent ? "bg-violet-100 text-violet-600" : "bg-muted text-muted-foreground"
+          accent ? "bg-neutral-100 text-foreground" : "bg-muted text-muted-foreground"
         )}
       >
         {icon}
@@ -104,7 +104,7 @@ function SummaryCard({ icon, label, value, sub, accent }: SummaryCardProps) {
         <p
           className={cn(
             "mt-0.5 text-xl font-bold tracking-tight",
-            accent ? "text-violet-700" : "text-foreground"
+            accent ? "text-foreground" : "text-foreground"
           )}
         >
           {value}
@@ -319,8 +319,8 @@ export function BusinessGiftsClient() {
               className={cn(
                 "h-8 px-3 text-sm font-medium transition-all",
                 quickRange === r
-                  ? "bg-violet-600 hover:bg-violet-700 text-white border-transparent"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-violet-300"
+                  ? "bg-black hover:bg-neutral-800 text-white border-transparent"
+                  : "border-border text-muted-foreground hover:text-foreground hover:border-neutral-400"
               )}
             >
               {QUICK_RANGE_LABELS[r]}
@@ -337,8 +337,8 @@ export function BusinessGiftsClient() {
                 className={cn(
                   "h-8 gap-1.5 px-3 text-sm font-medium transition-all",
                   quickRange === "custom"
-                    ? "bg-violet-600 hover:bg-violet-700 text-white border-transparent"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-violet-300"
+                    ? "bg-black hover:bg-neutral-800 text-white border-transparent"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-neutral-400"
                 )}
               >
                 <CalendarDays size={13} />
@@ -370,7 +370,7 @@ export function BusinessGiftsClient() {
                 setPageSize(Number(e.target.value) as PageSizeOption);
                 setPage(1);
               }}
-              className="h-8 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-violet-500"
+              className="h-8 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-neutral-900"
             >
               {PAGE_SIZE_OPTIONS.map((size) => (
                 <option key={size} value={size}>{size}건</option>
@@ -391,7 +391,7 @@ export function BusinessGiftsClient() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="이름, 전화번호, 상품명, 카드사 등 검색..."
-          className="w-full rounded-xl border border-border bg-card py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+          className="w-full rounded-xl border border-border bg-card py-2.5 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:border-transparent"
         />
       </div>
 
@@ -435,7 +435,7 @@ export function BusinessGiftsClient() {
                 <tr>
                   <td colSpan={9} className="py-16 text-center">
                     <div className="flex items-center justify-center gap-2">
-                      <Loader2 size={20} className="animate-spin text-violet-500" />
+                      <Loader2 size={20} className="animate-spin text-foreground" />
                       <span className="text-sm text-muted-foreground">로딩 중...</span>
                     </div>
                   </td>
@@ -458,7 +458,7 @@ export function BusinessGiftsClient() {
                     <tr
                       key={item.id}
                       className={cn(
-                        "group transition-colors duration-100 hover:bg-violet-50/50",
+                        "group transition-colors duration-100 hover:bg-neutral-50/50",
                         idx % 2 === 0 ? "bg-card" : "bg-muted/20",
                         isCancelled && "opacity-60"
                       )}
@@ -514,7 +514,7 @@ export function BusinessGiftsClient() {
                       <td className="px-4 py-3.5 text-right whitespace-nowrap">
                         <span className={cn(
                           "font-bold",
-                          isCancelled ? "text-muted-foreground line-through" : "text-violet-700"
+                          isCancelled ? "text-muted-foreground line-through" : "text-foreground"
                         )}>
                           {formatPrice(item.settlement_amount)}
                         </span>
@@ -559,7 +559,7 @@ export function BusinessGiftsClient() {
                   <td className="px-4 py-3" />
                   <td className="px-4 py-3" />
                   <td className="px-4 py-3 text-right">
-                    <span className="text-sm font-bold text-violet-700">
+                    <span className="text-sm font-bold text-foreground">
                       {formatPrice(summary.total_settlement)}
                     </span>
                   </td>

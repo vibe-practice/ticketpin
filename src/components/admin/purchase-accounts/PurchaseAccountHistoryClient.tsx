@@ -43,7 +43,7 @@ const ORDER_STATUS_STYLE: Record<string, string> = {
   paid: "bg-info-bg text-info",
   password_set: "bg-brand-primary-muted text-primary",
   pin_revealed: "bg-success-bg text-success",
-  gifted: "bg-amber-50 text-amber-600",
+  gifted: "bg-neutral-100 text-neutral-600",
   cancelled: "bg-error-bg text-error",
 };
 
@@ -61,7 +61,7 @@ const VOUCHER_STATUS_STYLE: Record<string, string> = {
   temp_verified: "bg-info-bg text-info",
   password_set: "bg-brand-primary-muted text-primary",
   pin_revealed: "bg-success-bg text-success",
-  gifted: "bg-amber-50 text-amber-600",
+  gifted: "bg-neutral-100 text-neutral-600",
   cancelled: "bg-error-bg text-error",
 };
 
@@ -401,7 +401,7 @@ export function PurchaseAccountHistoryClient() {
         render: (v: unknown) => (
           <span className={cn(
             "whitespace-nowrap rounded-sm px-1.5 py-0.5 text-[11px] font-semibold",
-            v === "included" ? "bg-info-bg text-info" : "bg-amber-50 text-amber-600",
+            v === "included" ? "bg-info-bg text-info" : "bg-neutral-100 text-neutral-600",
           )}>
             {v === "included" ? "포함" : "별도"}
           </span>

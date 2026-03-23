@@ -76,7 +76,7 @@ const FEE_TYPE_LABEL: Record<FeeType, string> = {
 const CANCELLED_BY_STYLE: Record<CancelledBy, string> = {
   user: "bg-info-bg text-info",
   admin: "bg-brand-primary-soft text-primary",
-  system: "bg-amber-50 text-amber-700",
+  system: "bg-neutral-100 text-neutral-700",
 };
 
 // ─── 필터 옵션 ───────────────────────────────────────────────────────────────
@@ -488,7 +488,7 @@ export function AdminRefundsClient() {
             return <span className="text-[11px] text-muted-foreground">미결제</span>;
           }
           return (
-            <span className="whitespace-nowrap rounded-sm bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-700">
+            <span className="whitespace-nowrap rounded-sm bg-neutral-100 px-2 py-0.5 text-[11px] font-semibold text-neutral-700">
               {row.voucher_fee_amount ? `${Number(row.voucher_fee_amount).toLocaleString()}원` : "환불"}
             </span>
           );
@@ -808,27 +808,27 @@ export function AdminRefundsClient() {
                 </div>
                 {/* 수수료 별도 결제 건의 수수료 환불 정보 */}
                 {expandedItem.fee_type === "separate" && (
-                  <div className="mt-2 rounded-md border border-amber-200 bg-amber-50/50 p-2">
-                    <p className="mb-1 text-[11px] font-medium text-amber-800">수수료 별도 결제</p>
+                  <div className="mt-2 rounded-md border border-neutral-200 bg-neutral-100/50 p-2">
+                    <p className="mb-1 text-[11px] font-medium text-neutral-800">수수료 별도 결제</p>
                     <div className="space-y-0.5">
                       <div className="flex justify-between text-[12px]">
-                        <span className="text-amber-700">수수료 결제 여부</span>
-                        <span className="font-medium text-amber-900">
+                        <span className="text-neutral-700">수수료 결제 여부</span>
+                        <span className="font-medium text-neutral-900">
                           {expandedItem.voucher_fee_paid ? "결제완료" : "미결제"}
                         </span>
                       </div>
                       {expandedItem.voucher_fee_paid && expandedItem.voucher_fee_amount != null && (
                         <div className="flex justify-between text-[12px]">
-                          <span className="text-amber-700">수수료 환불 금액</span>
-                          <span className="font-semibold text-amber-900">
+                          <span className="text-neutral-700">수수료 환불 금액</span>
+                          <span className="font-semibold text-neutral-900">
                             {expandedItem.voucher_fee_amount.toLocaleString()}원
                           </span>
                         </div>
                       )}
                       {expandedItem.voucher_fee_paid && expandedItem.voucher_fee_pg_transaction_id && (
                         <div className="flex justify-between text-[12px]">
-                          <span className="text-amber-700">수수료 PG 거래ID</span>
-                          <span className="font-mono text-[11px] text-amber-900">
+                          <span className="text-neutral-700">수수료 PG 거래ID</span>
+                          <span className="font-mono text-[11px] text-neutral-900">
                             {expandedItem.voucher_fee_pg_transaction_id}
                           </span>
                         </div>

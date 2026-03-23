@@ -39,7 +39,7 @@ const STEPS = [
 
 function Stepper({ current }: { current: 1 | 2 | 3 }) {
   return (
-    <div className="mb-6 flex">
+    <div className="mb-8 flex">
       {STEPS.map((step, idx) => {
         const stepNum = idx + 1;
         const isDone = stepNum < current;
@@ -51,10 +51,10 @@ function Stepper({ current }: { current: 1 | 2 | 3 }) {
             <div
               className={`relative z-10 flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold transition-all duration-300 ${
                 isDone
-                  ? "bg-primary/15 text-primary"
+                  ? "bg-neutral-200 text-foreground"
                   : isActive
-                  ? "bg-primary text-white shadow-md shadow-primary/30"
-                  : "bg-gray-100 text-gray-400"
+                  ? "bg-neutral-950 text-white"
+                  : "bg-neutral-100 text-muted-foreground"
               }`}
             >
               {isDone ? (
@@ -66,12 +66,12 @@ function Stepper({ current }: { current: 1 | 2 | 3 }) {
 
             {/* 레이블 */}
             <span
-              className={`mt-1.5 text-sm font-medium transition-colors duration-300 ${
+              className={`mt-2 text-xs font-medium transition-colors duration-300 ${
                 isActive
-                  ? "text-primary"
+                  ? "text-foreground"
                   : isDone
-                  ? "text-primary/70"
-                  : "text-gray-400"
+                  ? "text-secondary-foreground"
+                  : "text-muted-foreground"
               }`}
             >
               {step.label}
@@ -79,9 +79,9 @@ function Stepper({ current }: { current: 1 | 2 | 3 }) {
 
             {/* 연결선 (마지막 스텝 제외) */}
             {idx < STEPS.length - 1 && (
-              <div className="absolute top-4 left-[calc(50%+20px)] right-[calc(-50%+20px)] h-px bg-gray-200 overflow-hidden">
+              <div className="absolute top-4 left-[calc(50%+20px)] right-[calc(-50%+20px)] h-px bg-neutral-200 overflow-hidden">
                 <div
-                  className={`absolute inset-y-0 left-0 bg-primary transition-all duration-500 ${
+                  className={`absolute inset-y-0 left-0 bg-neutral-950 transition-all duration-500 ${
                     current > stepNum ? "w-full" : "w-0"
                   }`}
                 />
@@ -100,42 +100,33 @@ function Step1({ onVerified }: { onVerified: (result: VerificationResult) => voi
 
   return (
     <>
-      <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
-        <div className="mb-7 flex flex-col items-center text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10">
-            <Lock className="text-primary" size={26} strokeWidth={1.75} />
-          </div>
-          <h1 className="text-xl font-bold text-foreground">비밀번호 재설정</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            본인인증 후 새 비밀번호를 설정할 수 있습니다.
-          </p>
-        </div>
+      <div className="rounded-2xl border border-neutral-200 bg-white px-8 py-10 shadow-sm">
+        <h1 className="mb-2 text-center text-2xl font-bold text-foreground">비밀번호 재설정</h1>
+        <p className="mb-8 text-center text-sm text-muted-foreground">
+          본인인증 후 새 비밀번호를 설정할 수 있습니다.
+        </p>
 
         <Button
           onClick={() => setIsModalOpen(true)}
-          className="group relative h-12 w-full overflow-hidden text-sm font-semibold"
+          className="h-[52px] w-full rounded-xl bg-neutral-950 text-base font-semibold text-white hover:bg-neutral-800 active:scale-[0.99]"
         >
-          <span
-            aria-hidden
-            className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full"
-          />
-          <ShieldCheck size={16} />
+          <ShieldCheck size={17} />
           본인인증하기
         </Button>
 
-        <div className="mt-6 flex items-center justify-center gap-4 text-sm text-muted-foreground">
+        <div className="mt-7 flex items-center justify-center gap-5 text-sm text-muted-foreground">
           <Link
             href="/auth/find-id"
-            className="hover:text-foreground hover:underline underline-offset-2 transition-colors"
+            className="hover:text-foreground transition-colors duration-150"
           >
             아이디 찾기
           </Link>
-          <span className="select-none text-gray-300">|</span>
+          <span className="text-neutral-300 select-none">|</span>
           <Link
             href="/auth/login"
-            className="flex items-center gap-1 hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors duration-150"
           >
-            <ArrowLeft size={12} />
+            <ArrowLeft size={14} />
             로그인으로 돌아가기
           </Link>
         </div>
@@ -209,35 +200,35 @@ function Step2({
   };
 
   return (
-    <div className="rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
+    <div className="rounded-2xl border border-neutral-200 bg-white shadow-sm overflow-hidden">
       {/* 본인인증 완료 배너 */}
-      <div className="flex items-center gap-2.5 bg-green-50 border-b border-green-200 px-6 py-3.5">
-        <CheckCircle2 className="text-green-600 shrink-0" size={18} strokeWidth={2} />
-        <span className="text-sm font-semibold text-green-700">본인인증 완료</span>
+      <div className="flex items-center gap-2.5 bg-neutral-950 px-6 py-3.5">
+        <CheckCircle2 className="text-white shrink-0" size={16} strokeWidth={2.5} />
+        <span className="text-sm font-semibold text-white">본인인증 완료</span>
       </div>
 
       <form onSubmit={handleSubmit(onFormSubmit)} noValidate>
-        <div className="p-6">
+        <div className="px-8 py-8">
           <h2 className="mb-1 text-xl font-bold text-foreground">새 비밀번호 설정</h2>
-          <p className="mb-5 text-sm text-muted-foreground">
+          <p className="mb-6 text-sm text-muted-foreground">
             사용할 새 비밀번호를 입력해 주세요.
           </p>
 
           {/* 서버 에러 */}
           {serverError && (
-            <div className="mb-5 flex items-center gap-2 rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive">
-              <AlertCircle size={16} className="shrink-0" />
-              <span>{serverError}</span>
+            <div className="mb-5 flex items-center gap-2.5 rounded-xl border border-red-100 bg-red-50 px-4 py-3.5">
+              <AlertCircle size={15} className="shrink-0 text-destructive" />
+              <span className="text-sm text-destructive">{serverError}</span>
             </div>
           )}
 
           {/* 인증된 계정 표시 */}
-          <div className="mb-5 flex items-center gap-2.5 rounded-lg bg-gray-100 px-4 py-3">
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10">
-              <span className="text-sm font-bold text-primary">ID</span>
+          <div className="mb-6 flex items-center gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3.5">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-200">
+              <span className="text-xs font-bold text-foreground">ID</span>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground">비밀번호를 재설정할 계정</p>
+              <p className="text-xs text-muted-foreground">비밀번호를 재설정할 계정</p>
               <p className="text-sm font-semibold tracking-wider text-foreground">
                 {verification.username
                   ? maskUsername(verification.username)
@@ -248,14 +239,14 @@ function Step2({
 
           <div className="space-y-5">
             {/* 새 비밀번호 */}
-            <div className="space-y-1.5">
-              <Label>
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-foreground">
                 새 비밀번호 <span className="text-destructive">*</span>
               </Label>
               <div className="relative">
                 <Lock
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                  size={16}
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  size={15}
                 />
                 <Input
                   type={showPw ? "text" : "password"}
@@ -263,9 +254,9 @@ function Step2({
                   autoComplete="new-password"
                   aria-invalid={!!errors.password}
                   {...register("password")}
-                  className={`h-11 pl-9 pr-10 ${
+                  className={`h-[52px] rounded-xl border-neutral-300 bg-white pl-9 pr-12 text-base text-foreground placeholder:text-muted-foreground focus-visible:border-foreground focus-visible:ring-0 ${
                     errors.password
-                      ? "border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20"
+                      ? "border-destructive focus-visible:border-destructive"
                       : ""
                   }`}
                 />
@@ -275,25 +266,31 @@ function Step2({
                   size="icon"
                   onClick={() => setShowPw(!showPw)}
                   aria-label={showPw ? "비밀번호 숨기기" : "비밀번호 보기"}
-                  className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground hover:text-foreground"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 text-muted-foreground hover:text-foreground hover:bg-transparent"
                 >
-                  {showPw ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showPw ? <EyeOff size={17} /> : <Eye size={17} />}
                 </Button>
               </div>
               {errors.password && (
-                <p className="flex items-center gap-1 text-sm text-destructive">
-                  <AlertCircle size={13} />
+                <p className="flex items-center gap-1.5 text-sm text-destructive">
+                  <AlertCircle size={14} />
                   {errors.password.message}
                 </p>
               )}
               {password && !errors.password && (
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <div className="flex gap-1">
                     {[1, 2, 3].map((lv) => (
                       <div
                         key={lv}
                         className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
-                          pwStrength.level >= lv ? pwStrength.color : "bg-gray-200"
+                          pwStrength.level >= lv
+                            ? lv === 1
+                              ? "bg-red-400"
+                              : lv === 2
+                                ? "bg-neutral-400"
+                                : "bg-neutral-900"
+                            : "bg-neutral-200"
                         }`}
                       />
                     ))}
@@ -301,10 +298,10 @@ function Step2({
                   <p
                     className={`text-sm ${
                       pwStrength.level === 1
-                        ? "text-red-500"
+                        ? "text-destructive"
                         : pwStrength.level === 2
-                        ? "text-amber-600"
-                        : "text-green-600"
+                        ? "text-secondary-foreground"
+                        : "text-foreground"
                     }`}
                   >
                     비밀번호 강도: {pwStrength.label}
@@ -314,14 +311,14 @@ function Step2({
             </div>
 
             {/* 비밀번호 확인 */}
-            <div className="space-y-1.5">
-              <Label>
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-foreground">
                 비밀번호 확인 <span className="text-destructive">*</span>
               </Label>
               <div className="relative">
                 <Lock
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-                  size={16}
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  size={15}
                 />
                 <Input
                   type={showPwConfirm ? "text" : "password"}
@@ -329,11 +326,11 @@ function Step2({
                   autoComplete="new-password"
                   aria-invalid={!!errors.passwordConfirm || pwMismatch}
                   {...register("passwordConfirm")}
-                  className={`h-11 pl-9 pr-10 ${
+                  className={`h-[52px] rounded-xl border-neutral-300 bg-white pl-9 pr-12 text-base text-foreground placeholder:text-muted-foreground focus-visible:border-foreground focus-visible:ring-0 ${
                     errors.passwordConfirm || pwMismatch
-                      ? "border-destructive focus-visible:border-destructive focus-visible:ring-destructive/20"
+                      ? "border-destructive focus-visible:border-destructive"
                       : pwMatch
-                      ? "border-green-500 focus-visible:border-green-500 focus-visible:ring-green-500/20"
+                      ? "border-neutral-950"
                       : ""
                   }`}
                 />
@@ -343,20 +340,20 @@ function Step2({
                   size="icon"
                   onClick={() => setShowPwConfirm(!showPwConfirm)}
                   aria-label={showPwConfirm ? "비밀번호 숨기기" : "비밀번호 보기"}
-                  className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 text-muted-foreground hover:text-foreground"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 text-muted-foreground hover:text-foreground hover:bg-transparent"
                 >
-                  {showPwConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showPwConfirm ? <EyeOff size={17} /> : <Eye size={17} />}
                 </Button>
               </div>
               {errors.passwordConfirm && (
-                <p className="flex items-center gap-1 text-sm text-destructive">
-                  <AlertCircle size={13} />
+                <p className="flex items-center gap-1.5 text-sm text-destructive">
+                  <AlertCircle size={14} />
                   {errors.passwordConfirm.message}
                 </p>
               )}
               {pwMatch && (
-                <p className="flex items-center gap-1 text-sm text-green-600">
-                  <CheckCircle2 size={13} />
+                <p className="flex items-center gap-1.5 text-sm text-secondary-foreground">
+                  <CheckCircle2 size={14} />
                   비밀번호가 일치합니다.
                 </p>
               )}
@@ -367,12 +364,8 @@ function Step2({
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="group relative mt-8 h-12 w-full overflow-hidden text-sm font-semibold"
+            className="mt-8 h-[52px] w-full rounded-xl bg-neutral-950 text-base font-semibold text-white hover:bg-neutral-800 active:scale-[0.99] disabled:opacity-50"
           >
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full"
-            />
             {isSubmitting ? (
               <>
                 <Spinner />
@@ -393,9 +386,9 @@ function Step3() {
   const router = useRouter();
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-10 shadow-sm text-center">
-      <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-green-50">
-        <CheckCircle2 className="text-green-500" size={40} strokeWidth={1.5} />
+    <div className="rounded-2xl border border-neutral-200 bg-white px-8 py-12 shadow-sm text-center">
+      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-neutral-100">
+        <CheckCircle2 className="text-foreground" size={40} strokeWidth={1.5} />
       </div>
 
       <h2 className="mb-2 text-2xl font-bold text-foreground">
@@ -407,13 +400,9 @@ function Step3() {
 
       <Button
         onClick={() => router.push("/auth/login")}
-        className="group relative h-12 w-full overflow-hidden text-sm font-semibold"
+        className="h-[52px] w-full rounded-xl bg-neutral-950 text-base font-semibold text-white hover:bg-neutral-800 active:scale-[0.99]"
       >
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full"
-        />
-        <LogIn size={16} />
+        <LogIn size={17} />
         로그인하기
       </Button>
     </div>

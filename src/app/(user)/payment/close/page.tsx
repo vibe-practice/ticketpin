@@ -50,26 +50,32 @@ export default function PaymentClosePage() {
 
   if (showFallback) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-6 text-center">
-        <XCircle size={40} className="text-muted-foreground" />
-        <p className="text-base font-semibold text-foreground">결제가 취소되었습니다</p>
-        <p className="text-sm text-muted-foreground">
-          이 창을 닫고 원래 페이지로 돌아가주세요.
-        </p>
-        <Link
-          href="/"
-          className="mt-4 rounded-lg bg-primary px-6 py-2 text-sm font-medium text-primary-foreground"
-        >
-          홈으로 돌아가기
-        </Link>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-neutral-50 px-6">
+        <div className="w-full max-w-[400px] rounded-2xl border border-neutral-300 bg-white p-8 text-center shadow-sm">
+          <div className="mx-auto mb-5 flex h-[64px] w-[64px] items-center justify-center rounded-full border border-neutral-200 bg-neutral-100">
+            <XCircle size={30} className="text-muted-foreground" strokeWidth={1.5} />
+          </div>
+          <p className="text-[18px] font-bold text-foreground">결제가 취소되었습니다</p>
+          <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">
+            이 창을 닫고 원래 페이지로 돌아가주세요.
+          </p>
+          <Link
+            href="/"
+            className="mt-6 flex w-full h-[50px] items-center justify-center rounded-xl border border-neutral-300 bg-white text-[15px] font-semibold text-secondary-foreground hover:bg-neutral-50 active:scale-[0.98] transition-all duration-150"
+          >
+            홈으로 돌아가기
+          </Link>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background">
-      <Loader2 size={32} className="animate-spin text-primary" />
-      <p className="text-sm text-muted-foreground">처리 중...</p>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-neutral-50">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2 size={28} className="animate-spin text-muted-foreground" />
+        <p className="text-[15px] font-medium text-muted-foreground">처리 중...</p>
+      </div>
     </div>
   );
 }

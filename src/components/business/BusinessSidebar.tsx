@@ -108,8 +108,8 @@ export function BusinessSidebar({
         aria-label="업체 포털 내비게이션"
         className={cn(
           "fixed left-0 top-0 z-50 flex h-screen flex-col",
-          // 관리자(slate-900)와 구분: 인디고/청보라 계열 짙은 배경
-          "bg-[#1a1033] border-r border-violet-900/40",
+          // 업체 포털 사이드바: 다크 모노톤
+          "bg-neutral-900 border-r border-neutral-800",
           "transition-[width] duration-200 ease-out overflow-hidden",
           collapsed ? "w-[72px]" : "w-[240px]",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
@@ -118,14 +118,14 @@ export function BusinessSidebar({
         {/* ── 로고 + 접기/펼치기 영역 ──────────────────────────────── */}
         <div
           className={cn(
-            "flex h-16 items-center border-b border-violet-900/40 shrink-0",
+            "flex h-16 items-center border-b border-neutral-800 shrink-0",
             collapsed ? "justify-center px-0" : "px-5 justify-between"
           )}
         >
           <div className={cn("flex items-center", collapsed ? "" : "gap-3")}>
             {/* 아이콘 */}
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet-500/20 border border-violet-500/30 shadow-[0_0_10px_rgb(139_92_246/0.25)]">
-              <Briefcase size={15} className="text-violet-300" strokeWidth={2} />
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-neutral-700 border border-neutral-600 shadow-[0_0_10px_rgb(0_0_0/0.25)]">
+              <Briefcase size={15} className="text-muted-foreground" strokeWidth={2} />
             </div>
 
             {/* 텍스트 */}
@@ -138,7 +138,7 @@ export function BusinessSidebar({
               <p className="whitespace-nowrap text-sm font-bold text-white leading-tight">
                 티켓핀
               </p>
-              <p className="whitespace-nowrap text-[11px] font-medium text-violet-400 leading-tight">
+              <p className="whitespace-nowrap text-[11px] font-medium text-muted-foreground leading-tight">
                 업체 포털
               </p>
             </div>
@@ -151,7 +151,7 @@ export function BusinessSidebar({
             aria-label={collapsed ? "사이드바 펼치기" : "사이드바 접기"}
             className={cn(
               "flex shrink-0 items-center justify-center rounded-md h-7 w-7",
-              "text-violet-400/70 hover:bg-violet-500/10 hover:text-violet-300",
+              "text-muted-foreground/70 hover:bg-neutral-800 hover:text-muted-foreground",
               "transition-all duration-150",
               collapsed ? "mx-auto" : ""
             )}
@@ -182,13 +182,13 @@ export function BusinessSidebar({
                     "group relative flex items-center rounded-lg transition-all duration-150",
                     collapsed ? "h-10 w-10 justify-center mx-auto" : "h-10 gap-3 px-3",
                     active
-                      ? "bg-violet-500/15 text-violet-300"
-                      : "text-violet-300/50 hover:bg-violet-500/10 hover:text-violet-200"
+                      ? "bg-neutral-800 text-muted-foreground"
+                      : "text-muted-foreground/50 hover:bg-neutral-800 hover:text-muted-foreground"
                   )}
                 >
                   {/* 활성 좌측 바 */}
                   {active && (
-                    <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-violet-400" />
+                    <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-neutral-400" />
                   )}
 
                   <Icon
@@ -208,7 +208,7 @@ export function BusinessSidebar({
 
                   {/* 접힌 상태 툴팁 */}
                   {collapsed && (
-                    <span className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-[#1a1033] border border-violet-900/40 px-2.5 py-1.5 text-xs font-medium text-violet-200 shadow-lg group-hover:block">
+                    <span className="pointer-events-none absolute left-full ml-3 hidden whitespace-nowrap rounded-md bg-neutral-900 border border-neutral-800 px-2.5 py-1.5 text-xs font-medium text-muted-foreground shadow-lg group-hover:block">
                       {item.label}
                     </span>
                   )}

@@ -50,16 +50,16 @@ const ORDER_STATUS_MAP: Record<OrderStatus, { label: string; className: string }
   paid: { label: "결제완료", className: "bg-info-bg text-info" },
   password_set: { label: "비밀번호 설정", className: "bg-brand-primary-soft text-primary" },
   pin_revealed: { label: "핀 확인", className: "bg-success-bg text-success" },
-  gifted: { label: "선물", className: "bg-amber-50 text-amber-600" },
+  gifted: { label: "선물", className: "bg-neutral-100 text-neutral-600" },
   cancelled: { label: "취소", className: "bg-error-bg text-error" },
 };
 
 const VOUCHER_STATUS_MAP: Record<VoucherStatus, { label: string; className: string }> = {
   issued: { label: "발급", className: "bg-info-bg text-info" },
-  temp_verified: { label: "임시인증", className: "bg-amber-50 text-amber-600" },
+  temp_verified: { label: "임시인증", className: "bg-neutral-100 text-neutral-600" },
   password_set: { label: "비번설정", className: "bg-brand-primary-soft text-primary" },
   pin_revealed: { label: "핀확인", className: "bg-success-bg text-success" },
-  gifted: { label: "선물", className: "bg-amber-50 text-amber-600" },
+  gifted: { label: "선물", className: "bg-neutral-100 text-neutral-600" },
   cancelled: { label: "취소", className: "bg-error-bg text-error" },
 };
 
@@ -99,7 +99,7 @@ const SMS_TYPE_MAP: Record<SmsMessageType, string> = {
 };
 
 const SMS_STATUS_MAP: Record<SmsSendStatus, { label: string; className: string }> = {
-  pending: { label: "대기", className: "text-amber-600" },
+  pending: { label: "대기", className: "text-neutral-600" },
   sent: { label: "발송완료", className: "text-success" },
   failed: { label: "실패", className: "text-error" },
 };
@@ -478,7 +478,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
               <SectionHeader
                 icon={ShoppingBag}
                 title="상품 정보"
-                iconClassName="bg-amber-50 text-amber-600"
+                iconClassName="bg-neutral-100 text-neutral-600"
               />
               <div className="flex items-center gap-4 rounded-lg border border-border bg-muted/20 p-4">
                 {order.product_image_url && (
@@ -646,7 +646,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
               <SectionHeader
                 icon={Gift}
                 title="선물 정보"
-                iconClassName="bg-amber-50 text-amber-600"
+                iconClassName="bg-neutral-100 text-neutral-600"
               />
               {order.gift_chain && order.gift_chain.length > 0 ? (
                 <div className="rounded-lg border border-border bg-muted/20 px-4 py-4 space-y-3">
@@ -678,7 +678,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                   <div className="flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground pt-1 border-t border-border/50">
                     <span>총 {order.gift_chain.length}회 선물</span>
                     {order.gift_chain.some((link) => link.auto_recycled) && (
-                      <span className="rounded-sm bg-amber-50 px-1.5 py-0.5 text-[11px] font-medium text-amber-600">
+                      <span className="rounded-sm bg-neutral-100 px-1.5 py-0.5 text-[11px] font-medium text-neutral-600">
                         업체 수신 계정 자동회수
                       </span>
                     )}
@@ -820,7 +820,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                     <Button
                       variant="outline"
                       size="sm"
-                      className="gap-1.5 border-amber-200 text-amber-600 hover:border-amber-300 hover:bg-amber-50 hover:text-amber-700"
+                      className="gap-1.5 border-neutral-200 text-neutral-600 hover:border-neutral-300 hover:bg-neutral-100 hover:text-neutral-700"
                       onClick={handleResetPassword}
                       disabled={!!actionLoading}
                     >

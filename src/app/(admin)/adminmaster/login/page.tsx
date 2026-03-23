@@ -105,13 +105,13 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-neutral-950 px-4">
       {/* 배경 효과 — 미묘한 그라데이션 오브 */}
       <div
         className="pointer-events-none absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, rgba(109, 40, 217, 0.04) 50%, transparent 70%)",
+            "radial-gradient(circle, rgba(115, 115, 115, 0.12) 0%, rgba(82, 82, 82, 0.04) 50%, transparent 70%)",
         }}
         aria-hidden="true"
       />
@@ -119,7 +119,7 @@ export default function AdminLoginPage() {
         className="pointer-events-none absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(124, 58, 237, 0.06) 0%, transparent 60%)",
+            "radial-gradient(circle, rgba(115, 115, 115, 0.06) 0%, transparent 60%)",
         }}
         aria-hidden="true"
       />
@@ -129,7 +129,7 @@ export default function AdminLoginPage() {
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(148, 163, 184, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.5) 1px, transparent 1px)",
+            "linear-gradient(rgba(163, 163, 163, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(163, 163, 163, 0.5) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }}
         aria-hidden="true"
@@ -145,27 +145,27 @@ export default function AdminLoginPage() {
               className="absolute inset-0 rounded-2xl"
               style={{
                 background:
-                  "radial-gradient(circle, rgba(124, 58, 237, 0.35) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(115, 115, 115, 0.35) 0%, transparent 70%)",
                 filter: "blur(8px)",
               }}
               aria-hidden="true"
             />
-            <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-violet-500/30 bg-gradient-to-br from-violet-600/20 to-violet-800/30 shadow-lg">
-              <Ticket size={28} className="text-violet-400" strokeWidth={1.5} />
+            <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl border border-neutral-500/30 bg-gradient-to-br from-neutral-600/20 to-neutral-800/30 shadow-lg">
+              <Ticket size={28} className="text-neutral-400" strokeWidth={1.5} />
             </div>
           </div>
 
           <h1 className="text-2xl font-bold tracking-tight text-white">
             티켓핀
           </h1>
-          <p className="mt-1.5 text-sm font-medium tracking-widest text-slate-400 uppercase">
+          <p className="mt-1.5 text-sm font-medium tracking-widest text-neutral-400 uppercase">
             Admin Console
           </p>
         </div>
 
         {/* 카드 본체 */}
-        <div className="rounded-2xl border border-slate-700/50 bg-slate-900/80 p-8 shadow-2xl backdrop-blur-sm">
-          <p className="mb-6 text-center text-[13px] font-medium text-slate-400">
+        <div className="rounded-2xl border border-neutral-700/50 bg-neutral-900/80 p-8 shadow-2xl backdrop-blur-sm">
+          <p className="mb-6 text-center text-[13px] font-medium text-neutral-400">
             관리자 계정으로 로그인하세요
           </p>
 
@@ -194,13 +194,13 @@ export default function AdminLoginPage() {
             <div className="space-y-2">
               <Label
                 htmlFor="admin-username"
-                className="text-[13px] font-medium text-slate-300"
+                className="text-[13px] font-medium text-neutral-300"
               >
                 관리자 아이디
               </Label>
               <div className="relative">
                 <User
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500"
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500"
                   size={15}
                 />
                 <Input
@@ -212,8 +212,8 @@ export default function AdminLoginPage() {
                   aria-invalid={!!errors.username}
                   {...register("username")}
                   className={cn(
-                    "h-11 border-slate-700 bg-slate-800/80 pl-10 text-white placeholder:text-slate-500",
-                    "focus-visible:border-violet-500/60 focus-visible:ring-violet-500/20",
+                    "h-11 border-neutral-700 bg-neutral-800/80 pl-10 text-white placeholder:text-neutral-500",
+                    "focus-visible:border-neutral-500/60 focus-visible:ring-neutral-500/20",
                     "disabled:opacity-50",
                     errors.username &&
                       "border-red-500/50 focus-visible:border-red-500/50 focus-visible:ring-red-500/20"
@@ -232,13 +232,13 @@ export default function AdminLoginPage() {
             <div className="space-y-2">
               <Label
                 htmlFor="admin-password"
-                className="text-[13px] font-medium text-slate-300"
+                className="text-[13px] font-medium text-neutral-300"
               >
                 비밀번호
               </Label>
               <div className="relative">
                 <Lock
-                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500"
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-500"
                   size={15}
                 />
                 <Input
@@ -250,8 +250,8 @@ export default function AdminLoginPage() {
                   aria-invalid={!!errors.password}
                   {...register("password")}
                   className={cn(
-                    "h-11 border-slate-700 bg-slate-800/80 pl-10 pr-11 text-white placeholder:text-slate-500",
-                    "focus-visible:border-violet-500/60 focus-visible:ring-violet-500/20",
+                    "h-11 border-neutral-700 bg-neutral-800/80 pl-10 pr-11 text-white placeholder:text-neutral-500",
+                    "focus-visible:border-neutral-500/60 focus-visible:ring-neutral-500/20",
                     "disabled:opacity-50",
                     errors.password &&
                       "border-red-500/50 focus-visible:border-red-500/50 focus-visible:ring-red-500/20"
@@ -263,7 +263,7 @@ export default function AdminLoginPage() {
                   size="icon"
                   onClick={() => setShowPw(!showPw)}
                   aria-label={showPw ? "비밀번호 숨기기" : "비밀번호 보기"}
-                  className="absolute right-1 top-1/2 h-9 w-9 -translate-y-1/2 text-slate-500 hover:bg-slate-700/50 hover:text-slate-300"
+                  className="absolute right-1 top-1/2 h-9 w-9 -translate-y-1/2 text-neutral-500 hover:bg-neutral-700/50 hover:text-neutral-300"
                 >
                   {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
                 </Button>
@@ -282,9 +282,9 @@ export default function AdminLoginPage() {
               disabled={isSubmitting || isLocked}
               className={cn(
                 "relative mt-2 h-12 w-full overflow-hidden rounded-xl text-sm font-semibold",
-                "bg-gradient-to-r from-violet-600 to-violet-700 text-white",
-                "shadow-lg shadow-violet-900/40",
-                "hover:from-violet-500 hover:to-violet-600",
+                "bg-neutral-900 text-white",
+                "shadow-lg shadow-neutral-900/40",
+                "hover:bg-neutral-800",
                 "active:scale-[0.98] transition-all duration-150",
                 "disabled:opacity-60 disabled:cursor-not-allowed disabled:shadow-none"
               )}
@@ -310,22 +310,22 @@ export default function AdminLoginPage() {
 
           {/* 구분선 */}
           <div className="my-6 flex items-center gap-3">
-            <div className="h-px flex-1 bg-slate-700/60" />
-            <span className="text-[11px] text-slate-600">또는</span>
-            <div className="h-px flex-1 bg-slate-700/60" />
+            <div className="h-px flex-1 bg-neutral-700/60" />
+            <span className="text-[11px] text-neutral-600">또는</span>
+            <div className="h-px flex-1 bg-neutral-700/60" />
           </div>
 
           {/* 사용자 페이지 링크 */}
           <Link
             href="/"
-            className="flex items-center justify-center gap-1.5 text-[13px] text-slate-500 transition-colors hover:text-slate-300"
+            className="flex items-center justify-center gap-1.5 text-[13px] text-neutral-500 transition-colors hover:text-neutral-300"
           >
             사용자 페이지로 이동
           </Link>
         </div>
 
         {/* 하단 안내 */}
-        <p className="mt-6 text-center text-[12px] text-slate-600">
+        <p className="mt-6 text-center text-[12px] text-neutral-600">
           이 페이지는 관리자 전용입니다. 권한이 없는 접근은 기록됩니다.
         </p>
       </div>

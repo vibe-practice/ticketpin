@@ -199,7 +199,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
                 </p>
               )}
               {usernameStatus === "available" && !errors.username && (
-                <p className="flex items-center gap-1 text-[12px] text-green-600">
+                <p className="flex items-center gap-1 text-[12px] text-neutral-600">
                   <CheckCircle2 size={11} />
                   사용 가능한 아이디입니다.
                 </p>

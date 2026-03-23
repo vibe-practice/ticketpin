@@ -203,8 +203,8 @@ export function BusinessVerifyForm({ onVerified }: BusinessVerifyFormProps) {
     <div className="flex flex-col gap-6">
       {/* 헤더 */}
       <div className="flex flex-col items-center gap-3 text-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-100 border border-violet-200/80 shadow-sm">
-          <ShieldCheck size={26} className="text-violet-600" strokeWidth={1.75} />
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-neutral-100 border border-neutral-200/80 shadow-sm">
+          <ShieldCheck size={26} className="text-foreground" strokeWidth={1.75} />
         </div>
         <div>
           <h2 className="text-xl font-bold text-foreground tracking-tight">SMS 인증</h2>
@@ -231,7 +231,7 @@ export function BusinessVerifyForm({ onVerified }: BusinessVerifyFormProps) {
         disabled={isSending || isVerifying}
         className={cn(
           "h-11 w-full rounded-xl font-semibold text-[15px] transition-all duration-200",
-          "bg-violet-600 hover:bg-violet-700 active:scale-[0.98] text-white shadow-sm",
+          "bg-black hover:bg-neutral-800 active:scale-[0.98] text-white shadow-sm",
           isSent && "bg-muted/60 text-muted-foreground hover:bg-muted/80 shadow-none border border-border"
         )}
       >
@@ -266,7 +266,7 @@ export function BusinessVerifyForm({ onVerified }: BusinessVerifyFormProps) {
                     ? "bg-destructive/10 text-destructive"
                     : isTimeCritical
                     ? "bg-red-50 text-red-600 animate-pulse"
-                    : "bg-violet-50 text-violet-600"
+                    : "bg-neutral-50 text-foreground"
                 )}
                 aria-live="polite"
                 aria-label={`남은 시간 ${formatTime(timeLeft)}`}
@@ -297,10 +297,10 @@ export function BusinessVerifyForm({ onVerified }: BusinessVerifyFormProps) {
                     "disabled:opacity-40 disabled:cursor-not-allowed",
                     // 기본 상태
                     digit
-                      ? "border-violet-400 bg-violet-50 text-violet-700 shadow-sm"
+                      ? "border-neutral-400 bg-neutral-50 text-foreground shadow-sm"
                       : "border-border bg-background text-foreground",
                     // 포커스 상태
-                    "focus:border-violet-500 focus:ring-3 focus:ring-violet-500/20 focus:bg-violet-50/50",
+                    "focus:border-neutral-900 focus:ring-3 focus:ring-neutral-900/20 focus:bg-neutral-50/50",
                     // 에러 상태
                     error && !digit && "border-destructive/50",
                     // 만료 상태
@@ -334,7 +334,7 @@ export function BusinessVerifyForm({ onVerified }: BusinessVerifyFormProps) {
             disabled={!isCodeComplete || isExpired || isVerifying}
             className={cn(
               "h-12 w-full rounded-xl font-bold text-[15px] transition-all duration-200",
-              "bg-violet-600 hover:bg-violet-700 active:scale-[0.98] text-white",
+              "bg-black hover:bg-neutral-800 active:scale-[0.98] text-white",
               "disabled:bg-muted/50 disabled:text-muted-foreground disabled:shadow-none"
             )}
           >

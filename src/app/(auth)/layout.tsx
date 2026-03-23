@@ -15,8 +15,8 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
 
   return (
     <SiteLayout footer={<Footer />} categories={categories}>
-      <div className="flex items-start justify-center px-4 pt-10 pb-12">
-        <div className="w-full max-w-md">{children}</div>
+      <div className="flex items-start justify-center px-4 pt-12 pb-16">
+        <div className="w-full max-w-[440px]">{children}</div>
       </div>
     </SiteLayout>
   );

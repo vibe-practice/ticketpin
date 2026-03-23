@@ -40,7 +40,7 @@ import type {
 
 const VERIFICATION_STATUS_STYLE: Record<VerificationStatus, string> = {
   verified: "bg-success-bg text-success",
-  suspicious: "bg-amber-50 text-amber-600",
+  suspicious: "bg-neutral-100 text-neutral-600",
   rejected: "bg-error-bg text-error",
   pending: "bg-muted text-muted-foreground",
 };
@@ -54,10 +54,10 @@ const VERIFICATION_STATUS_LABEL: Record<VerificationStatus, string> = {
 
 const VOUCHER_STATUS_STYLE: Record<VoucherStatus, string> = {
   issued: "bg-info-bg text-info",
-  temp_verified: "bg-amber-50 text-amber-600",
+  temp_verified: "bg-neutral-100 text-neutral-600",
   password_set: "bg-brand-primary-soft text-primary",
   pin_revealed: "bg-success-bg text-success",
-  gifted: "bg-amber-50 text-amber-600",
+  gifted: "bg-neutral-100 text-neutral-600",
   cancelled: "bg-error-bg text-error",
 };
 
@@ -74,7 +74,7 @@ const PIN_STATUS_STYLE: Record<PinStatus, string> = {
   waiting: "bg-muted text-muted-foreground",
   assigned: "bg-info-bg text-info",
   consumed: "bg-success-bg text-success",
-  returned: "bg-amber-50 text-amber-600",
+  returned: "bg-neutral-100 text-neutral-600",
 };
 
 const PIN_STATUS_LABEL: Record<PinStatus, string> = {
@@ -98,7 +98,7 @@ interface ChainNode {
 function getChainNodeStyle(index: number, total: number): string {
   if (index === 0) return "border-border bg-muted/40";
   if (index === total - 1) return "border-primary/30 bg-brand-primary-soft";
-  return "border-amber-300 bg-amber-50";
+  return "border-neutral-300 bg-neutral-100";
 }
 
 // ─── Props ────────────────────────────────────────────────────────────────────

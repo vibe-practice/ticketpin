@@ -203,9 +203,9 @@ export function BusinessSettlementsClient() {
                 onClick={() => handleStatusFilter(tab.value)}
                 className={cn(
                   "relative flex items-center gap-1.5 px-4 py-2.5 text-sm font-medium transition-colors duration-150",
-                  "rounded-t-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500",
+                  "rounded-t-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900",
                   isActive
-                    ? "border-b-2 border-violet-600 text-violet-700"
+                    ? "border-b-2 border-neutral-900 text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -214,7 +214,7 @@ export function BusinessSettlementsClient() {
                   className={cn(
                     "rounded-full px-1.5 py-0.5 text-[11px] font-semibold leading-none",
                     isActive
-                      ? "bg-violet-100 text-violet-700"
+                      ? "bg-neutral-100 text-foreground"
                       : "bg-muted text-muted-foreground"
                   )}
                 >
@@ -240,7 +240,7 @@ export function BusinessSettlementsClient() {
                 className={cn(
                   "h-7 rounded-full px-3 text-xs font-medium",
                   dateFilter === tab.value
-                    ? "bg-violet-600 text-white hover:bg-violet-700"
+                    ? "bg-black text-white hover:bg-neutral-800"
                     : "border-border text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -259,7 +259,7 @@ export function BusinessSettlementsClient() {
                   setCustomFrom(e.target.value);
                   setPage(1);
                 }}
-                className="h-7 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-violet-500"
+                className="h-7 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-neutral-900"
                 aria-label="시작일"
               />
               <span className="text-xs text-muted-foreground">~</span>
@@ -270,7 +270,7 @@ export function BusinessSettlementsClient() {
                   setCustomTo(e.target.value);
                   setPage(1);
                 }}
-                className="h-7 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-violet-500"
+                className="h-7 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-neutral-900"
                 aria-label="종료일"
               />
             </div>
@@ -292,7 +292,7 @@ export function BusinessSettlementsClient() {
                 setPageSize(Number(e.target.value) as PageSizeOption);
                 setPage(1);
               }}
-              className="h-7 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-violet-500"
+              className="h-7 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-neutral-900"
             >
               {PAGE_SIZE_OPTIONS.map((size) => (
                 <option key={size} value={size}>{size}건</option>
@@ -300,7 +300,7 @@ export function BusinessSettlementsClient() {
             </select>
             <span className="text-xs text-muted-foreground">
               총{" "}
-              <span className="font-semibold text-violet-600">
+              <span className="font-semibold text-foreground">
                 {total}
               </span>
               건
@@ -335,7 +335,7 @@ export function BusinessSettlementsClient() {
                 <tr>
                   <td colSpan={6} className="py-16 text-center">
                     <div className="flex items-center justify-center gap-2">
-                      <Loader2 size={20} className="animate-spin text-violet-500" />
+                      <Loader2 size={20} className="animate-spin text-foreground" />
                       <span className="text-sm text-muted-foreground">로딩 중...</span>
                     </div>
                   </td>
@@ -378,7 +378,7 @@ export function BusinessSettlementsClient() {
               </span>
               <span className="text-muted-foreground">
                 정산{" "}
-                <span className="font-semibold text-violet-700">
+                <span className="font-semibold text-foreground">
                   {formatPrice(
                     settlements.reduce((a, s) => a + s.settlement_amount, 0)
                   )}
@@ -409,7 +409,7 @@ function SettlementRow({ item }: { item: Settlement }) {
   const feePercent = 100 - item.commission_rate;
 
   return (
-    <tr className="group transition-colors duration-100 hover:bg-violet-50/40">
+    <tr className="group transition-colors duration-100 hover:bg-neutral-50/40">
       {/* 정산일 */}
       <td className="px-5 py-3.5 font-mono text-sm tabular-nums text-foreground">
         {item.settlement_date}
@@ -434,7 +434,7 @@ function SettlementRow({ item }: { item: Settlement }) {
       </td>
 
       {/* 정산금액 */}
-      <td className="px-5 py-3.5 text-sm tabular-nums font-semibold text-violet-700">
+      <td className="px-5 py-3.5 text-sm tabular-nums font-semibold text-foreground">
         {formatPrice(item.settlement_amount)}
       </td>
 
@@ -457,9 +457,9 @@ function SettlementRow({ item }: { item: Settlement }) {
 
 const COLOR_MAP = {
   violet: {
-    iconBg: "bg-violet-100",
-    iconText: "text-violet-600",
-    valueText: "text-violet-700",
+    iconBg: "bg-neutral-100",
+    iconText: "text-foreground",
+    valueText: "text-foreground",
   },
   emerald: {
     iconBg: "bg-emerald-100",

@@ -13,12 +13,13 @@ import {
   AlertCircle,
   Loader2,
   BadgeCheck,
-  Receipt,
+  Package,
+  User,
+  FileText,
 } from "lucide-react";
 import type { FeeType, ProductWithCategory } from "@/types";
 import { formatPrice, calcFeeAmount, formatFeePercent, cn, formatPhone } from "@/lib/utils";
 import { useAuthStore } from "@/store/authStore";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/toast";
@@ -64,15 +65,15 @@ function AmountRow({
     <div
       className={cn(
         "flex items-center justify-between",
-        isTotal && "pt-3 mt-1 border-t border-border"
+        isTotal && "pt-4 mt-1 border-t border-neutral-300"
       )}
     >
       <span
         className={cn(
           "flex items-center gap-1.5",
           isTotal
-            ? "text-sm font-semibold text-foreground"
-            : "text-sm text-muted-foreground"
+            ? "text-[15px] font-semibold text-foreground"
+            : "text-[15px] text-muted-foreground"
         )}
       >
         {label}
@@ -81,14 +82,24 @@ function AmountRow({
       <span
         className={cn(
           isTotal
-            ? "text-2xl font-bold tracking-tight text-primary"
+            ? "text-[28px] font-bold tracking-tight text-foreground"
             : isMuted
-              ? "text-sm font-medium text-muted-foreground"
-              : "text-sm font-semibold text-foreground"
+              ? "text-[15px] font-medium text-muted-foreground"
+              : "text-[15px] font-semibold text-foreground"
         )}
       >
         {value}
       </span>
+    </div>
+  );
+}
+
+// ── 섹션 헤더 컴포넌트 ───────────────────────────────────────
+function SectionHeader({ icon, title }: { icon: React.ReactNode; title: string }) {
+  return (
+    <div className="flex items-center gap-2.5 border-b border-neutral-300 px-6 py-4">
+      <span className="text-muted-foreground">{icon}</span>
+      <h2 className="text-[15px] font-semibold text-secondary-foreground">{title}</h2>
     </div>
   );
 }
@@ -388,7 +399,7 @@ export function OrderPageClient() {
   if (productLoading) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
-        <Loader2 size={32} className="animate-spin text-primary" />
+        <Loader2 size={28} className="animate-spin text-muted-foreground" />
       </div>
     );
   }
@@ -396,15 +407,14 @@ export function OrderPageClient() {
   if (!product) {
     return (
       <div className="flex min-h-[400px] flex-col items-center justify-center gap-4">
-        <AlertCircle size={40} className="text-muted-foreground" strokeWidth={1.5} />
-        <p className="text-sm text-muted-foreground">상품 정보를 불러올 수 없습니다.</p>
-        <Button
-          variant="link"
+        <AlertCircle size={36} className="text-muted-foreground" strokeWidth={1.5} />
+        <p className="text-[15px] text-muted-foreground">상품 정보를 불러올 수 없습니다.</p>
+        <button
           onClick={() => router.back()}
-          className="text-sm font-medium text-primary underline underline-offset-2 hover:text-brand-primary-dark"
+          className="text-[15px] font-medium text-secondary-foreground underline underline-offset-2 hover:text-foreground transition-colors"
         >
           이전 페이지로 돌아가기
-        </Button>
+        </button>
       </div>
     );
   }
@@ -419,99 +429,89 @@ export function OrderPageClient() {
   const totalAmount = subtotal;
 
   return (
-    <div className="bg-background">
+    <div className="min-h-screen bg-neutral-50">
       {/* 결제 팝업 오버레이 */}
       {showOverlay && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 cursor-pointer"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 cursor-pointer backdrop-blur-sm"
           onClick={() => popupRef.current?.focus()}
         >
-          <p className="rounded-lg bg-white px-6 py-3 text-sm font-medium text-gray-800 shadow-lg">
-            결제 창이 열려 있습니다. 결제를 완료해주세요.
-          </p>
+          <div className="rounded-2xl bg-white px-8 py-6 shadow-2xl text-center">
+            <Loader2 size={28} className="animate-spin text-muted-foreground mx-auto mb-3" />
+            <p className="text-[15px] font-semibold text-foreground">결제 진행 중</p>
+            <p className="mt-1 text-[14px] text-muted-foreground">결제 창을 완료해주세요.</p>
+          </div>
         </div>
       )}
+
       {/* 상단 네비게이션 */}
-      <div className="border-b border-border bg-card sticky top-0 z-10">
-        <div className="w-full px-6 lg:px-12 py-3 flex items-center gap-3">
-          <Button
-            variant="ghost"
+      <div className="border-b border-neutral-300 bg-white">
+        <div className="container-main py-3.5 flex items-center gap-3">
+          <button
             onClick={() => router.back()}
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors duration-150 hover:text-foreground h-auto px-2 py-1"
+            className="inline-flex items-center gap-1.5 text-[14px] text-muted-foreground transition-colors duration-150 hover:text-foreground px-1 py-1"
             aria-label="뒤로가기"
           >
-            <ChevronLeft size={16} strokeWidth={1.75} />
+            <ChevronLeft size={16} strokeWidth={2} />
             <span>뒤로가기</span>
-          </Button>
-          <span className="text-muted-foreground/40 select-none">|</span>
-          <span className="text-sm font-semibold text-foreground">주문/결제</span>
+          </button>
+          <span className="text-muted-foreground select-none">|</span>
+          <span className="text-[14px] font-semibold text-foreground">주문/결제</span>
         </div>
       </div>
 
       {/* 메인 콘텐츠 */}
-      <div className="w-full px-6 lg:px-12 pt-6 md:pt-8 pb-12">
-        {/* 페이지 제목 */}
-        <div className="mb-6">
-          <h1 className="text-xl font-bold text-foreground md:text-2xl">주문/결제</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            주문 내용을 확인하고 결제를 진행해주세요.
-          </p>
-        </div>
+      <div className="container-main pt-8 pb-16">
 
         {/* 2컬럼 레이아웃 (데스크탑) / 단일 컬럼 (모바일) */}
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_360px] lg:gap-8 xl:grid-cols-[1fr_400px]">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_380px] lg:gap-10 xl:grid-cols-[1fr_420px]">
 
           {/* ── 왼쪽 영역 ── */}
           <div className="flex flex-col gap-5">
 
-            {/* (1) 주문 상품 확인 카드 */}
+            {/* (1) 주문 상품 */}
             <section
-              className="rounded-xl border border-border bg-card overflow-hidden"
+              className="rounded-2xl border border-neutral-300 bg-white overflow-hidden"
               aria-labelledby="order-product-heading"
             >
-              <div className="border-b border-border px-5 py-3.5">
-                <h2
-                  id="order-product-heading"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  주문 상품
-                </h2>
-              </div>
-              <div className="p-5">
-                <div className="flex gap-4">
+              <SectionHeader
+                icon={<Package size={16} strokeWidth={1.75} />}
+                title="주문 상품"
+              />
+              <div className="p-6">
+                <div className="flex gap-5">
                   {/* 상품 이미지 */}
-                  <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-muted sm:h-24 sm:w-24">
+                  <div className="relative h-[88px] w-[88px] shrink-0 overflow-hidden rounded-xl bg-neutral-100 sm:h-[100px] sm:w-[100px]">
                     {product.image_url ? (
                       <Image
                         src={product.image_url}
                         alt={product.name}
                         fill
-                        sizes="96px"
+                        sizes="100px"
                         className="object-cover"
                       />
                     ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-muted">
-                        <span className="text-[13px] text-muted-foreground">이미지 없음</span>
+                      <div className="flex h-full w-full items-center justify-center bg-neutral-100">
+                        <Package size={24} className="text-muted-foreground" strokeWidth={1.5} />
                       </div>
                     )}
                   </div>
 
                   {/* 상품 정보 */}
-                  <div className="flex flex-1 flex-col justify-between gap-2 min-w-0">
-                    {/* 카테고리 뱃지 */}
+                  <div className="flex flex-1 flex-col justify-between gap-2.5 min-w-0">
+                    {/* 뱃지들 */}
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="inline-flex items-center gap-1 rounded-sm bg-brand-primary-soft px-2 py-0.5 text-[13px] font-semibold text-brand-primary-dark">
+                      <span className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[13px] font-medium text-secondary-foreground">
                         <Tag size={10} strokeWidth={2} />
                         {product.category.name}
                       </span>
-                      {/* 수수료 방식 뱃지 */}
                       {feeType === "included" ? (
-                        <span className="inline-flex items-center gap-1 rounded-sm bg-success-bg px-2 py-0.5 text-[13px] font-semibold text-success">
+                        <span className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[13px] font-medium text-secondary-foreground">
                           <BadgeCheck size={11} strokeWidth={2} />
                           수수료 포함
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 rounded-sm bg-info-bg px-2 py-0.5 text-[13px] font-semibold text-info">
+                        <span className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[13px] font-medium text-secondary-foreground">
                           <Info size={11} strokeWidth={2} />
                           수수료 별도
                         </span>
@@ -519,16 +519,16 @@ export function OrderPageClient() {
                     </div>
 
                     {/* 상품명 */}
-                    <p className="text-sm font-semibold leading-snug text-foreground line-clamp-2">
+                    <p className="text-[15px] font-semibold leading-snug text-foreground line-clamp-2">
                       {product.name}
                     </p>
 
                     {/* 가격 + 수량 */}
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm text-muted-foreground">
+                      <span className="text-[14px] text-muted-foreground">
                         {formatPrice(unitPrice)} × {quantity}장
                       </span>
-                      <span className="text-base font-bold text-foreground">
+                      <span className="text-[17px] font-bold text-foreground">
                         {formatPrice(subtotal)}
                       </span>
                     </div>
@@ -537,15 +537,15 @@ export function OrderPageClient() {
 
                 {/* 수수료 별도 안내 */}
                 {feeType === "separate" && (
-                  <div className="mt-4 flex items-start gap-2 rounded-lg bg-info-bg px-3.5 py-3">
+                  <div className="mt-5 flex items-start gap-2.5 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3.5">
                     <Info
-                      size={13}
-                      className="mt-0.5 shrink-0 text-info"
-                      strokeWidth={2}
+                      size={15}
+                      className="mt-0.5 shrink-0 text-muted-foreground"
+                      strokeWidth={1.75}
                     />
-                    <p className="text-sm leading-relaxed text-info">
+                    <p className="text-[14px] leading-relaxed text-secondary-foreground">
                       핀 번호 조회 시 수수료{" "}
-                      <strong>
+                      <strong className="text-foreground">
                         {formatPrice(feeAmount)} (
                         {formatFeePercent(feeAmount, product.price)})
                       </strong>
@@ -558,68 +558,52 @@ export function OrderPageClient() {
 
             {/* (2) 구매자 정보 */}
             <section
-              className="rounded-xl border border-border bg-card overflow-hidden"
+              className="rounded-2xl border border-neutral-300 bg-white overflow-hidden"
               aria-labelledby="buyer-info-heading"
             >
-              <div className="border-b border-border px-5 py-3.5">
-                <h2
-                  id="buyer-info-heading"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  구매자 정보
-                </h2>
-              </div>
-              <div className="p-5">
-                <div className="flex flex-col gap-3">
-                  <Label className="text-sm font-semibold text-foreground">
-                    수신 번호
-                  </Label>
-                  <p className="text-sm text-muted-foreground">
-                    구매 완료 문자(교환권 링크)는 본인 번호로 발송됩니다.
-                  </p>
-                  <div className="flex items-center gap-2.5 rounded-xl border border-border bg-muted/50 px-4 py-3">
-                    <MessageSquare
-                      size={15}
-                      className="shrink-0 text-muted-foreground"
-                      strokeWidth={1.75}
-                    />
-                    <span className="text-sm font-medium text-foreground">
+              <SectionHeader
+                icon={<User size={16} strokeWidth={1.75} />}
+                title="수신 정보"
+              />
+              <div className="p-6">
+                <p className="text-[14px] text-muted-foreground mb-4">
+                  구매 완료 문자(교환권 링크)는 아래 번호로 발송됩니다.
+                </p>
+                <div className="flex items-center gap-3 rounded-xl border border-neutral-300 bg-neutral-50 px-5 py-4">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-200 shrink-0">
+                    <MessageSquare size={15} className="text-secondary-foreground" strokeWidth={1.75} />
+                  </div>
+                  <div>
+                    <p className="text-[12px] text-muted-foreground mb-0.5">수신 번호</p>
+                    <p className="text-[15px] font-semibold text-foreground">
                       {user?.phone ? formatPhone(user.phone) : "전화번호 정보 없음"}
-                    </span>
+                    </p>
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* (3) 약관 동의 */}
+            {/* (3) 구매 동의 */}
             <section
-              className="rounded-xl border border-border bg-card overflow-hidden"
+              className="rounded-2xl border border-neutral-300 bg-white overflow-hidden"
               aria-labelledby="terms-heading"
             >
-              <div className="border-b border-border px-5 py-3.5">
-                <h2
-                  id="terms-heading"
-                  className="text-sm font-semibold text-foreground"
-                >
-                  구매 동의
-                </h2>
-              </div>
-              <div className="p-5 flex flex-col gap-3">
+              <SectionHeader
+                icon={<FileText size={16} strokeWidth={1.75} />}
+                title="구매 동의"
+              />
+              <div className="p-6 flex flex-col gap-4">
                 {/* 유의사항 목록 */}
-                <div className="rounded-lg bg-muted/50 p-4 flex flex-col gap-2">
+                <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-5 flex flex-col gap-3">
                   {[
                     "구매한 상품권의 핀 번호 확인 후에는 취소/환불이 불가합니다.",
                     "수수료 별도 방식은 핀 조회 시 추가 결제가 발생합니다.",
                     "교환권 링크는 입력하신 수신 번호로 문자 발송됩니다.",
                     "유효기간: 발행일로부터 5년 (상품에 따라 상이)",
                   ].map((text, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <ShieldCheck
-                        size={13}
-                        className="mt-0.5 shrink-0 text-muted-foreground"
-                        strokeWidth={1.75}
-                      />
-                      <span className="text-sm leading-relaxed text-muted-foreground">
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-neutral-400 shrink-0" />
+                      <span className="text-[14px] leading-relaxed text-secondary-foreground">
                         {text}
                       </span>
                     </div>
@@ -627,25 +611,25 @@ export function OrderPageClient() {
                 </div>
 
                 {/* 약관 동의 체크박스 */}
-                <div className="flex items-start gap-2.5">
+                <div className="flex items-start gap-3 pt-1">
                   <Checkbox
                     id="agree-terms"
                     checked={formData.agreeTerms}
                     onCheckedChange={(checked) => handleAgreeTerms(!!checked)}
                     aria-describedby={errors.agreeTerms ? "terms-error" : undefined}
                     className={cn(
-                      "mt-0.5",
+                      "mt-0.5 border-neutral-400 data-[state=checked]:bg-neutral-950 data-[state=checked]:border-neutral-950",
                       errors.agreeTerms && !formData.agreeTerms
-                        ? "border-error"
+                        ? "border-red-500"
                         : ""
                     )}
                   />
                   <Label
                     htmlFor="agree-terms"
-                    className="text-sm font-medium text-foreground leading-relaxed cursor-pointer"
+                    className="text-[15px] font-medium text-foreground leading-relaxed cursor-pointer"
                   >
                     위 유의사항을 모두 확인하였으며, 구매 진행에 동의합니다.{" "}
-                    <span className="text-error">(필수)</span>
+                    <span className="text-red-500">(필수)</span>
                   </Label>
                 </div>
 
@@ -654,9 +638,9 @@ export function OrderPageClient() {
                   <p
                     id="terms-error"
                     role="alert"
-                    className="flex items-center gap-1.5 text-sm text-error"
+                    className="flex items-center gap-1.5 text-[14px] text-red-500"
                   >
-                    <AlertCircle size={13} strokeWidth={2} />
+                    <AlertCircle size={14} strokeWidth={2} />
                     {errors.agreeTerms}
                   </p>
                 )}
@@ -666,16 +650,15 @@ export function OrderPageClient() {
 
           {/* ── 오른쪽 영역: 금액 요약 + 결제 버튼 ── */}
           <div className="lg:sticky lg:top-[57px] h-fit">
-            <div className="rounded-xl border border-border bg-card overflow-hidden">
+            <div className="rounded-2xl border border-neutral-300 bg-white overflow-hidden">
               {/* 금액 요약 헤더 */}
-              <div className="border-b border-border px-5 py-3.5">
-                <h2 className="flex items-center gap-2 text-sm font-semibold text-foreground">
-                  <Receipt size={15} className="text-primary" strokeWidth={1.75} />
-                  결제 금액 요약
+              <div className="border-b border-neutral-300 px-6 py-4">
+                <h2 className="text-[15px] font-semibold text-secondary-foreground">
+                  결제 금액
                 </h2>
               </div>
 
-              <div className="p-5 flex flex-col gap-3">
+              <div className="p-6 flex flex-col gap-4">
                 {/* 금액 상세 */}
                 <AmountRow
                   label="상품 금액"
@@ -691,7 +674,7 @@ export function OrderPageClient() {
                   isMuted={feeType === "separate"}
                   badge={
                     feeType === "separate" ? (
-                      <span className="rounded-sm bg-info-bg px-1.5 py-0.5 text-[13px] font-semibold text-info leading-none">
+                      <span className="rounded-md border border-neutral-200 bg-neutral-100 px-1.5 py-0.5 text-[12px] font-medium text-muted-foreground leading-none ml-1">
                         별도
                       </span>
                     ) : undefined
@@ -705,9 +688,9 @@ export function OrderPageClient() {
 
                 {/* 수수료 별도 안내 문구 */}
                 {feeType === "separate" && (
-                  <p className="text-[13px] text-muted-foreground leading-relaxed">
+                  <p className="text-[13px] text-muted-foreground leading-relaxed border-t border-neutral-200 pt-3">
                     * 수수료{" "}
-                    <span className="font-semibold text-foreground">
+                    <span className="font-semibold text-secondary-foreground">
                       {formatPrice(feeAmount * quantity)}
                     </span>
                     은 핀 번호 조회 시 별도 결제됩니다.
@@ -715,12 +698,18 @@ export function OrderPageClient() {
                 )}
 
                 {/* 결제 버튼 */}
-                <Button
+                <button
                   type="button"
                   onClick={handlePayment}
                   disabled={isLoading}
                   aria-busy={isLoading}
-                  className="mt-1 h-14 w-full rounded-xl text-base font-bold shadow-sm hover:shadow-md active:scale-[0.98]"
+                  className={cn(
+                    "mt-2 h-[54px] w-full rounded-xl text-[16px] font-bold transition-all duration-150",
+                    "flex items-center justify-center gap-2.5",
+                    isLoading
+                      ? "bg-neutral-200 text-muted-foreground cursor-not-allowed"
+                      : "bg-neutral-950 text-white hover:bg-neutral-800 active:scale-[0.98] shadow-sm"
+                  )}
                 >
                   {isLoading ? (
                     <>
@@ -729,17 +718,17 @@ export function OrderPageClient() {
                     </>
                   ) : (
                     <>
-                      <CreditCard size={20} strokeWidth={1.75} />
+                      <CreditCard size={19} strokeWidth={1.75} />
                       {formatPrice(totalAmount)} 결제하기
                     </>
                   )}
-                </Button>
+                </button>
 
                 {/* 보안 안내 */}
-                <div className="flex items-center justify-center gap-1.5">
-                  <ShieldCheck size={12} className="text-muted-foreground" strokeWidth={1.75} />
+                <div className="flex items-center justify-center gap-1.5 pt-1">
+                  <ShieldCheck size={13} className="text-muted-foreground" strokeWidth={1.75} />
                   <span className="text-[13px] text-muted-foreground">
-                    안전한 암호화 결제가 적용됩니다.
+                    안전한 암호화 결제
                   </span>
                 </div>
               </div>

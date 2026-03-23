@@ -111,7 +111,7 @@ export function BusinessTopBar({
         {/* 업체 뱃지 */}
         <div className="hidden sm:flex items-center gap-2.5 rounded-lg bg-brand-primary-muted px-3 py-2 border border-brand-primary-soft">
           {/* 아바타 */}
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-100 border border-violet-200 text-violet-700 text-xs font-bold shrink-0">
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-neutral-100 border border-neutral-200 text-foreground text-xs font-bold shrink-0">
             {initial}
           </div>
           <div className="leading-tight">

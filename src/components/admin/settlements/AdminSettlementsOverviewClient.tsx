@@ -422,8 +422,8 @@ export function AdminSettlementsOverviewClient() {
           label="정산 대기 업체"
           value={loading ? "-" : `${displaySummary.pending_count}개`}
           sub="확인 필요"
-          color="text-amber-600"
-          bgColor="bg-amber-50"
+          color="text-neutral-600"
+          bgColor="bg-neutral-100"
         />
       </div>
 

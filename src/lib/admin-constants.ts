@@ -3,7 +3,7 @@ import type { SettlementStatus, BusinessStatus, VerificationStatus, VoucherStatu
 // ─── 정산 상태 ───────────────────────────────────────────────────────────────
 
 export const SETTLEMENT_STATUS_STYLE: Record<SettlementStatus, string> = {
-  pending: "bg-amber-50 text-amber-600",
+  pending: "bg-neutral-50 text-neutral-600",
   confirmed: "bg-info-bg text-info",
   paid: "bg-success-bg text-success",
   cancelled: "bg-error-bg text-error",
@@ -52,7 +52,7 @@ export const VOUCHER_STATUS_LABEL: Record<VoucherStatus, string> = {
 
 export const VERIFICATION_STATUS_STYLE: Record<VerificationStatus, string> = {
   verified: "bg-success-bg text-success",
-  suspicious: "bg-amber-50 text-amber-600",
+  suspicious: "bg-neutral-50 text-neutral-600",
   rejected: "bg-error-bg text-error",
   pending: "bg-muted text-muted-foreground",
 };

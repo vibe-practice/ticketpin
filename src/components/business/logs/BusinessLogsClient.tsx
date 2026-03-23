@@ -196,8 +196,8 @@ export function BusinessLogsClient() {
               className={cn(
                 "h-8 px-3 text-sm font-medium transition-all",
                 quickRange === r
-                  ? "bg-violet-600 hover:bg-violet-700 text-white border-transparent"
-                  : "border-border text-muted-foreground hover:text-foreground hover:border-violet-300"
+                  ? "bg-black hover:bg-neutral-800 text-white border-transparent"
+                  : "border-border text-muted-foreground hover:text-foreground hover:border-neutral-400"
               )}
             >
               {QUICK_RANGE_LABELS[r]}
@@ -214,8 +214,8 @@ export function BusinessLogsClient() {
                 className={cn(
                   "h-8 gap-1.5 px-3 text-sm font-medium transition-all",
                   quickRange === "custom"
-                    ? "bg-violet-600 hover:bg-violet-700 text-white border-transparent"
-                    : "border-border text-muted-foreground hover:text-foreground hover:border-violet-300"
+                    ? "bg-black hover:bg-neutral-800 text-white border-transparent"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-neutral-400"
                 )}
               >
                 <CalendarDays size={13} />
@@ -247,7 +247,7 @@ export function BusinessLogsClient() {
                 setPageSize(Number(e.target.value) as PageSizeOption);
                 setPage(1);
               }}
-              className="h-8 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-violet-500"
+              className="h-8 rounded-md border border-border bg-background px-2 text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-neutral-900"
             >
               {PAGE_SIZE_OPTIONS.map((size) => (
                 <option key={size} value={size}>{size}건</option>
@@ -312,7 +312,7 @@ export function BusinessLogsClient() {
                         <tr
                           key={log.id}
                           className={cn(
-                            "group transition-colors duration-100 hover:bg-violet-50/50",
+                            "group transition-colors duration-100 hover:bg-neutral-50/50",
                             idx % 2 === 0 ? "bg-card" : "bg-muted/20"
                           )}
                         >

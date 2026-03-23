@@ -76,10 +76,10 @@ const ORDER_STATUS_LABEL: Record<DisplayOrderStatus, string> = {
 
 const VOUCHER_STATUS_STYLE: Record<VoucherStatus, string> = {
   issued: "bg-info-bg text-info",
-  temp_verified: "bg-amber-50 text-amber-600",
+  temp_verified: "bg-neutral-100 text-neutral-600",
   password_set: "bg-brand-primary-soft text-primary",
   pin_revealed: "bg-success-bg text-success",
-  gifted: "bg-amber-50 text-amber-600",
+  gifted: "bg-neutral-100 text-neutral-600",
   cancelled: "bg-error-bg text-error",
 };
 

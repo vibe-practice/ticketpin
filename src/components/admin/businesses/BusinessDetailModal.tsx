@@ -597,7 +597,7 @@ function GiftsTab({ businessId }: { businessId: string }) {
                     <td className="px-3 py-2 text-center">{gift.order_quantity}개</td>
                     <td className="px-3 py-2 text-right font-medium">{gift.total_amount.toLocaleString()}원</td>
                     <td className="px-3 py-2 text-center">
-                      <span className="rounded-sm bg-amber-50 px-1.5 py-0.5 text-[11px] font-semibold text-amber-600">
+                      <span className="rounded-sm bg-neutral-100 px-1.5 py-0.5 text-[11px] font-semibold text-neutral-600">
                         {VOUCHER_STATUS_LABEL[gift.new_voucher_status]}
                       </span>
                     </td>

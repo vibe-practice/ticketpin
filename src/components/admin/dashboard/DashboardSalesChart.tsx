@@ -173,9 +173,9 @@ export function DashboardSalesChart({ data }: DashboardSalesChartProps) {
               type="monotone"
               dataKey="order_count"
               name="주문건수"
-              stroke="#f97316"
+              stroke="#737373"
               strokeWidth={2}
-              dot={{ fill: "#f97316", r: 3, strokeWidth: 0 }}
+              dot={{ fill: "#737373", r: 3, strokeWidth: 0 }}
               activeDot={{ r: 5, strokeWidth: 0 }}
             />
           </ComposedChart>

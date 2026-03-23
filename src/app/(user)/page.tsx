@@ -1,5 +1,10 @@
+import { HeroBanner } from "@/components/home/HeroBanner";
+import { CategoryNav } from "@/components/home/CategoryNav";
+import { CategoryGrid } from "@/components/home/CategoryGrid";
 import { ProductSection } from "@/components/home/ProductSection";
-import { PopularSlider } from "@/components/home/PopularSlider";
+import { HomeSidebar } from "@/components/home/HomeSidebar";
+import { NoticePreview } from "@/components/home/NoticePreview";
+import { ProductGrid } from "@/components/home/ProductGrid";
 import {
   getCategories,
   getPopularProducts,
@@ -10,53 +15,93 @@ import {
 export const revalidate = 60;
 
 export default async function HomePage() {
-  // 병렬로 인기 상품 + 카테고리 목록 조회
   const [popularProducts, categories] = await Promise.all([
-    getPopularProducts(5),
+    getPopularProducts(8),
     getCategories(),
   ]);
 
-  // 카테고리별 상품을 병렬로 조회
+  const topCategories = categories.slice(0, 3);
   const categoryProducts = await Promise.all(
-    categories.map(async (category) => ({
+    topCategories.map(async (category) => ({
       category,
       products: await getProductsByCategory(category.id),
     })),
   );
 
+  const activeCategoryProducts = categoryProducts.filter(
+    ({ products }) => products.length > 0
+  );
+
   return (
-    <div className="px-6 lg:px-12">
-      {/* -- 섹션 1: 인기 상품권 (뷰포트 꽉 채우는 슬라이더) --- */}
-      <PopularSlider products={popularProducts} />
+    <div className="container-main py-4 lg:py-6">
+      <div className="flex gap-6 lg:gap-8">
+        {/* ── 좌측 메인 콘텐츠 ── */}
+        <div className="min-w-0 flex-1">
 
-      {/* -- 구분선 ------------------------------------------------- */}
-      <hr className="border-border" />
+          {/* ── 카테고리 네비게이션 ── */}
+          <CategoryNav categories={categories} />
 
-      {/* -- 섹션 2~N: 카테고리별 상품 섹션 ------------------------- */}
-      {categoryProducts.map(({ category, products }, index) => {
-        // 활성 상품이 없는 카테고리는 건너뜀
-        if (products.length === 0) return null;
+          {/* ── 히어로 배너 ── */}
+          <HeroBanner />
 
-        const subtitle = category.subtitle || category.name;
-        const href = `/category/${category.slug}`;
-
-        return (
-          <div key={category.id}>
-            <ProductSection
-              title={category.name}
-              subtitle={subtitle}
-              products={products}
-              viewAllHref={href}
-              viewAllLabel="더보기"
-            />
-
-            {/* 마지막 카테고리 이후엔 구분선 없음 */}
-            {index < categoryProducts.length - 1 && (
-              <hr className="border-border" />
-            )}
+          {/* ── 카테고리 아이콘 그리드 ── */}
+          <div className="mt-6">
+            <CategoryGrid categories={categories} />
           </div>
-        );
-      })}
+
+          <hr className="border-neutral-100 my-2" />
+
+          {/* ── 인기 상품 ── */}
+          {popularProducts.length > 0 && (
+            <>
+              <ProductGrid
+                title="인기 상품"
+                products={popularProducts}
+                viewAllHref="/category"
+              />
+              <hr className="border-neutral-100" />
+            </>
+          )}
+
+          {/* ── 카테고리별 상품 ── */}
+          {activeCategoryProducts.map(({ category, products }, idx) => (
+            <div key={category.id}>
+              <ProductGrid
+                title={category.name}
+                products={products}
+                viewAllHref={`/category/${category.slug}`}
+              />
+              {idx < activeCategoryProducts.length - 1 && (
+                <hr className="border-neutral-100" />
+              )}
+            </div>
+          ))}
+
+          {/* 빈 상태 */}
+          {activeCategoryProducts.length === 0 && popularProducts.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-24 text-center">
+              <p className="text-[17px] font-semibold text-foreground">
+                곧 다양한 상품권이 등록될 예정입니다.
+              </p>
+              <p className="mt-2 text-[15px] text-muted-foreground">
+                조금만 기다려 주세요.
+              </p>
+            </div>
+          )}
+
+          <hr className="border-neutral-100" />
+
+          {/* ── 공지사항 미리보기 ── */}
+          <NoticePreview />
+        </div>
+
+        {/* ── 우측 사이드바 ── */}
+        <div className="hidden lg:block w-[260px] xl:w-[280px] flex-shrink-0">
+          <div className="sticky top-[72px]">
+            <HomeSidebar />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

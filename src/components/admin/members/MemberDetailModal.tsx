@@ -56,10 +56,10 @@ const MEMBER_STATUS_MAP: Record<UserStatus, { label: string; className: string }
 
 const VOUCHER_STATUS_MAP: Record<VoucherStatus, { label: string; className: string }> = {
   issued: { label: "발급", className: "bg-info-bg text-info" },
-  temp_verified: { label: "임시인증", className: "bg-amber-50 text-amber-600" },
+  temp_verified: { label: "임시인증", className: "bg-neutral-100 text-neutral-600" },
   password_set: { label: "비번설정", className: "bg-brand-primary-soft text-primary" },
   pin_revealed: { label: "핀확인", className: "bg-success-bg text-success" },
-  gifted: { label: "선물", className: "bg-amber-50 text-amber-600" },
+  gifted: { label: "선물", className: "bg-neutral-100 text-neutral-600" },
   cancelled: { label: "취소", className: "bg-error-bg text-error" },
 };
 
@@ -211,7 +211,7 @@ function InfoTab({ member, onStatusChange, statusLoading }: InfoTabProps) {
 
       {/* 구매 통계 */}
       <section>
-        <SectionHeader icon={ShoppingBag} title="구매 통계" iconClassName="bg-amber-50 text-amber-600" />
+        <SectionHeader icon={ShoppingBag} title="구매 통계" iconClassName="bg-neutral-100 text-neutral-600" />
         <div className="grid grid-cols-2 gap-3">
           {[
             { label: "총 구매 건수", value: `${member.order_count.toLocaleString()}건` },
@@ -432,7 +432,7 @@ function VouchersTab({ orders }: { orders: AdminOrderListItem[] }) {
 
 const FEE_TYPE_LABEL: Record<FeeType, { label: string; className: string }> = {
   included: { label: "포함", className: "bg-info-bg text-info" },
-  separate: { label: "별도", className: "bg-amber-50 text-amber-600" },
+  separate: { label: "별도", className: "bg-neutral-100 text-neutral-600" },
 };
 
 function GiftTable({

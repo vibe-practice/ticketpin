@@ -130,16 +130,16 @@ function IdentityVerificationModalInner({
           ) : /* 이미 가입된 계정 안내 */
           existingUsername ? (
             <>
-              <div className="flex items-start gap-2 rounded-lg bg-amber-50 border border-amber-200 px-4 py-3">
+              <div className="flex items-start gap-2 rounded-lg bg-neutral-50 border border-neutral-200 px-4 py-3">
                 <AlertCircle
                   size={16}
-                  className="mt-0.5 shrink-0 text-amber-600"
+                  className="mt-0.5 shrink-0 text-secondary-foreground"
                 />
                 <div className="space-y-1">
-                  <p className="text-sm font-semibold text-amber-800">
+                  <p className="text-sm font-semibold text-foreground">
                     이미 가입된 계정이 있습니다.
                   </p>
-                  <p className="text-sm text-amber-700">
+                  <p className="text-sm text-secondary-foreground">
                     가입된 아이디: <span className="font-mono font-semibold">{existingUsername}</span>
                   </p>
                 </div>

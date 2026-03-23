@@ -83,8 +83,8 @@ const STAT_CARD_CONFIGS: StatCardConfig[] = [
     getValue: (s) => `${s.today_gift_count.toLocaleString("ko-KR")}건`,
     getChangeRate: (s) => calcChangeRate(s.today_gift_count, s.prev_day_gift_count),
     icon: ShoppingBag,
-    iconBg: "bg-violet-100",
-    iconColor: "text-violet-600",
+    iconBg: "bg-neutral-100",
+    iconColor: "text-foreground",
   },
   {
     getTitle: (p) => `${PERIOD_LABELS[p]} 매입금액`,
@@ -109,8 +109,8 @@ const STAT_CARD_CONFIGS: StatCardConfig[] = [
     getChangeRate: (s) =>
       calcChangeRate(s.month_settlement_amount, s.prev_month_settlement_amount),
     icon: CalendarCheck,
-    iconBg: "bg-amber-100",
-    iconColor: "text-amber-600",
+    iconBg: "bg-neutral-100",
+    iconColor: "text-foreground",
   },
 ];
 
@@ -217,7 +217,7 @@ export function BusinessDashboardClient() {
                 className={cn(
                   "relative rounded-md px-3 py-1.5 text-xs font-semibold transition-all duration-150",
                   period === preset.value
-                    ? "bg-violet-600 text-white shadow-sm"
+                    ? "bg-black text-white shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -241,7 +241,7 @@ export function BusinessDashboardClient() {
                 className={cn(
                   "h-8 gap-1.5 rounded-lg text-xs font-semibold transition-all duration-150",
                   period === "custom"
-                    ? "border-violet-500 bg-violet-600 text-white hover:bg-violet-700"
+                    ? "border-neutral-900 bg-black text-white hover:bg-neutral-800"
                     : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -306,7 +306,7 @@ export function BusinessDashboardClient() {
                     </Button>
                     <Button
                       size="sm"
-                      className="h-7 bg-violet-600 text-xs hover:bg-violet-700"
+                      className="h-7 bg-black text-xs hover:bg-neutral-800"
                       disabled={!pendingDateRange.from}
                       onClick={() => {
                         setDateRange({
@@ -330,7 +330,7 @@ export function BusinessDashboardClient() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {loading ? (
           <div className="col-span-full flex items-center justify-center py-12">
-            <Loader2 size={24} className="animate-spin text-violet-500" />
+            <Loader2 size={24} className="animate-spin text-foreground" />
             <span className="ml-2 text-sm text-muted-foreground">통계 로딩 중...</span>
           </div>
         ) : (
@@ -350,11 +350,11 @@ export function BusinessDashboardClient() {
       </div>
 
       {/* ── 안내 배너 ── */}
-      <div className="flex items-center gap-2 rounded-lg border border-violet-200 bg-violet-50 px-4 py-3">
-        <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-violet-600">
+      <div className="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-3">
+        <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-black">
           <span className="text-[10px] font-bold text-white">i</span>
         </div>
-        <p className="text-xs text-violet-700">
+        <p className="text-xs text-foreground">
           현재{" "}
           <span className="font-semibold">
             {period === "custom" ? customRangeLabel : PERIOD_LABELS[period]}

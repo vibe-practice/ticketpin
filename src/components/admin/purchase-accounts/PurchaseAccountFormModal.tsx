@@ -225,7 +225,7 @@ export function PurchaseAccountFormModal({
                 </p>
               )}
               {usernameChecked && usernameAvailable && (
-                <p className="flex items-center gap-1 text-[13px] text-green-600">
+                <p className="flex items-center gap-1 text-[13px] text-neutral-600">
                   <CheckCircle2 size={13} /> 사용 가능한 아이디입니다
                 </p>
               )}

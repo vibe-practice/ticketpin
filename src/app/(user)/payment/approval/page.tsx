@@ -143,36 +143,47 @@ function ApprovalContent() {
 
   if (mobileError) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-6 text-center">
-        <XCircle size={40} className="text-destructive" />
-        <p className="text-base font-semibold text-foreground">결제 처리 실패</p>
-        <p className="text-sm text-muted-foreground">{mobileError}</p>
-        <button
-          onClick={() => router.back()}
-          className="mt-4 rounded-lg bg-primary px-6 py-2 text-sm font-medium text-primary-foreground"
-        >
-          돌아가기
-        </button>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-neutral-50 px-6">
+        <div className="w-full max-w-[400px] rounded-2xl border border-neutral-300 bg-white p-8 text-center shadow-sm">
+          <div className="mx-auto mb-5 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-red-50 border border-red-100">
+            <XCircle size={32} className="text-red-500" strokeWidth={1.5} />
+          </div>
+          <p className="text-[18px] font-bold text-foreground">결제 처리 실패</p>
+          <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{mobileError}</p>
+          <button
+            onClick={() => router.back()}
+            className="mt-6 w-full h-[50px] rounded-xl bg-neutral-950 text-[15px] font-semibold text-white hover:bg-neutral-800 active:scale-[0.98] transition-all duration-150"
+          >
+            돌아가기
+          </button>
+        </div>
       </div>
     );
   }
 
   if (showFallback) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-6 text-center">
-        <CheckCircle2 size={40} className="text-success" />
-        <p className="text-base font-semibold text-foreground">결제가 완료되었습니다</p>
-        <p className="text-sm text-muted-foreground">
-          이 창을 닫고 원래 페이지로 돌아가주세요.
-        </p>
+      <div className="flex min-h-screen flex-col items-center justify-center bg-neutral-50 px-6">
+        <div className="w-full max-w-[400px] rounded-2xl border border-neutral-300 bg-white p-8 text-center shadow-sm">
+          <div className="mx-auto mb-5 flex h-[64px] w-[64px] items-center justify-center rounded-full bg-neutral-950">
+            <CheckCircle2 size={32} className="text-white" strokeWidth={2} />
+          </div>
+          <p className="text-[18px] font-bold text-foreground">결제가 완료되었습니다</p>
+          <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">
+            이 창을 닫고 원래 페이지로 돌아가주세요.
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background">
-      <Loader2 size={32} className="animate-spin text-primary" />
-      <p className="text-sm text-muted-foreground">결제 처리 중...</p>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-neutral-50">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2 size={32} className="animate-spin text-muted-foreground" />
+        <p className="text-[15px] font-medium text-muted-foreground">결제 처리 중...</p>
+        <p className="text-[13px] text-muted-foreground">잠시만 기다려주세요.</p>
+      </div>
     </div>
   );
 }
@@ -181,8 +192,8 @@ export default function PaymentApprovalPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-background">
-          <Loader2 size={32} className="animate-spin text-primary" />
+        <div className="flex min-h-screen items-center justify-center bg-neutral-50">
+          <Loader2 size={28} className="animate-spin text-muted-foreground" />
         </div>
       }
     >

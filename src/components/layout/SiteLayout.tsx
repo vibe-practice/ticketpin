@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Sidebar } from "./Sidebar";
-import { TopBar } from "./TopBar";
+import { useState, useEffect } from "react";
+import { SiteHeader } from "./SiteHeader";
 import type { Category } from "@/types";
 
 interface SiteLayoutProps {
@@ -13,22 +12,26 @@ interface SiteLayoutProps {
 }
 
 export function SiteLayout({ children, footer, mainClassName, categories }: SiteLayoutProps) {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <div className="flex min-h-screen">
-      <Sidebar
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
+    <div className="flex min-h-screen flex-col bg-background">
+      <SiteHeader
         categories={categories}
+        isScrolled={isScrolled}
+        isVisible={true}
       />
-
-      {/* 사이드바 너비만큼 오른쪽으로 밀기 (데스크탑만) */}
-      <div className="flex min-w-0 flex-1 flex-col lg:ml-[280px]">
-        <TopBar onMenuClick={() => setIsMobileMenuOpen(true)} />
-        <main className={`flex-1 flex flex-col ${mainClassName ?? "bg-background"}`}>{children}</main>
-        {footer}
-      </div>
+      <main className={`flex-1 pt-[60px] ${mainClassName ?? ""}`}>{children}</main>
+      {footer}
     </div>
   );
 }

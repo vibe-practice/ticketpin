@@ -1,86 +1,111 @@
 import Link from "next/link";
+import { Phone, Clock, MessageSquare } from "lucide-react";
+
+const FOOTER_LINK_GROUPS = [
+  {
+    title: "서비스 안내",
+    links: [
+      { label: "이용약관", href: "/terms" },
+      { label: "개인정보처리방침", href: "/privacy" },
+      { label: "환불정책", href: "/refund-policy" },
+    ],
+  },
+  {
+    title: "이용안내",
+    links: [
+      { label: "이용가이드", href: "/guide" },
+      { label: "선물가이드", href: "/guide/gift" },
+    ],
+  },
+  {
+    title: "고객지원",
+    links: [
+      { label: "FAQ", href: "/support/faq" },
+      { label: "공지사항", href: "/support/notice" },
+    ],
+  },
+];
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-card">
-      <div className="px-6 py-10 lg:px-12">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          {/* 이용안내 */}
-          <div>
-            <h3 className="mb-3 text-[15px] font-semibold text-foreground">이용안내</h3>
-            <ul className="space-y-2 text-[15px] text-muted-foreground">
-              <li>
-                <Link href="/guide" className="hover:text-foreground">
-                  이용방법
-                </Link>
-              </li>
-              <li>
-                <Link href="/guide/gift" className="hover:text-foreground">
-                  선물하기 안내
-                </Link>
-              </li>
-            </ul>
-          </div>
+    <footer className="border-t border-neutral-200 bg-neutral-50">
+      <div className="container-main py-10 lg:py-12">
+        {/* 상단: 링크 그리드 + 고객센터 */}
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:gap-12">
+          {/* 링크 그룹 3개 */}
+          {FOOTER_LINK_GROUPS.map((group) => (
+            <div key={group.title}>
+              <h3 className="mb-3 text-[14px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+                {group.title}
+              </h3>
+              <ul className="space-y-2">
+                {group.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-[14px] font-medium text-secondary-foreground transition-colors hover:text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
           {/* 고객센터 */}
           <div>
-            <h3 className="mb-3 text-[15px] font-semibold text-foreground">고객센터</h3>
-            <ul className="space-y-2 text-[15px] text-muted-foreground">
-              <li>
-                <Link href="/support/faq" className="hover:text-foreground">
-                  자주 묻는 질문
-                </Link>
-              </li>
-              <li>
-                <Link href="/support/notice" className="hover:text-foreground">
-                  공지사항
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* 약관/정책 */}
-          <div>
-            <h3 className="mb-3 text-[15px] font-semibold text-foreground">약관/정책</h3>
-            <ul className="space-y-2 text-[15px] text-muted-foreground">
-              <li>
-                <Link href="/terms" className="hover:text-foreground">
-                  이용약관
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="hover:text-foreground">
-                  개인정보처리방침
-                </Link>
-              </li>
-              <li>
-                <Link href="/refund-policy" className="hover:text-foreground">
-                  환불/취소 정책
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* 회사정보 */}
-          <div>
-            <h3 className="mb-3 text-[15px] font-bold text-primary">티켓핀</h3>
-            <p className="text-[15px] text-muted-foreground">신뢰할 수 있는 기프티콘 플랫폼</p>
+            <h3 className="mb-3 text-[14px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+              고객센터
+            </h3>
+            <div className="flex items-center gap-1.5">
+              <Phone size={16} strokeWidth={2} className="text-muted-foreground" />
+              <span className="text-[20px] font-bold tracking-[-0.02em] text-foreground">
+                1811-0689
+              </span>
+            </div>
+            <div className="mt-2 flex items-start gap-1.5">
+              <Clock size={14} strokeWidth={1.75} className="mt-[3px] flex-shrink-0 text-muted-foreground" />
+              <p className="text-[14px] leading-relaxed text-muted-foreground">
+                평일 09:00 ~ 18:00<br />
+                <span className="text-muted-foreground">(점심 12:00 ~ 13:00)</span>
+              </p>
+            </div>
+            <Link
+              href="/support/faq"
+              className="mt-3 inline-flex items-center gap-1.5 rounded-md border border-neutral-300 bg-white px-3 py-1.5 text-[14px] font-semibold text-secondary-foreground transition-all hover:border-neutral-400 hover:text-foreground"
+            >
+              <MessageSquare size={14} strokeWidth={2} />
+              1:1 문의
+            </Link>
           </div>
         </div>
 
-        <div className="mt-8 border-t border-border pt-6 space-y-1">
-          <p className="text-[13px] text-muted-foreground">
-            상호명 : 티켓핀 | 대표자명 : 윤진수 | 사업자등록번호 : 359-86-01899
-          </p>
-          <p className="text-[13px] text-muted-foreground">
-            통신판매업 : 2025-서울성동-1648 | 고객센터 : 1811-0689
-          </p>
-          <p className="text-[13px] text-muted-foreground">
-            주소 : 서울특별시 성동구 성수일로8길 55, A동 6층 7호
-          </p>
-          <p className="mt-3 text-[13px] text-muted-foreground">
-            © 2026 티켓핀. All rights reserved.
-          </p>
+        {/* 구분선 */}
+        <div className="my-8 border-t border-neutral-200" />
+
+        {/* 하단: 브랜드 + 사업자 정보 */}
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          {/* 브랜드 워드마크 */}
+          <Link
+            href="/"
+            className="text-[20px] font-bold tracking-[-0.04em] text-foreground transition-opacity hover:opacity-60"
+          >
+            ticketpin
+          </Link>
+
+          {/* 사업자 정보 */}
+          <div className="flex flex-col gap-1">
+            <p className="text-[14px] leading-relaxed text-muted-foreground">
+              (주)티켓핀 &nbsp;|&nbsp; 대표: OOO &nbsp;|&nbsp; 사업자등록번호: 359-86-01899
+            </p>
+            <p className="text-[14px] leading-relaxed text-muted-foreground">
+              통신판매업신고: 2025-서울성동-1648 &nbsp;|&nbsp; 주소: 서울특별시 성동구 성수일로8길 55, A동 6층 7호
+            </p>
+            <p className="mt-2 text-[14px] font-medium text-muted-foreground">
+              Copyright &copy; 2026 ticketpin. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>

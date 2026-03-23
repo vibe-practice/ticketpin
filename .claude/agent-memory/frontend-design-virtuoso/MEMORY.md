@@ -13,11 +13,25 @@
 - 미들웨어: `src/middleware.ts` (보호 경로: `/mypage`. `/order`는 P2 백엔드 연동 후 재추가 예정)
 
 ## 라우트 그룹 레이아웃
-- `(user)`: SiteLayout (사이드바 240px + TopBar) — 일반 페이지
+- `(user)`: SiteLayout (상단 GNB 헤더 + 풀 와이드 콘텐츠 + 푸터) — 사이드바 없음, 블랙앤화이트 모노톤
 - `(auth)`: 인증 전용 (중앙 카드 형태)
 - `(admin)`: 관리자 사이드바
-- `(mypage)`: 마이페이지 사이드 탭
+- `(mypage)`: 마이페이지 사이드 탭 (sticky top 60px — 새 헤더 높이 기준)
 - `(voucher)`: 바우처 독립 레이아웃 (모바일 최적화)
+
+## (user) 레이아웃 구조 (전면 재작성 완료)
+- `SiteLayout.tsx` — fixed GNB 헤더 + `pt-[60px]` main + footer
+- `SiteHeader.tsx` (신규) — 스크롤 감지 hide/show 헤더, 카테고리 드롭다운, 검색 오버레이, 모바일 사이드 메뉴
+  - 헤더 높이: 60px (`h-[60px]`)
+  - 스크롤 240px 이후: 스크롤 다운 시 숨김, 업 시 표시 (`-translate-y-full` / `translate-y-0`)
+  - 카테고리 드롭다운: `useRef` 외부 클릭 감지 닫기
+  - 검색: 중앙 오버레이 패널 (`fixed inset-0 z-[60]`)
+  - 모바일 메뉴: 오른쪽 슬라이드인 (`slide-in-from-right`)
+- `HeroBanner.tsx` (신규) — `-mt-[60px]`로 헤더와 이어지는 풀 다크 배너, 자동 슬라이드 3개
+- `CategoryGrid.tsx` (신규) — 아이콘 그리드, `ICON_MAP` 기반 Lucide 아이콘 자동 매핑
+  - DB 사용 아이콘: Gift, Globe, Gamepad2, BookOpen, ShoppingBag, ShoppingCart
+- `container-main` 클래스: `max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-12`
+- `CategoryListClient.tsx` 컨테이너: `container-main py-8 lg:py-10` (기존 `px-4 py-6 lg:px-6`에서 변경)
 
 ## 디자인 패턴 — 확정된 것들
 - 색상 클래스: `text-primary`, `bg-brand-primary-soft`, `bg-brand-primary-muted`, `text-brand-primary-dark`, `bg-error-bg`, `text-error`, `bg-info-bg`, `text-info`, `bg-success-bg`, `text-success`
