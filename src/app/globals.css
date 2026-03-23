@@ -1,0 +1,236 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* shadcn/ui 매핑 */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Border Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  /* Fonts */
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-mono: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  /* 브랜드 컬러 토큰 */
+  --color-brand-primary: #7c3aed;
+  --color-brand-primary-soft: #ede9fe;
+  --color-brand-primary-dark: #6d28d9;
+  --color-brand-primary-muted: #f5f3ff;
+  --color-brand-secondary: #1e293b;
+  --color-brand-secondary-soft: #f1f5f9;
+  --color-brand-accent: #f59e0b;
+  --color-brand-accent-soft: #fffbeb;
+
+  /* Semantic 컬러 토큰 */
+  --color-success: #00C853;
+  --color-success-bg: #E8F5E9;
+  --color-success-light: #69F0AE;
+  --color-warning: #B8860B;
+  --color-warning-bg: #FFF8E1;
+  --color-warning-light: #FFD54F;
+  --color-error: #D32F2F;
+  --color-error-bg: #FDECEA;
+  --color-error-light: #EF5350;
+  --color-error-dark: #C62828;
+  --color-info: #3b82f6;
+  --color-info-bg: #eff6ff;
+  --color-info-light: #60a5fa;
+
+  /* Disabled 텍스트 */
+  --color-disabled: #999999;
+
+  /* Toast 다크 배경 토큰 */
+  --color-toast-success-bg: #0f1f13;
+  --color-toast-error-bg: #1f0f0f;
+  --color-toast-warning-bg: #1f1a0e;
+  --color-toast-info-bg: #0e1520;
+}
+
+:root {
+  /* shadcn/ui 필수 변수 - 퍼플 테마 */
+  --radius: 0.75rem;
+
+  /* Primary = #7C3AED (violet-600) */
+  --primary: oklch(0.527 0.267 281.5);
+  --primary-foreground: oklch(1 0 0);
+
+  /* Secondary = slate-100 bg */
+  --secondary: oklch(0.968 0.002 247.9);
+  --secondary-foreground: #505050;
+
+  /* Background = #FFFFFF (white) */
+  --background: oklch(1 0 0);
+  --foreground: #111111;
+
+  /* Card = white */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.211 0.034 245.3);
+
+  /* Popover */
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.211 0.034 245.3);
+
+  /* Muted = slate-100 */
+  --muted: oklch(0.968 0.002 247.9);
+  --muted-foreground: #505050;
+
+  /* Accent = violet-50 */
+  --accent: oklch(0.969 0.016 281.5);
+  --accent-foreground: oklch(0.527 0.267 281.5);
+
+  /* Destructive = red (D32F2F) */
+  --destructive: #D32F2F;
+
+  /* Border = slate-200 */
+  --border: oklch(0.921 0.006 247.9);
+  --input: oklch(0.968 0.002 247.9);
+  --ring: oklch(0.527 0.267 281.5);
+
+  /* Chart */
+  --chart-1: oklch(0.527 0.267 281.5);
+  --chart-2: oklch(0.6 0.118 184.7);
+  --chart-3: oklch(0.398 0.07 227.4);
+  --chart-4: oklch(0.828 0.189 84.4);
+  --chart-5: oklch(0.769 0.188 70.1);
+
+  /* Sidebar */
+  --sidebar: oklch(1 0 0);
+  --sidebar-foreground: oklch(0.211 0.034 245.3);
+  --sidebar-primary: oklch(0.527 0.267 281.5);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.969 0.016 281.5);
+  --sidebar-accent-foreground: oklch(0.527 0.267 281.5);
+  --sidebar-border: oklch(0.921 0.006 247.9);
+  --sidebar-ring: oklch(0.527 0.267 281.5);
+
+  /* 커스텀 Primary 팔레트 */
+  --color-primary-50: #f5f3ff;
+  --color-primary-100: #ede9fe;
+  --color-primary-200: #ddd6fe;
+  --color-primary-300: #c4b5fd;
+  --color-primary-400: #a78bfa;
+  --color-primary-500: #8b5cf6;
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6d28d9;
+  --color-primary-800: #5b21b6;
+  --color-primary-900: #4c1d95;
+
+  --shadow-glow: 0 0 20px rgb(124 58 237 / 0.3);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-medium;
+  }
+
+  /* 스크롤바 커스텀 */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.921 0.006 247.9);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.554 0.024 247.9);
+  }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* 컨테이너 */
+  .container-main {
+    @apply mx-auto w-full max-w-screen-xl px-4 sm:px-6 lg:px-8;
+  }
+
+  /* 스크롤바 숨기기 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Shimmer 스켈레톤 애니메이션 */
+  .skeleton-shimmer {
+    background: linear-gradient(
+      90deg,
+      oklch(0.921 0.006 247.9) 25%,
+      oklch(0.968 0.002 247.9) 50%,
+      oklch(0.921 0.006 247.9) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+
+  /* 그림자 glow */
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+}

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Ticket shape with left-side perforated notches -->
+  <path d="
+    M 60 10
+    H 462
+    V 502
+    H 60
+    V 440
+    H 80 V 410 H 60
+    V 380
+    H 80 V 350 H 60
+    V 320
+    H 80 V 290 H 60
+    V 260
+    H 80 V 230 H 60
+    V 200
+    H 80 V 170 H 60
+    V 140
+    H 80 V 110 H 60
+    V 80
+    H 80 V 50 H 60
+    Z
+  " fill="#7c3aed"/>
+
+  <!-- Letter T (white cutout) -->
+  <!-- Top bar -->
+  <rect x="190" y="130" width="230" height="56" fill="white"/>
+  <!-- Vertical stem -->
+  <rect x="272" y="130" width="64" height="280" fill="white"/>
+</svg>
