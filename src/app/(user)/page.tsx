@@ -1,7 +1,6 @@
 import { HeroBanner } from "@/components/home/HeroBanner";
 import { CategoryNav } from "@/components/home/CategoryNav";
 import { CategoryGrid } from "@/components/home/CategoryGrid";
-import { ProductSection } from "@/components/home/ProductSection";
 import { HomeSidebar } from "@/components/home/HomeSidebar";
 import { NoticePreview } from "@/components/home/NoticePreview";
 import { ProductGrid } from "@/components/home/ProductGrid";
@@ -49,7 +48,7 @@ export default async function HomePage() {
             <CategoryGrid categories={categories} />
           </div>
 
-          <hr className="border-neutral-100 my-2" />
+          <hr className="border-neutral-200 my-2" />
 
           {/* ── 인기 상품 ── */}
           {popularProducts.length > 0 && (
@@ -59,7 +58,7 @@ export default async function HomePage() {
                 products={popularProducts}
                 viewAllHref="/category"
               />
-              <hr className="border-neutral-100" />
+              <hr className="border-neutral-200" />
             </>
           )}
 
@@ -72,7 +71,7 @@ export default async function HomePage() {
                 viewAllHref={`/category/${category.slug}`}
               />
               {idx < activeCategoryProducts.length - 1 && (
-                <hr className="border-neutral-100" />
+                <hr className="border-neutral-200" />
               )}
             </div>
           ))}
@@ -89,7 +88,7 @@ export default async function HomePage() {
             </div>
           )}
 
-          <hr className="border-neutral-100" />
+          <hr className="border-neutral-200" />
 
           {/* ── 공지사항 미리보기 ── */}
           <NoticePreview />

@@ -217,14 +217,14 @@ function LoginForm() {
           >
             아이디 찾기
           </Link>
-          <span className="text-neutral-300 select-none">|</span>
+          <span className="text-muted-foreground select-none">|</span>
           <Link
             href="/auth/reset-password"
             className="hover:text-foreground transition-colors duration-150"
           >
             비밀번호 재설정
           </Link>
-          <span className="text-neutral-300 select-none">|</span>
+          <span className="text-muted-foreground select-none">|</span>
           <Link
             href="/auth/register"
             className="font-semibold text-foreground hover:opacity-70 transition-opacity duration-150"

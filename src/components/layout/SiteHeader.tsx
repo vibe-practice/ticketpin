@@ -10,7 +10,6 @@ import {
   UserPlus,
   Menu,
   X,
-  ChevronDown,
   Clock,
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -85,24 +84,9 @@ export function SiteHeader({ categories = [], isScrolled = false, isVisible = tr
   // 모바일 메뉴
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // 카테고리 드롭다운
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const categoryRef = useRef<HTMLDivElement>(null);
-
   const visibleCategories = categories
     .filter((c) => c.is_visible)
     .sort((a, b) => a.sort_order - b.sort_order);
-
-  // 카테고리 드롭다운 외부 클릭 닫기
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (categoryRef.current && !categoryRef.current.contains(e.target as Node)) {
-        setIsCategoryOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   // 검색 열기/닫기
   const openSearch = useCallback(() => {
@@ -172,7 +156,7 @@ export function SiteHeader({ categories = [], isScrolled = false, isVisible = tr
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-50 bg-white transition-all duration-300",
-          isScrolled ? "border-b border-neutral-200 shadow-[0_1px_8px_0_rgb(0_0_0/0.06)]" : "border-b border-neutral-100",
+          isScrolled ? "border-b border-neutral-200 shadow-[0_1px_8px_0_rgb(0_0_0/0.06)]" : "border-b border-neutral-200",
           isVisible ? "translate-y-0" : "-translate-y-full"
         )}
       >
@@ -394,7 +378,7 @@ export function SiteHeader({ categories = [], isScrolled = false, isVisible = tr
           {/* 슬라이드인 패널 */}
           <div className="animate-in slide-in-from-right duration-200 absolute right-0 top-0 h-full w-full max-w-[320px] bg-white shadow-2xl flex flex-col">
             {/* 헤더 */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-100">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200">
               <Link
                 href="/"
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -413,7 +397,7 @@ export function SiteHeader({ categories = [], isScrolled = false, isVisible = tr
             </div>
 
             {/* 인증 영역 */}
-            <div className="px-6 py-4 border-b border-neutral-100">
+            <div className="px-6 py-4 border-b border-neutral-200">
               {!isLoading && (
                 user ? (
                   <div className="flex flex-col gap-2">
@@ -483,7 +467,7 @@ export function SiteHeader({ categories = [], isScrolled = false, isVisible = tr
                 </Link>
               ))}
 
-              <div className="my-3 border-t border-neutral-100" />
+              <div className="my-3 border-t border-neutral-200" />
 
               {/* 유틸 네비 */}
               <p className="px-3 pb-1.5 text-[14px] font-semibold uppercase tracking-wider text-muted-foreground">

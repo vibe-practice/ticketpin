@@ -161,11 +161,11 @@ export function CategoryListClient({
       <div className="container-main py-6 lg:py-8">
         {/* 카테고리 탭 */}
         <div className="relative mb-6 flex items-center gap-2">
-          {/* 왼쪽 화살표 */}
+          {/* 왼쪽 화살표 — 모바일 숨김 */}
           <button
             onClick={() => scrollTabs("left")}
             aria-label="왼쪽으로 스크롤"
-            className="flex-shrink-0 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-white shadow-sm transition-all hover:border-neutral-400 hover:shadow-md active:scale-95"
+            className="hidden sm:flex flex-shrink-0 h-9 w-9 items-center justify-center rounded-full border border-border bg-white shadow-sm transition-all hover:border-neutral-400 hover:shadow-md active:scale-95"
           >
             <ChevronLeft size={16} strokeWidth={2.5} className="text-secondary-foreground" />
           </button>
@@ -205,11 +205,11 @@ export function CategoryListClient({
             ))}
           </div>
 
-          {/* 오른쪽 화살표 */}
+          {/* 오른쪽 화살표 — 모바일 숨김 */}
           <button
             onClick={() => scrollTabs("right")}
             aria-label="오른쪽으로 스크롤"
-            className="flex-shrink-0 flex h-9 w-9 items-center justify-center rounded-full border border-border bg-white shadow-sm transition-all hover:border-neutral-400 hover:shadow-md active:scale-95"
+            className="hidden sm:flex flex-shrink-0 h-9 w-9 items-center justify-center rounded-full border border-border bg-white shadow-sm transition-all hover:border-neutral-400 hover:shadow-md active:scale-95"
           >
             <ChevronRight size={16} strokeWidth={2.5} className="text-secondary-foreground" />
           </button>

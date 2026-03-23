@@ -121,7 +121,7 @@ function Step1({ onVerified }: { onVerified: (result: VerificationResult) => voi
           >
             아이디 찾기
           </Link>
-          <span className="text-neutral-300 select-none">|</span>
+          <span className="text-muted-foreground select-none">|</span>
           <Link
             href="/auth/login"
             className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors duration-150"

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Phone, Clock, ChevronRight, MessageSquare, HelpCircle, Bell, BookOpen, LogIn } from "lucide-react";
+import { Phone, Clock, MessageSquare, HelpCircle, Bell, BookOpen, LogIn } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 
 export function HomeSidebar() {

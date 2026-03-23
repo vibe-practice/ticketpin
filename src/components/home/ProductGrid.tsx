@@ -54,8 +54,6 @@ export function ProductGrid({ title, products, viewAllHref }: ProductGridProps) 
 
   if (products.length === 0) return null;
 
-  const showScrollButtons = products.length > 4;
-
   return (
     <section className="py-8 lg:py-10">
       {/* 섹션 헤더 */}
@@ -102,7 +100,7 @@ export function ProductGrid({ title, products, viewAllHref }: ProductGridProps) 
         ref={scrollRef}
         className="flex gap-4 overflow-x-auto scrollbar-hide sm:gap-5"
       >
-        {products.map((product, idx) => (
+        {products.map((product) => (
           <div
             key={product.id}
             className="w-[calc(50%-8px)] flex-shrink-0 sm:w-[calc(33.333%-14px)] lg:w-[calc(25%-15px)]"

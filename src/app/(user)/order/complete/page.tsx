@@ -45,11 +45,11 @@ function OrderCompleteContent() {
                   <span className="text-[14px] text-muted-foreground shrink-0">상품명</span>
                   <span className="text-[14px] font-semibold text-foreground text-right">{productName}</span>
                 </div>
-                <div className="flex items-center justify-between border-t border-neutral-100 pt-3">
+                <div className="flex items-center justify-between border-t border-neutral-200 pt-3">
                   <span className="text-[14px] text-muted-foreground">수량</span>
                   <span className="text-[14px] font-semibold text-foreground">{pinCount}개</span>
                 </div>
-                <div className="flex items-center justify-between border-t border-neutral-100 pt-3">
+                <div className="flex items-center justify-between border-t border-neutral-200 pt-3">
                   <span className="text-[14px] text-muted-foreground">결제 금액</span>
                   <span className="text-[22px] font-bold text-foreground">{totalAmount.toLocaleString()}원</span>
                 </div>

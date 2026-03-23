@@ -147,7 +147,7 @@ export function BusinessInfoClient() {
                   key={item.label}
                   className="flex items-center gap-4 px-5 py-4 hover:bg-muted/20 transition-colors duration-150"
                 >
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-neutral-50 border border-neutral-100">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-neutral-50 border border-neutral-200">
                     <Icon size={16} className="text-foreground" strokeWidth={1.75} />
                   </div>
                   <div className="min-w-[80px] shrink-0">

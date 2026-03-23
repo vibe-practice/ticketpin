@@ -38,7 +38,7 @@ export function CategoryNav({ categories }: CategoryNavProps) {
 
   return (
     <nav
-      className="flex items-center gap-1 border-b border-neutral-100 pb-3 mb-4"
+      className="flex items-center gap-1 border-b border-neutral-200 pb-3 mb-4"
       aria-label="카테고리 네비게이션"
     >
       {/* 상품권 카테고리 드롭다운 */}
@@ -69,7 +69,7 @@ export function CategoryNav({ categories }: CategoryNavProps) {
             >
               전체 상품권
             </Link>
-            <div className="my-1.5 border-t border-neutral-100" />
+            <div className="my-1.5 border-t border-neutral-200" />
             {visibleCategories.map((cat) => (
               <Link
                 key={cat.id}
