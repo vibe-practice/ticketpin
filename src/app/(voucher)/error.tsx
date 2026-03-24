@@ -22,7 +22,7 @@ export default function VoucherErrorPage({
           <AlertTriangle size={48} className="text-error/40" />
         </div>
         <h2 className="mb-4 text-xl font-semibold text-foreground">오류가 발생했습니다</h2>
-        <p className="mb-8 text-sm text-muted-foreground">
+        <p className="mb-8 text-[15px] text-muted-foreground">
           일시적인 문제가 발생했습니다. 잠시 후 다시 시도해주세요.
         </p>
         <Button

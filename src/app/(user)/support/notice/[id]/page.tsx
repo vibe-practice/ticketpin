@@ -85,30 +85,30 @@ export default async function NoticeDetailPage({ params }: Props) {
     <div className="flex flex-1 flex-col bg-background">
       {/* 뒤로가기 브레드크럼 */}
       <div className="border-b border-border bg-card">
-        <div className="px-6 py-3 lg:px-12">
+        <div className="container-main py-3">
           <Link
             href="/support/notice"
-            className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-primary transition-colors duration-150"
+            className="inline-flex items-center gap-1.5 text-[15px] text-muted-foreground hover:text-foreground transition-colors duration-150"
           >
-            <ChevronLeft size={14} />
+            <ChevronLeft size={16} />
             공지사항 목록
           </Link>
         </div>
       </div>
 
-      <div className="px-6 py-8 lg:px-12">
+      <div className="container-main py-8">
         <div className="max-w-3xl space-y-6">
 
           {/* 공지 본문 카드 */}
           <article aria-labelledby="notice-title" className="rounded-xl border border-border bg-card overflow-hidden">
 
             {/* 공지 헤더 */}
-            <div className="border-b border-border px-6 py-5 space-y-3">
+            <div className="border-b border-border px-6 py-6 space-y-3">
               {/* 카테고리 뱃지 */}
               <div className="flex items-center gap-2">
                 <span
                   className={cn(
-                    "rounded-sm px-2 py-0.5 text-[11px] font-semibold",
+                    "rounded-sm px-2.5 py-0.5 text-[13px] font-semibold",
                     NOTICE_CATEGORY_STYLES[notice.category]
                   )}
                 >
@@ -117,23 +117,21 @@ export default async function NoticeDetailPage({ params }: Props) {
               </div>
 
               {/* 제목 */}
-              <h1 id="notice-title" className="text-[17px] font-bold text-foreground leading-snug">
+              <h1 id="notice-title" className="text-2xl font-bold text-foreground leading-snug">
                 {notice.title}
               </h1>
 
               {/* 메타 정보 */}
               <div className="flex items-center gap-4">
-                <span className="text-[13px] text-muted-foreground">
+                <span className="text-[15px] text-muted-foreground">
                   {formatDate(notice.created_at)}
                 </span>
-
-
               </div>
             </div>
 
             {/* 본문 */}
             <div className="px-6 py-6">
-              <p className="whitespace-pre-line text-[14px] leading-relaxed text-muted-foreground">
+              <p className="whitespace-pre-line text-[16px] leading-relaxed text-muted-foreground">
                 {notice.content}
               </p>
             </div>
@@ -144,24 +142,24 @@ export default async function NoticeDetailPage({ params }: Props) {
             {nextNotice ? (
               <Link
                 href={`/support/notice/${nextNotice.id}`}
-                className="group flex items-center justify-between gap-4 px-5 py-3.5 transition-colors duration-150 hover:bg-muted/30"
+                className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors duration-150 hover:bg-muted/30"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <span className="shrink-0 text-[12px] font-semibold text-primary">
+                  <span className="shrink-0 text-[14px] font-semibold text-foreground">
                     다음글
                   </span>
-                  <span className="text-[13px] text-muted-foreground group-hover:text-foreground transition-colors duration-150 line-clamp-1">
+                  <span className="text-[15px] text-muted-foreground group-hover:text-foreground transition-colors duration-150 line-clamp-1">
                     {nextNotice.title}
                   </span>
                 </div>
-                <ChevronRight size={14} className="shrink-0 text-muted-foreground/50 group-hover:text-primary transition-colors duration-150" />
+                <ChevronRight size={16} className="shrink-0 text-muted-foreground/50 group-hover:text-foreground transition-colors duration-150" />
               </Link>
             ) : (
-              <div className="flex items-center gap-3 px-5 py-3.5">
-                <span className="shrink-0 text-[12px] font-semibold text-muted-foreground/50">
+              <div className="flex items-center gap-3 px-5 py-4">
+                <span className="shrink-0 text-[14px] font-semibold text-muted-foreground/50">
                   다음글
                 </span>
-                <span className="text-[13px] text-muted-foreground/50">
+                <span className="text-[15px] text-muted-foreground/50">
                   다음 공지사항이 없습니다.
                 </span>
               </div>
@@ -170,24 +168,24 @@ export default async function NoticeDetailPage({ params }: Props) {
             {prevNotice ? (
               <Link
                 href={`/support/notice/${prevNotice.id}`}
-                className="group flex items-center justify-between gap-4 px-5 py-3.5 transition-colors duration-150 hover:bg-muted/30"
+                className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors duration-150 hover:bg-muted/30"
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <span className="shrink-0 text-[12px] font-semibold text-muted-foreground">
+                  <span className="shrink-0 text-[14px] font-semibold text-muted-foreground">
                     이전글
                   </span>
-                  <span className="text-[13px] text-muted-foreground group-hover:text-foreground transition-colors duration-150 line-clamp-1">
+                  <span className="text-[15px] text-muted-foreground group-hover:text-foreground transition-colors duration-150 line-clamp-1">
                     {prevNotice.title}
                   </span>
                 </div>
-                <ChevronRight size={14} className="shrink-0 text-muted-foreground/50 group-hover:text-primary transition-colors duration-150" />
+                <ChevronRight size={16} className="shrink-0 text-muted-foreground/50 group-hover:text-foreground transition-colors duration-150" />
               </Link>
             ) : (
-              <div className="flex items-center gap-3 px-5 py-3.5">
-                <span className="shrink-0 text-[12px] font-semibold text-muted-foreground/50">
+              <div className="flex items-center gap-3 px-5 py-4">
+                <span className="shrink-0 text-[14px] font-semibold text-muted-foreground/50">
                   이전글
                 </span>
-                <span className="text-[13px] text-muted-foreground/50">
+                <span className="text-[15px] text-muted-foreground/50">
                   이전 공지사항이 없습니다.
                 </span>
               </div>
@@ -198,9 +196,9 @@ export default async function NoticeDetailPage({ params }: Props) {
           <div className="flex justify-center">
             <Link
               href="/support/notice"
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-[13px] font-medium text-muted-foreground shadow-sm hover:border-primary/40 hover:text-primary hover:bg-brand-primary-muted transition-all duration-150"
+              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-6 py-3 text-[15px] font-medium text-muted-foreground shadow-sm hover:border-foreground/40 hover:text-foreground hover:bg-muted/30 transition-all duration-150"
             >
-              <ListFilter size={14} />
+              <ListFilter size={16} />
               목록으로
             </Link>
           </div>

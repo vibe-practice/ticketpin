@@ -24,6 +24,7 @@ import {
   FolderOpen,
   Wallet,
   ClipboardList,
+  Images,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -53,6 +54,7 @@ const NAV_ITEMS: NavItem[] = [
   { type: "leaf", label: "회원관리", href: "/adminmaster/members", icon: Users },
   { type: "leaf", label: "상품권관리", href: "/adminmaster/products", icon: Ticket },
   { type: "leaf", label: "카테고리관리", href: "/adminmaster/categories", icon: FolderOpen },
+  { type: "leaf", label: "배너관리", href: "/adminmaster/banners", icon: Images },
   { type: "leaf", label: "핀번호관리", href: "/adminmaster/pins", icon: KeyRound },
   { type: "leaf", label: "선물이력", href: "/adminmaster/gifts", icon: Gift },
   { type: "leaf", label: "취소/환불관리", href: "/adminmaster/refunds", icon: RotateCcw },

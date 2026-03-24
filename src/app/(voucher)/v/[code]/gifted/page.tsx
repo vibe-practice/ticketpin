@@ -36,22 +36,24 @@ export default async function VoucherGiftedPage({ params }: PageProps) {
   const receiverName = voucher.receiver?.username ?? voucher.owner.username ?? "알 수 없음";
 
   return (
-    <div className="w-full max-w-sm">
+    <div className="w-full">
+      {/* 헤딩 */}
+      <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-2">
+        선물이 완료된{"\n"}상품권이에요
+      </h1>
+      <p className="text-[16px] text-muted-foreground mb-6">
+        수신자에게 새로운 URL이 발급되었습니다.
+      </p>
+
       <ProductInfoCard voucher={voucher} />
 
-      {/* 선물완료 안내 카드 */}
-      <div className="mt-4 rounded-xl border border-success/20 bg-success-bg p-5 text-center">
-        <div className="mb-3 flex justify-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-success/10">
-            <Gift size={22} className="text-success" />
-          </div>
+      {/* 선물 정보 카드 */}
+      <div className="mt-5 rounded-xl border border-border bg-card p-4">
+        <div className="flex items-center gap-2 mb-3">
+          <Gift size={16} className="text-success" />
+          <span className="text-[15px] font-semibold text-foreground">선물 정보</span>
         </div>
-        <h3 className="text-base font-bold text-success">
-          선물이 완료된 상품권입니다
-        </h3>
-
-        {/* 보낸 사람 / 받은 사람 정보 */}
-        <div className="mt-3 rounded-lg bg-success/5 px-4 py-3 text-left text-sm space-y-2">
+        <div className="space-y-2 text-[15px]">
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-1.5 text-muted-foreground">
               <User size={13} />
@@ -70,16 +72,16 @@ export default async function VoucherGiftedPage({ params }: PageProps) {
       </div>
 
       {/* 하단 액션 버튼 */}
-      <div className="mt-4 space-y-2.5">
+      <div className="mt-5 space-y-2">
         <Link
           href="/my"
-          className="flex h-12 w-full items-center justify-center gap-1.5 rounded-xl bg-primary text-sm font-bold text-primary-foreground hover:bg-brand-primary-dark transition-colors active:scale-[0.98]"
+          className="flex h-14 w-full items-center justify-center gap-1.5 rounded-xl bg-foreground text-[16px] font-bold text-background hover:bg-foreground/80 transition-colors active:scale-[0.98]"
         >
           마이페이지로 이동
         </Link>
         <Link
           href="/"
-          className="flex h-11 w-full items-center justify-center gap-1.5 rounded-xl border border-border bg-card text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
+          className="flex h-12 w-full items-center justify-center gap-1.5 rounded-xl border border-border bg-card text-[15px] font-medium text-muted-foreground hover:bg-muted transition-colors"
         >
           <Home size={15} />
           홈으로 이동

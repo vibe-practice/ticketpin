@@ -32,7 +32,7 @@ export async function getCategories(): Promise<Category[]> {
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("categories")
-    .select("id, name, subtitle, slug, icon, is_visible, sort_order, created_at")
+    .select("id, name, subtitle, slug, icon, image_url, is_visible, sort_order, created_at")
     .eq("is_visible", true)
     .order("sort_order", { ascending: true });
 
@@ -53,7 +53,7 @@ export async function getCategoryBySlug(
   const supabase = createAdminClient();
   const { data, error } = await supabase
     .from("categories")
-    .select("id, name, subtitle, slug, icon, is_visible, sort_order, created_at")
+    .select("id, name, subtitle, slug, icon, image_url, is_visible, sort_order, created_at")
     .eq("slug", slug)
     .single();
 

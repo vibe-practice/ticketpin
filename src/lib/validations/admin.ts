@@ -213,6 +213,11 @@ export const adminUpdateCategorySchema = z.object({
     .string()
     .max(50, "아이콘 이름은 50자까지 입력 가능합니다.")
     .optional(),
+  image_url: z
+    .string()
+    .url("유효한 이미지 URL이 아닙니다.")
+    .optional()
+    .nullable(),
   is_visible: z.boolean().optional(),
   sort_order: z.number().int().min(0).optional(),
 });
@@ -263,6 +268,76 @@ export const adminUpdatePinSchema = z.object({
 export type AdminUpdatePinInput = z.infer<typeof adminUpdatePinSchema>;
 
 export { PIN_NUMBER_PATTERN };
+
+// ── 관리자 배너 관리 스키마 (B-007) ──────────────────────────────
+
+export const adminCreateBannerSchema = z.object({
+  image_url: z
+    .string()
+    .min(1, "이미지 URL을 입력해 주세요.")
+    .url("유효한 이미지 URL이 아닙니다."),
+  link_url: z
+    .string()
+    .url("유효한 링크 URL이 아닙니다.")
+    .optional()
+    .nullable(),
+  alt_text: z
+    .string()
+    .max(200, "대체 텍스트는 200자까지 입력 가능합니다.")
+    .optional(),
+  sort_order: z.number().int().min(0).optional(),
+  is_active: z.boolean().optional(),
+});
+
+export type AdminCreateBannerInput = z.infer<typeof adminCreateBannerSchema>;
+
+export const adminUpdateBannerSchema = adminCreateBannerSchema.partial();
+
+export type AdminUpdateBannerInput = z.infer<typeof adminUpdateBannerSchema>;
+
+export const adminReorderBannersSchema = z.object({
+  orders: z
+    .array(
+      z.object({
+        id: z.string().regex(uuidPattern, "유효하지 않은 배너 ID입니다."),
+        sort_order: z.number().int().min(0),
+      })
+    )
+    .min(1, "정렬 데이터가 비어 있습니다."),
+});
+
+export type AdminReorderBannersInput = z.infer<typeof adminReorderBannersSchema>;
+
+// ── 관리자 사이드 배너 관리 스키마 (B-008) ─────────────────────────
+
+const SIDE_BANNER_POSITIONS = ["sidebar_top", "sidebar_middle", "sidebar_bottom"] as const;
+
+export const adminCreateSideBannerSchema = z.object({
+  image_url: z
+    .string()
+    .min(1, "이미지 URL을 입력해 주세요.")
+    .url("유효한 이미지 URL이 아닙니다."),
+  link_url: z
+    .string()
+    .url("유효한 링크 URL이 아닙니다.")
+    .optional()
+    .nullable(),
+  alt_text: z
+    .string()
+    .max(200, "대체 텍스트는 200자까지 입력 가능합니다.")
+    .optional(),
+  position: z.enum(SIDE_BANNER_POSITIONS, {
+    message: "유효한 배너 위치를 선택해 주세요.",
+  }),
+  sort_order: z.number().int().min(0).optional(),
+  is_active: z.boolean().optional(),
+});
+
+export type AdminCreateSideBannerInput = z.infer<typeof adminCreateSideBannerSchema>;
+
+export const adminUpdateSideBannerSchema = adminCreateSideBannerSchema.partial();
+
+export type AdminUpdateSideBannerInput = z.infer<typeof adminUpdateSideBannerSchema>;
 
 // ── 관리자 FAQ 관리 스키마 ──────────────────────────────────────
 

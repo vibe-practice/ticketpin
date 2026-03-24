@@ -101,7 +101,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
     <div className="min-h-screen bg-white">
       {/* ── 브레드크럼 ── */}
       <div className="border-b border-neutral-300">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-3.5">
+        <div className="container-main py-3.5">
           <nav className="flex items-center gap-1.5 text-[14px] text-muted-foreground">
             <Link
               href="/"
@@ -125,7 +125,7 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
       </div>
 
       {/* ── 메인 콘텐츠 ── */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-12 py-10 lg:py-16">
+      <div className="container-main py-10 lg:py-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-24 lg:items-start">
 
           {/* ── 왼쪽: 이미지 영역 ── */}

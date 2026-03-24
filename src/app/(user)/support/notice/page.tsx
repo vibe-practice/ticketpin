@@ -95,17 +95,17 @@ export default function NoticePage() {
     <div className="flex flex-1 flex-col bg-background">
       {/* 페이지 헤더 */}
       <div className="border-b border-border bg-card">
-        <div className="px-6 py-8 lg:px-12">
-          <h1 className="text-xl font-bold text-foreground">공지사항</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+        <div className="container-main py-8">
+          <h1 className="text-2xl font-bold text-foreground">공지사항</h1>
+          <p className="mt-1 text-[16px] text-muted-foreground">
             티켓핀의 서비스 공지, 이벤트, 점검 안내를 확인하세요.
           </p>
         </div>
       </div>
 
       {/* 콘텐츠 */}
-      <div className="px-6 py-8 lg:px-12">
-        <div className="max-w-3xl space-y-6">
+      <div className="container-main py-8">
+        <div className="space-y-6">
 
           {/* 카테고리 필터 탭 */}
           <div className="flex flex-wrap gap-2">
@@ -117,18 +117,18 @@ export default function NoticePage() {
                   type="button"
                   onClick={() => handleCategoryChange(cat)}
                   className={cn(
-                    "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-150",
+                    "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[15px] font-medium transition-all duration-150",
                     isActive
-                      ? "bg-primary text-white shadow-sm"
-                      : "bg-card border border-border text-muted-foreground hover:border-primary/40 hover:text-primary hover:bg-brand-primary-muted"
+                      ? "bg-foreground text-background shadow-sm"
+                      : "bg-card border border-border text-muted-foreground hover:border-foreground/40 hover:text-foreground hover:bg-muted/30"
                   )}
                 >
                   {cat}
                   <span
                     className={cn(
-                      "inline-flex h-4.5 min-w-[18px] items-center justify-center rounded-full px-1 text-[11px] font-semibold tabular-nums",
+                      "inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-1 text-[13px] font-semibold tabular-nums",
                       isActive
-                        ? "bg-white/25 text-white"
+                        ? "bg-white/25 text-background"
                         : "bg-muted text-muted-foreground"
                     )}
                   >
@@ -143,15 +143,15 @@ export default function NoticePage() {
           {isLoading ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card py-16 text-center">
               <Loader2 size={32} className="mb-4 animate-spin text-muted-foreground/60" />
-              <p className="text-sm text-muted-foreground">불러오는 중...</p>
+              <p className="text-[16px] text-muted-foreground">불러오는 중...</p>
             </div>
           ) : totalCount === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card py-16 text-center">
               <Bell size={44} className="mb-4 text-muted-foreground/40" />
-              <p className="text-[15px] font-semibold text-foreground">
+              <p className="text-[16px] font-semibold text-foreground">
                 등록된 공지사항이 없습니다
               </p>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-1 text-[15px] text-muted-foreground">
                 다른 카테고리를 선택하거나 나중에 다시 확인해 주세요.
               </p>
             </div>
@@ -159,7 +159,7 @@ export default function NoticePage() {
             <div className="rounded-xl border border-border bg-card overflow-hidden">
               {/* 결과 카운트 헤더 */}
               <div className="border-b border-border px-5 py-3 bg-muted/30">
-                <span className="text-[13px] text-muted-foreground">
+                <span className="text-[15px] text-muted-foreground">
                   총{" "}
                   <span className="font-semibold text-foreground">
                     {totalCount}
@@ -168,7 +168,76 @@ export default function NoticePage() {
                 </span>
               </div>
 
-              <div className="divide-y divide-border">
+              {/* 데스크탑: 테이블형 */}
+              <div className="hidden md:block">
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-border bg-muted/20">
+                      <th className="px-5 py-3 text-left text-[14px] font-semibold text-muted-foreground">
+                        제목
+                      </th>
+                      <th className="w-28 px-5 py-3 text-center text-[14px] font-semibold text-muted-foreground">
+                        카테고리
+                      </th>
+                      <th className="w-36 px-5 py-3 text-right text-[14px] font-semibold text-muted-foreground">
+                        날짜
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {items.map((notice) => (
+                      <tr
+                        key={notice.id}
+                        className={cn(
+                          "group transition-colors duration-150",
+                          notice.is_important
+                            ? "bg-error-bg/30 hover:bg-error-bg/50"
+                            : "hover:bg-muted/20"
+                        )}
+                      >
+                        <td className="px-5 py-4">
+                          <Link
+                            href={`/support/notice/${notice.id}`}
+                            className="flex items-center gap-2.5"
+                          >
+                            {notice.is_important && (
+                              <Pin size={13} className="shrink-0 text-destructive rotate-45" />
+                            )}
+                            <span
+                              className={cn(
+                                "text-[16px] leading-snug group-hover:text-foreground transition-colors duration-150 line-clamp-1",
+                                notice.is_important
+                                  ? "font-bold text-destructive"
+                                  : "font-medium text-foreground"
+                              )}
+                            >
+                              {notice.title}
+                            </span>
+                          </Link>
+                        </td>
+                        <td className="px-5 py-4 text-center">
+                          <span
+                            className={cn(
+                              "inline-flex items-center justify-center rounded-sm px-2.5 py-0.5 text-[13px] font-semibold",
+                              NOTICE_CATEGORY_STYLES[notice.category]
+                            )}
+                          >
+                            {NOTICE_CATEGORY_LABELS[notice.category]}
+                          </span>
+                        </td>
+                        <td className="px-5 py-4 text-right">
+                          <span className="text-[14px] text-muted-foreground tabular-nums">
+                            {formatDate(notice.created_at)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* 모바일: 리스트형 */}
+              <div className="md:hidden divide-y divide-border">
                 {items.map((notice) => (
                   <Link
                     key={notice.id}
@@ -186,7 +255,7 @@ export default function NoticePage() {
                       )}
                       <span
                         className={cn(
-                          "mt-0.5 shrink-0 rounded-sm px-2 py-0.5 text-[11px] font-semibold",
+                          "mt-0.5 shrink-0 rounded-sm px-2 py-0.5 text-[13px] font-semibold",
                           NOTICE_CATEGORY_STYLES[notice.category]
                         )}
                       >
@@ -194,7 +263,7 @@ export default function NoticePage() {
                       </span>
                       <div className="min-w-0">
                         <p className={cn(
-                          "text-[14px] leading-snug group-hover:text-primary transition-colors duration-150 line-clamp-1",
+                          "text-[16px] leading-snug line-clamp-1",
                           notice.is_important
                             ? "font-bold text-destructive"
                             : "font-medium text-foreground"
@@ -202,15 +271,13 @@ export default function NoticePage() {
                           {notice.title}
                         </p>
                         <div className="mt-1 flex items-center gap-3">
-                          <span className="text-[12px] text-muted-foreground tabular-nums">
+                          <span className="text-[14px] text-muted-foreground tabular-nums">
                             {formatDate(notice.created_at)}
                           </span>
-
-
                         </div>
                       </div>
                     </div>
-                    <ChevronRight size={14} className="mt-1 shrink-0 text-muted-foreground/50 group-hover:text-primary transition-colors duration-150" />
+                    <ChevronRight size={14} className="mt-1 shrink-0 text-muted-foreground/50 group-hover:text-foreground transition-colors duration-150" />
                   </Link>
                 ))}
               </div>

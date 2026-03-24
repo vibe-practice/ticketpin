@@ -10,7 +10,6 @@ import {
   Gift,
   RefreshCw,
   XCircle,
-  ChevronRight,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -173,79 +172,68 @@ export default function GuidePage() {
     <div className="min-h-screen bg-background">
       {/* 페이지 헤더 */}
       <div className="border-b border-border bg-card">
-        <div className="px-6 py-8 lg:px-12">
-          <h1 className="text-xl font-bold text-foreground">이용방법</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+        <div className="container-main py-8">
+          <h1 className="text-2xl font-bold text-foreground">이용방법</h1>
+          <p className="mt-1 text-[16px] text-muted-foreground">
             티켓핀 상품권 교환권 서비스 이용 절차를 안내합니다.
           </p>
         </div>
       </div>
 
-      <div className="px-6 py-8 lg:px-12">
-        <div className="max-w-3xl space-y-10">
+      <div className="container-main py-10">
+        <div className="space-y-12">
 
-          {/* 이용 절차 섹션 */}
+          {/* 이용 절차 섹션 — 가로 카드 그리드 */}
           <section>
-            <h2 className="mb-5 text-base font-semibold text-foreground">이용 절차</h2>
+            <h2 className="mb-6 text-xl font-semibold text-foreground">이용 절차</h2>
 
-            <div className="space-y-0">
-              {STEPS.map((step, idx) => {
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {STEPS.map((step) => {
                 const Icon = step.icon;
-                const isLast = idx === STEPS.length - 1;
-
                 return (
-                  <div key={step.number} className="flex gap-4">
-                    {/* 타임라인 축 */}
-                    <div className="flex flex-col items-center">
-                      {/* 스텝 원형 */}
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-primary-soft ring-2 ring-primary/20">
-                        <Icon size={18} className="text-primary" />
+                  <div
+                    key={step.number}
+                    className="group relative flex flex-col rounded-xl border border-border bg-card p-6 transition-shadow duration-200 hover:shadow-md"
+                  >
+                    {/* 스텝 번호 + 아이콘 */}
+                    <div className="mb-4 flex items-center gap-3">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-foreground text-background">
+                        <Icon size={20} />
                       </div>
-                      {/* 연결선 */}
-                      {!isLast && (
-                        <div className="mt-1 w-px flex-1 bg-border" style={{ minHeight: "32px" }} />
-                      )}
+                      <span className="text-[13px] font-semibold tracking-widest text-muted-foreground uppercase">
+                        Step {step.number}
+                      </span>
                     </div>
 
-                    {/* 콘텐츠 */}
-                    <div className={`flex-1 pb-8 ${isLast ? "pb-0" : ""}`}>
-                      <div className="flex flex-wrap items-center gap-2 mb-1">
-                        {/* 스텝 번호 */}
-                        <span className="text-[12px] font-semibold text-muted-foreground">
-                          STEP {step.number}
-                        </span>
-                        {/* 배지 */}
-                        {step.badge && step.badgeVariant && (
-                          <span
-                            className={`inline-flex items-center gap-1 rounded-sm px-2 py-0.5 text-[12px] font-semibold ${badgeStyles[step.badgeVariant]}`}
-                          >
-                            <AlertCircle size={10} />
-                            {step.badge}
+                    {/* 배지 */}
+                    {step.badge && step.badgeVariant && (
+                      <span
+                        className={`mb-3 inline-flex w-fit items-center gap-1 rounded-sm px-2 py-0.5 text-[13px] font-semibold ${badgeStyles[step.badgeVariant]}`}
+                      >
+                        <AlertCircle size={12} />
+                        {step.badge}
+                      </span>
+                    )}
+
+                    {/* 제목 + 설명 */}
+                    <h3 className="text-[18px] font-bold text-foreground leading-tight">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">
+                      {step.description}
+                    </p>
+
+                    {/* 세부 안내 */}
+                    <ul className="mt-4 space-y-2 border-t border-border pt-4">
+                      {step.details.map((detail, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/50" />
+                          <span className="text-[14px] text-muted-foreground leading-relaxed">
+                            {detail}
                           </span>
-                        )}
-                      </div>
-                      <h3 className="text-[15px] font-semibold text-foreground leading-tight">
-                        {step.title}
-                      </h3>
-                      <p className="mt-0.5 text-sm text-muted-foreground">
-                        {step.description}
-                      </p>
-
-                      {/* 세부 안내 */}
-                      <ul className="mt-3 space-y-1.5 rounded-xl border border-border bg-card p-4">
-                        {step.details.map((detail, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <ChevronRight
-                              size={13}
-                              className="mt-[3px] shrink-0 text-primary"
-                            />
-                            <span className="text-[13px] text-muted-foreground leading-relaxed">
-                              {detail}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 );
               })}
@@ -254,23 +242,23 @@ export default function GuidePage() {
 
           {/* 추가 안내 섹션 */}
           <section>
-            <h2 className="mb-4 text-base font-semibold text-foreground">추가 안내</h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <h2 className="mb-6 text-xl font-semibold text-foreground">추가 안내</h2>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {NOTICES.map((notice) => {
                 const Icon = notice.icon;
                 const style = noticeStyles[notice.variant];
                 return (
                   <div
                     key={notice.title}
-                    className={`rounded-xl border p-4 ${style.container}`}
+                    className={`rounded-xl border p-5 ${style.container}`}
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <Icon size={15} className={style.icon} />
-                      <span className={`text-[13px] font-semibold ${style.title}`}>
+                    <div className="flex items-center gap-2.5 mb-3">
+                      <Icon size={18} className={style.icon} />
+                      <span className={`text-[16px] font-semibold ${style.title}`}>
                         {notice.title}
                       </span>
                     </div>
-                    <p className="text-[13px] text-muted-foreground leading-relaxed">
+                    <p className="text-[15px] text-muted-foreground leading-relaxed">
                       {notice.desc}
                     </p>
                   </div>

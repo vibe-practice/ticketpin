@@ -61,7 +61,7 @@ export default function PhishingWarning({ voucherCode, onConfirm }: PhishingWarn
           <h1 className="mt-4 text-xl font-bold text-foreground">
             보이스피싱 주의
           </h1>
-          <p className="mt-1.5 text-center text-sm leading-relaxed text-muted-foreground">
+          <p className="mt-1.5 text-center text-[15px] leading-relaxed text-muted-foreground">
             상품권을 이용한 사기 피해가 증가하고 있습니다.
             <br />
             아래 내용을 반드시 확인해주세요.
@@ -87,10 +87,10 @@ export default function PhishingWarning({ voucherCode, onConfirm }: PhishingWarn
                     <Icon size={18} className={fraud.color} />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <h3 className="text-sm font-bold text-foreground">
+                    <h3 className="text-[15px] font-bold text-foreground">
                       {fraud.title}
                     </h3>
-                    <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
+                    <p className="mt-1 text-[14px] leading-relaxed text-muted-foreground">
                       {fraud.description}
                     </p>
                   </div>
@@ -109,7 +109,7 @@ export default function PhishingWarning({ voucherCode, onConfirm }: PhishingWarn
               onChange={(e) => setIsChecked(e.target.checked)}
               className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-primary"
             />
-            <span className="text-sm leading-snug text-foreground">
+            <span className="text-[15px] leading-snug text-foreground">
               위 내용을 확인하였으며,{" "}
               <strong className="text-error">타인의 요청에 의한 구매가 아닙니다.</strong>
             </span>
@@ -119,7 +119,7 @@ export default function PhishingWarning({ voucherCode, onConfirm }: PhishingWarn
             onClick={handleConfirm}
             disabled={!isChecked}
             className={cn(
-              "mt-3 h-14 w-full rounded-xl text-sm font-bold transition-all",
+              "mt-3 h-14 w-full rounded-xl text-[15px] font-bold transition-all",
               isChecked
                 ? "bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.98]"
                 : "cursor-not-allowed bg-muted text-muted-foreground"
@@ -130,7 +130,7 @@ export default function PhishingWarning({ voucherCode, onConfirm }: PhishingWarn
         </div>
 
         {/* 하단 안내 */}
-        <p className="mt-4 text-center text-[13px] leading-relaxed text-muted-foreground">
+        <p className="mt-4 text-center text-[14px] leading-relaxed text-muted-foreground">
           피해가 의심되면 경찰청(112) 또는 금융감독원(1332)에 신고하세요.
         </p>
       </div>

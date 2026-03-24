@@ -30,53 +30,54 @@ export default async function VoucherLockedPage({ params }: PageProps) {
   }
 
   return (
-    <div className="w-full max-w-sm">
+    <div className="w-full">
+      {/* 헤딩 */}
+      <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-2">
+        입력이 잠겼어요
+      </h1>
+      <p className="text-[16px] text-muted-foreground mb-6">
+        고객센터에 문의해주세요.
+      </p>
+
       <ProductInfoCard voucher={voucher} />
 
       {/* 잠금 안내 카드 */}
-      <div className="mt-4 rounded-xl border border-error/20 bg-error-bg p-5 text-center">
-        <div className="mb-3 flex justify-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-error/10">
-            <Lock size={22} className="text-error" />
-          </div>
+      <div className="mt-5 rounded-xl border border-error/20 bg-error-bg p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <Lock size={18} className="text-error" />
+          <span className="text-[16px] font-bold text-error">잠금 안내</span>
         </div>
-        <h3 className="mb-1.5 text-base font-bold text-error">
-          입력이 잠겼습니다
-        </h3>
-        <p className="text-sm text-foreground/70">
-          고객센터에 문의해주세요.
-        </p>
-        <a
-          href="tel:1811-0689"
-          className="mt-2 inline-block text-lg font-bold text-primary"
-        >
-          1811-0689
-        </a>
-        <div className="mt-3 rounded-lg bg-error/5 px-4 py-2.5 text-left text-sm space-y-1.5">
+        <div className="space-y-1.5 text-[15px]">
           <p className="text-muted-foreground">
             주문번호:{" "}
-            <span className="font-semibold text-foreground">
+            <strong className="text-foreground">
               {voucher.order.order_number}
-            </span>
+            </strong>
           </p>
           <p className="text-muted-foreground">
             주문번호와 함께 고객센터에 문의해주세요.
           </p>
         </div>
+        <a
+          href="tel:1811-0689"
+          className="mt-3 inline-block text-[18px] font-bold text-foreground hover:underline"
+        >
+          1811-0689
+        </a>
       </div>
 
       {/* 하단 액션 버튼 */}
-      <div className="mt-4 space-y-2">
+      <div className="mt-5 space-y-2">
         <Link
           href="/"
-          className="flex h-11 w-full items-center justify-center gap-1.5 rounded-xl border border-border bg-card text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
+          className="flex h-12 w-full items-center justify-center gap-1.5 rounded-xl border border-border bg-card text-[15px] font-medium text-muted-foreground hover:bg-muted transition-colors"
         >
           <Home size={15} />
           홈으로 이동
         </Link>
         <a
           href="tel:1811-0689"
-          className="flex h-11 w-full items-center justify-center gap-1.5 rounded-xl border border-border bg-card text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
+          className="flex h-12 w-full items-center justify-center gap-1.5 rounded-xl border border-border bg-card text-[15px] font-medium text-muted-foreground hover:bg-muted transition-colors"
         >
           <Headset size={15} />
           고객센터 전화 (1811-0689)

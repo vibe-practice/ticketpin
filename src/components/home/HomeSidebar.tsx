@@ -1,11 +1,40 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Phone, Clock, MessageSquare, HelpCircle, Bell, BookOpen, LogIn } from "lucide-react";
+import { Phone, Clock, HelpCircle, Bell, BookOpen, LogIn } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
+
+interface SideBannerItem {
+  id: string;
+  image_url: string;
+  link_url: string;
+  alt_text: string;
+}
+
+const FALLBACK_BANNERS: SideBannerItem[] = [
+  { id: "f1", image_url: "https://placehold.co/280x160/f5f5f5/a3a3a3?text=Event+Banner+1", link_url: "/category", alt_text: "이벤트 배너 1" },
+  { id: "f2", image_url: "https://placehold.co/280x160/e5e5e5/737373?text=Event+Banner+2", link_url: "/category", alt_text: "이벤트 배너 2" },
+];
 
 export function HomeSidebar() {
   const { user } = useAuthStore();
+  const [sideBanners, setSideBanners] = useState<SideBannerItem[]>(FALLBACK_BANNERS);
+
+  useEffect(() => {
+    async function fetchSideBanners() {
+      try {
+        const res = await fetch("/api/side-banners");
+        const json = await res.json();
+        if (json.success && json.data?.length > 0) {
+          setSideBanners(json.data);
+        }
+      } catch {
+        // fallback 유지
+      }
+    }
+    fetchSideBanners();
+  }, []);
 
   return (
     <aside className="flex flex-col gap-4 w-full">
@@ -70,25 +99,17 @@ export function HomeSidebar() {
         )}
       </div>
 
-      {/* ── 프로모션 배너 1 ── */}
-      <Link href="/category" className="block overflow-hidden rounded-xl border border-neutral-200 group">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://placehold.co/280x160/f5f5f5/a3a3a3?text=Event+Banner+1"
-          alt="이벤트 배너 1"
-          className="w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-        />
-      </Link>
-
-      {/* ── 프로모션 배너 2 ── */}
-      <Link href="/category" className="block overflow-hidden rounded-xl border border-neutral-200 group">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://placehold.co/280x160/e5e5e5/737373?text=Event+Banner+2"
-          alt="이벤트 배너 2"
-          className="w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-        />
-      </Link>
+      {/* ── 사이드 배너 (API 연동) ── */}
+      {sideBanners.map((banner) => (
+        <Link key={banner.id} href={banner.link_url || "/"} className="block overflow-hidden rounded-xl border border-neutral-200 group">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={banner.image_url}
+            alt={banner.alt_text || "배너"}
+            className="w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          />
+        </Link>
+      ))}
 
       {/* ── 고객센터 ── */}
       <div className="rounded-xl border border-neutral-200 bg-white p-5">
@@ -134,13 +155,6 @@ export function HomeSidebar() {
           >
             <HelpCircle size={14} strokeWidth={2} />
             FAQ
-          </Link>
-          <Link
-            href="/support/faq"
-            className="flex items-center justify-center gap-1 rounded-lg border border-neutral-200 py-2 text-[14px] font-medium text-secondary-foreground transition hover:bg-neutral-50 hover:text-foreground"
-          >
-            <MessageSquare size={14} strokeWidth={2} />
-            1:1 문의
           </Link>
         </div>
       </div>

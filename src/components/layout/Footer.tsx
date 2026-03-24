@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, Clock, MessageSquare } from "lucide-react";
+import { Phone, Clock } from "lucide-react";
 
 const FOOTER_LINK_GROUPS = [
   {
@@ -71,13 +71,6 @@ export function Footer() {
                 <span className="text-muted-foreground">(점심 12:00 ~ 13:00)</span>
               </p>
             </div>
-            <Link
-              href="/support/faq"
-              className="mt-3 inline-flex items-center gap-1.5 rounded-md border border-neutral-300 bg-white px-3 py-1.5 text-[14px] font-semibold text-secondary-foreground transition-all hover:border-neutral-400 hover:text-foreground"
-            >
-              <MessageSquare size={14} strokeWidth={2} />
-              1:1 문의
-            </Link>
           </div>
         </div>
 

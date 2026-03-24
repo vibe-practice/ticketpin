@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import {
   AlertCircle,
   AlertTriangle,
-  ArrowLeft,
   Gift,
   Search,
   User,
@@ -22,6 +21,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import ProductInfoCard from "./ProductInfoCard";
+import VoucherProgressBar from "./VoucherProgressBar";
 import { useBfcacheReload } from "@/hooks/useBfcacheReload";
 import type { VoucherWithDetails } from "@/types";
 
@@ -156,44 +156,38 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
 
   // ── 선물하기 폼 화면 ──────────────────────────────
   return (
-    <div className="w-full max-w-sm">
-      {/* 뒤로가기 */}
-      <button
-        onClick={() => router.replace(`/v/${voucher.code}/actions`)}
-        className="mb-3 flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft size={16} />
-        돌아가기
-      </button>
+    <div className="w-full">
+      {/* 프로세스 바 */}
+      <VoucherProgressBar currentStep={4} />
 
-      {/* 선물하기 헤더 */}
-      <div className="mb-4 flex items-center gap-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-          <Gift size={16} className="text-primary" />
-        </div>
-        <h1 className="text-base font-bold text-foreground">선물하기</h1>
-      </div>
+      {/* 큰 헤딩 */}
+      <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-2">
+        누구에게 선물할까요?
+      </h1>
+      <p className="text-[16px] text-muted-foreground mb-6">
+        검색하여 받는 사람을 선택해주세요.
+      </p>
 
       {/* 상품 정보 카드 */}
       <ProductInfoCard voucher={voucher} />
 
       {/* 수신자 검색 섹션 */}
-      <div className="mt-4 rounded-xl border border-border bg-card p-5">
-        <p className="mb-3 text-sm font-semibold text-foreground">수신자 검색</p>
+      <div className="mt-5 rounded-xl border border-border bg-card p-5">
+        <p className="mb-3 text-[15px] font-semibold text-foreground">수신자 검색</p>
 
         {/* 선택된 수신자가 있는 경우 */}
         {selectedUser ? (
-          <div className="rounded-lg border border-primary/30 bg-brand-primary-muted p-3.5">
+          <div className="rounded-lg border border-border bg-muted/30 p-3.5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/20">
-                  <User size={16} className="text-primary" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted">
+                  <User size={16} className="text-muted-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-foreground">
+                  <p className="text-[15px] font-semibold text-foreground">
                     {selectedUser.username}
                   </p>
-                  <p className="text-[13px] text-muted-foreground">
+                  <p className="text-[14px] text-muted-foreground">
                     {selectedUser.name}
                   </p>
                 </div>
@@ -206,7 +200,7 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
                 <X size={13} className="text-muted-foreground" />
               </button>
             </div>
-            <p className="mt-2 text-[13px] text-primary/70">
+            <p className="mt-2 text-[14px] text-muted-foreground">
               이 회원에게 선물을 전송합니다. 변경하려면 X를 누르세요.
             </p>
           </div>
@@ -235,7 +229,7 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
                   if (searchQuery.trim()) searchUsers(searchQuery);
                 }}
                 placeholder="아이디를 입력하세요 (2자 이상)"
-                className="h-11 w-full rounded-lg border border-border bg-background pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/30 transition-all"
+                className="h-11 w-full rounded-lg border border-border bg-background pl-9 pr-3 text-[15px] text-foreground placeholder:text-muted-foreground focus:border-foreground focus:outline-none focus:ring-1 focus:ring-foreground/20 transition-all"
               />
             </div>
 
@@ -243,7 +237,7 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
             {selfGiftError && (
               <div className="mt-2 flex items-center gap-1.5 rounded-lg bg-error-bg px-3 py-2">
                 <AlertCircle size={13} className="shrink-0 text-error" />
-                <p className="text-sm leading-snug text-error">
+                <p className="text-[15px] leading-snug text-error">
                   자기 자신에게는 선물할 수 없습니다.
                 </p>
               </div>
@@ -254,14 +248,14 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
               <div className="mt-2">
                 {isSearching ? (
                   <div className="rounded-lg border border-border bg-muted/30 px-4 py-3 text-center">
-                    <p className="text-sm text-muted-foreground">검색 중...</p>
+                    <p className="text-[15px] text-muted-foreground">검색 중...</p>
                   </div>
                 ) : searchResults.length === 0 ? (
                   <div className="rounded-lg border border-border bg-muted/30 px-4 py-3 text-center">
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-[15px] text-muted-foreground">
                       검색 결과가 없습니다.
                     </p>
-                    <p className="mt-0.5 text-[13px] text-muted-foreground">
+                    <p className="mt-0.5 text-[14px] text-muted-foreground">
                       아이디를 정확히 입력해주세요.
                     </p>
                   </div>
@@ -275,7 +269,7 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
                         onMouseDown={() => { isInteractingRef.current = true; }}
                         onClick={() => { isInteractingRef.current = false; handleSelectUser(user); }}
                         className={cn(
-                          "flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-brand-primary-muted",
+                          "flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-muted",
                           idx !== 0 && "border-t border-border"
                         )}
                       >
@@ -283,10 +277,10 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
                           <User size={14} className="text-muted-foreground" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-sm font-medium text-foreground">
+                          <p className="text-[15px] font-medium text-foreground">
                             {user.username}
                           </p>
-                          <p className="text-[13px] text-muted-foreground">
+                          <p className="text-[14px] text-muted-foreground">
                             {user.name}
                           </p>
                         </div>
@@ -307,8 +301,8 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
             <AlertTriangle size={14} className="text-error" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-error">주의사항</p>
-            <p className="mt-1 text-[13px] text-foreground/70 leading-relaxed">
+            <p className="text-[15px] font-semibold text-error">주의사항</p>
+            <p className="mt-1 text-[14px] text-foreground/70 leading-relaxed">
               선물 전송 후에는{" "}
               <strong className="text-error">결제 취소가 불가합니다.</strong>
               <br />
@@ -322,19 +316,19 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
       {sendError && (
         <div className="mt-4 flex items-start gap-1.5 rounded-lg bg-error-bg px-3 py-2">
           <AlertCircle size={13} className="mt-0.5 shrink-0 text-error" />
-          <p className="text-sm leading-snug text-error">{sendError}</p>
+          <p className="text-[15px] leading-snug text-error">{sendError}</p>
         </div>
       )}
 
       {/* 선물하기 버튼 */}
-      <div className="mt-4 space-y-2">
+      <div className="mt-5 space-y-2">
         <button
           onClick={handleGiftRequest}
           disabled={!canSubmit}
           className={cn(
-            "flex h-14 w-full items-center justify-center gap-2 rounded-xl text-sm font-bold transition-all",
+            "flex h-14 w-full items-center justify-center gap-2 rounded-xl text-[16px] font-bold transition-all",
             canSubmit
-              ? "bg-primary text-primary-foreground hover:bg-brand-primary-dark active:scale-[0.98]"
+              ? "bg-foreground text-background hover:bg-foreground/80 active:scale-[0.98]"
               : "cursor-not-allowed bg-muted text-muted-foreground"
           )}
         >
@@ -343,7 +337,7 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
         </button>
         <button
           onClick={() => router.replace("/")}
-          className="flex h-11 w-full items-center justify-center rounded-xl border border-border bg-card text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
+          className="flex h-12 w-full items-center justify-center rounded-xl border border-border bg-card text-[15px] font-medium text-muted-foreground hover:bg-muted transition-colors"
         >
           홈으로 이동
         </button>
@@ -366,10 +360,10 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
                 </div>
               </div>
             </div>
-            <DialogTitle className="text-center text-base">
+            <DialogTitle className="text-center text-[16px]">
               정말 선물하시겠습니까?
             </DialogTitle>
-            <DialogDescription className="text-center text-[13px] leading-relaxed">
+            <DialogDescription className="text-center text-[14px] leading-relaxed">
               선물 전송 후에는 선물 취소 및 결제 취소가 불가합니다.
               <br />
               수신자에게 새로운 URL이 발급되며,
@@ -380,7 +374,7 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
 
           {/* 수신자 정보 요약 */}
           {selectedUser && (
-            <div className="my-1 rounded-lg bg-muted/50 px-4 py-3 text-sm">
+            <div className="my-1 rounded-lg bg-muted/50 px-4 py-3 text-[15px]">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">수신자</span>
                 <span className="font-semibold text-foreground">
@@ -389,7 +383,7 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
               </div>
               <div className="mt-1.5 flex items-center justify-between">
                 <span className="text-muted-foreground">상품</span>
-                <span className="max-w-[60%] truncate text-right font-medium text-foreground text-[13px]">
+                <span className="max-w-[60%] truncate text-right font-medium text-foreground text-[14px]">
                   {voucher.product?.name ?? "(삭제된 상품)"}
                 </span>
               </div>
@@ -401,10 +395,10 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
               onClick={handleConfirmGift}
               disabled={isSending}
               className={cn(
-                "flex h-12 w-full items-center justify-center gap-2 rounded-xl text-sm font-bold transition-all",
+                "flex h-12 w-full items-center justify-center gap-2 rounded-xl text-[15px] font-bold transition-all",
                 isSending
-                  ? "cursor-not-allowed bg-primary/70 text-white"
-                  : "bg-primary text-primary-foreground hover:bg-brand-primary-dark active:scale-[0.98]"
+                  ? "cursor-not-allowed bg-foreground/70 text-background"
+                  : "bg-foreground text-background hover:bg-foreground/80 active:scale-[0.98]"
               )}
             >
               {isSending ? (
@@ -422,7 +416,7 @@ export default function VoucherGift({ voucher, currentUserId }: VoucherGiftProps
             <button
               onClick={() => setShowConfirmDialog(false)}
               disabled={isSending}
-              className="flex h-12 w-full items-center justify-center rounded-xl border border-border bg-card text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
+              className="flex h-12 w-full items-center justify-center rounded-xl border border-border bg-card text-[15px] font-medium text-muted-foreground hover:bg-muted transition-colors"
             >
               돌아가기
             </button>

@@ -75,47 +75,68 @@ export default function RefundPolicyPage() {
   return (
     <div className="flex flex-1 flex-col bg-background">
       <div className="border-b border-border bg-card">
-        <div className="px-6 py-8 lg:px-12">
-          <h1 className="text-xl font-bold text-foreground">환불/취소 정책</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+        <div className="container-main py-8">
+          <h1 className="text-2xl font-bold text-foreground">환불/취소 정책</h1>
+          <p className="mt-1 text-[16px] text-muted-foreground">
             시행일: 2026년 3월 1일
           </p>
         </div>
       </div>
 
-      <div className="px-6 py-8 lg:px-12">
-        <div className="max-w-3xl space-y-6">
+      <div className="container-main py-8">
+        <div className="max-w-3xl space-y-0">
+
           {/* 핵심 안내 배너 */}
-          <div className="flex items-start gap-3 rounded-xl border border-warning/30 bg-warning-bg px-5 py-4">
+          <div className="mb-8 flex items-start gap-3 rounded-xl border border-warning/30 bg-warning-bg px-5 py-5">
             <AlertCircle
-              size={18}
+              size={20}
               className="mt-0.5 shrink-0 text-warning"
               strokeWidth={2}
             />
             <div>
-              <p className="text-[14px] font-semibold text-foreground">
+              <p className="text-[16px] font-semibold text-foreground">
                 핀 번호가 조회된 교환권은 환불이 불가합니다.
               </p>
-              <p className="mt-0.5 text-[13px] text-muted-foreground">
+              <p className="mt-1 text-[15px] text-muted-foreground">
                 교환권 구매 전 상품 정보를 충분히 확인해 주세요.
               </p>
             </div>
           </div>
 
-          <div className="rounded-xl border border-border bg-card overflow-hidden">
-            <div className="divide-y divide-border">
+          {/* 목차 (TOC) */}
+          <nav
+            aria-label="목차"
+            className="mb-8 rounded-xl border border-border bg-card p-6"
+          >
+            <h2 className="mb-4 text-[16px] font-semibold text-foreground">목차</h2>
+            <ol className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">
               {SECTIONS.map((section, i) => (
-                <div key={i} className="px-6 py-5">
-                  <h2 className="text-[15px] font-semibold text-foreground">
+                <li key={i}>
+                  <a
+                    href={`#section-${i}`}
+                    className="text-[15px] text-muted-foreground hover:text-foreground hover:underline underline-offset-2 transition-colors duration-150"
+                  >
                     {section.title}
-                  </h2>
-                  <p className="mt-2 whitespace-pre-line text-[14px] leading-relaxed text-muted-foreground">
-                    {section.content}
-                  </p>
-                </div>
+                  </a>
+                </li>
               ))}
-            </div>
+            </ol>
+          </nav>
+
+          {/* 섹션 목록 — border-b로 구분 */}
+          <div className="divide-y divide-border border-t border-border">
+            {SECTIONS.map((section, i) => (
+              <div key={i} id={`section-${i}`} className="py-7 scroll-mt-20">
+                <h2 className="text-[18px] font-semibold text-foreground">
+                  {section.title}
+                </h2>
+                <p className="mt-3 whitespace-pre-line text-[16px] leading-relaxed text-muted-foreground">
+                  {section.content}
+                </p>
+              </div>
+            ))}
           </div>
+
         </div>
       </div>
     </div>

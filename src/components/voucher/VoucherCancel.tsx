@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   AlertCircle,
   AlertTriangle,
-  ArrowLeft,
   CheckCircle2,
   XCircle,
   CreditCard,
@@ -39,7 +37,6 @@ const REASON_OPTIONS: { value: CancellationReasonType; label: string }[] = [
 ];
 
 export default function VoucherCancel({ voucher }: VoucherCancelProps) {
-  const router = useRouter();
   const [step, setStep] = useState<CancelStep>("form");
   const [reason, setReason] = useState<CancellationReasonType | "">("");
   const [reasonDetail, setReasonDetail] = useState("");
@@ -92,7 +89,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
   // ── 취소 완료 화면 ──────────────────────────────
   if (step === "complete") {
     return (
-      <div className="w-full max-w-sm">
+      <div className="w-full">
         <div className="rounded-xl border border-border bg-card p-6 text-center">
           <div className="mb-4 flex justify-center">
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-success-bg">
@@ -102,7 +99,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
           <h2 className="mb-2 text-lg font-bold text-foreground">
             결제가 취소되었습니다
           </h2>
-          <p className="mb-5 text-sm text-muted-foreground leading-relaxed">
+          <p className="mb-5 text-[15px] text-muted-foreground leading-relaxed">
             환불은 결제 수단에 따라 즉시 또는
             <br />
             영업일 기준 <strong className="text-foreground">3~5일 이내</strong>에
@@ -110,7 +107,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
           </p>
 
           {/* 취소 요약 */}
-          <div className="mb-5 rounded-lg bg-muted/50 px-4 py-3 text-left text-sm">
+          <div className="mb-5 rounded-lg bg-muted/50 px-4 py-3 text-left text-[15px]">
             <div className="flex items-center justify-between">
               <span className="text-muted-foreground">주문번호</span>
               <span className="font-semibold text-foreground">
@@ -125,7 +122,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
             </div>
             <div className="mt-2 flex items-center justify-between">
               <span className="text-muted-foreground">환불 금액</span>
-              <span className="font-bold text-primary">
+              <span className="font-bold text-foreground">
                 {formatPrice(refundAmount)}
               </span>
             </div>
@@ -133,7 +130,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
 
           <Link
             href="/"
-            className="flex h-14 w-full items-center justify-center rounded-xl bg-primary text-sm font-bold text-primary-foreground transition-all hover:bg-brand-primary-dark active:scale-[0.98]"
+            className="flex h-14 w-full items-center justify-center rounded-xl bg-foreground text-[15px] font-bold text-background transition-all hover:bg-foreground/80 active:scale-[0.98]"
           >
             홈으로 이동
           </Link>
@@ -144,21 +141,14 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
 
   // ── 취소 폼 화면 ──────────────────────────────
   return (
-    <div className="w-full max-w-sm">
-      {/* 뒤로가기 */}
-      <button
-        onClick={() => {
-          if (window.history.length > 1) {
-            router.back();
-          } else {
-            router.push(`/v/${voucher.code}`);
-          }
-        }}
-        className="mb-3 flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-      >
-        <ArrowLeft size={16} />
-        돌아가기
-      </button>
+    <div className="w-full">
+      {/* 헤딩 */}
+      <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-2">
+        결제를 취소하시겠어요?
+      </h1>
+      <p className="text-[16px] text-muted-foreground mb-6">
+        아래 내용을 확인하고 취소 사유를 선택해주세요.
+      </p>
 
       {/* 취소 안내 Alert */}
       <div className="rounded-xl border border-error/30 bg-error-bg p-4">
@@ -167,8 +157,8 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
             <AlertTriangle size={14} className="text-error" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-error">결제 취소 안내</p>
-            <p className="mt-1 text-[13px] text-foreground/70 leading-relaxed">
+            <p className="text-[15px] font-semibold text-error">결제 취소 안내</p>
+            <p className="mt-1 text-[14px] text-foreground/70 leading-relaxed">
               결제를 취소하면 상품권이 회수되며 환불 처리됩니다.
               <br />
               취소 후에는 <strong className="text-error">복구할 수 없습니다.</strong>
@@ -178,13 +168,13 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
       </div>
 
       {/* 취소 대상 정보 Card */}
-      <div className="mt-4">
+      <div className="mt-4 mb-4">
         <ProductInfoCard voucher={voucher} />
       </div>
 
       {/* 취소 사유 선택 */}
       <div className="mt-4 rounded-xl border border-border bg-card p-5">
-        <p className="mb-3 text-sm font-semibold text-foreground">
+        <p className="mb-3 text-[15px] font-semibold text-foreground">
           취소 사유를 선택해주세요
         </p>
         <RadioGroup
@@ -202,7 +192,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
               )}
             >
               <RadioGroupItem value={opt.value} />
-              <span className="text-sm text-foreground">{opt.label}</span>
+              <span className="text-[15px] text-foreground">{opt.label}</span>
             </label>
           ))}
         </RadioGroup>
@@ -214,10 +204,10 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
               value={reasonDetail}
               onChange={(e) => setReasonDetail(e.target.value)}
               placeholder="취소 사유를 입력해주세요"
-              className="min-h-[80px] resize-none text-sm"
+              className="min-h-[80px] resize-none text-[15px]"
               maxLength={200}
             />
-            <p className="mt-1 text-right text-[13px] text-muted-foreground">
+            <p className="mt-1 text-right text-[14px] text-muted-foreground">
               {reasonDetail.length}/200
             </p>
           </div>
@@ -226,11 +216,11 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
 
       {/* 환불 안내 */}
       <div className="mt-4 rounded-xl border border-border bg-card p-4">
-        <p className="mb-3 text-sm font-semibold text-foreground">환불 안내</p>
+        <p className="mb-3 text-[15px] font-semibold text-foreground">환불 안내</p>
         <div className="space-y-2.5">
           <div className="flex items-start gap-2.5">
             <CreditCard size={14} className="mt-0.5 shrink-0 text-muted-foreground" />
-            <div className="text-[13px] text-muted-foreground leading-relaxed">
+            <div className="text-[14px] text-muted-foreground leading-relaxed">
               <p>
                 환불 금액:{" "}
                 <strong className="text-foreground">
@@ -251,7 +241,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
           </div>
           <div className="flex items-start gap-2.5">
             <Clock size={14} className="mt-0.5 shrink-0 text-muted-foreground" />
-            <p className="text-[13px] text-muted-foreground leading-relaxed">
+            <p className="text-[14px] text-muted-foreground leading-relaxed">
               결제 수단에 따라 즉시 또는 영업일 기준{" "}
               <strong className="text-foreground">3~5일 이내</strong> 환불
             </p>
@@ -263,7 +253,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
       {errorMessage && (
         <div className="mt-4 flex items-start gap-1.5 rounded-lg bg-error-bg px-3 py-2">
           <AlertCircle size={13} className="mt-0.5 shrink-0 text-error" />
-          <p className="text-sm leading-snug text-error">{errorMessage}</p>
+          <p className="text-[15px] leading-snug text-error">{errorMessage}</p>
         </div>
       )}
 
@@ -273,7 +263,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
           onClick={handleCancelRequest}
           disabled={!canSubmit}
           className={cn(
-            "flex h-14 w-full items-center justify-center gap-2 rounded-xl text-sm font-bold transition-all",
+            "flex h-14 w-full items-center justify-center gap-2 rounded-xl text-[15px] font-bold transition-all",
             canSubmit
               ? "bg-error text-white hover:bg-error/90 active:scale-[0.98]"
               : "cursor-not-allowed bg-muted text-muted-foreground"
@@ -293,10 +283,10 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
                 <AlertTriangle size={22} className="text-error" />
               </div>
             </div>
-            <DialogTitle className="text-center text-base">
+            <DialogTitle className="text-center text-[16px]">
               정말 결제를 취소하시겠습니까?
             </DialogTitle>
-            <DialogDescription className="text-center text-[13px] leading-relaxed">
+            <DialogDescription className="text-center text-[14px] leading-relaxed">
               취소 후에는 복구할 수 없으며,
               <br />
               상품권이 회수됩니다.
@@ -307,7 +297,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
               onClick={handleConfirmCancel}
               disabled={isCancelling}
               className={cn(
-                "flex h-12 w-full items-center justify-center rounded-xl text-sm font-bold transition-all",
+                "flex h-12 w-full items-center justify-center rounded-xl text-[15px] font-bold transition-all",
                 isCancelling
                   ? "cursor-not-allowed bg-error/70 text-white"
                   : "bg-error text-white hover:bg-error/90 active:scale-[0.98]"
@@ -325,7 +315,7 @@ export default function VoucherCancel({ voucher }: VoucherCancelProps) {
             <button
               onClick={() => setShowConfirmDialog(false)}
               disabled={isCancelling}
-              className="flex h-12 w-full items-center justify-center rounded-xl border border-border bg-card text-sm font-medium text-muted-foreground hover:bg-muted transition-colors"
+              className="flex h-12 w-full items-center justify-center rounded-xl border border-border bg-card text-[15px] font-medium text-muted-foreground hover:bg-muted transition-colors"
             >
               돌아가기
             </button>

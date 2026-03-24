@@ -17,7 +17,7 @@ export async function GET() {
 
     const { data, error } = await adminClient
       .from("categories")
-      .select("id, name, subtitle, slug, icon, is_visible, sort_order, created_at")
+      .select("id, name, subtitle, slug, icon, image_url, is_visible, sort_order, created_at")
       .order("sort_order", { ascending: true });
 
     if (error) {
@@ -49,6 +49,7 @@ export async function GET() {
       subtitle: (raw.subtitle as string) ?? "",
       slug: raw.slug as string,
       icon: (raw.icon as string) ?? "Tag",
+      image_url: (raw.image_url as string) ?? null,
       is_visible: raw.is_visible as boolean,
       sort_order: raw.sort_order as number,
       created_at: raw.created_at as string,
@@ -153,7 +154,7 @@ export async function POST(request: NextRequest) {
         is_visible: is_visible ?? true,
         sort_order: finalSortOrder,
       })
-      .select("id, name, subtitle, slug, icon, is_visible, sort_order, created_at")
+      .select("id, name, subtitle, slug, icon, image_url, is_visible, sort_order, created_at")
       .single();
 
     if (insertError || !newCategory) {
@@ -188,6 +189,7 @@ export async function POST(request: NextRequest) {
       subtitle: (newCategory.subtitle as string) ?? "",
       slug: newCategory.slug as string,
       icon: (newCategory.icon as string) ?? "Tag",
+      image_url: (newCategory.image_url as string) ?? null,
       is_visible: newCategory.is_visible as boolean,
       sort_order: newCategory.sort_order as number,
       created_at: newCategory.created_at as string,

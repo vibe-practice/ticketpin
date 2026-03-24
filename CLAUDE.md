@@ -73,6 +73,12 @@ src/
 - 더미 데이터는 `src/mock/`에 위치, 실제 타입과 동일한 인터페이스 사용
 - API 연동은 Phase 후반부(P1-017~P1-020 등)에서 진행
 
+### 레이아웃 원칙
+
+- **모든 페이지의 콘텐츠 컨테이너는 `container-main` 클래스(`max-w-[1440px]`)로 통일한다.** `max-w-[1200px]` 등 임의의 max-width를 사용하지 않는다.
+- `container-main`은 `src/app/globals.css`에 정의: `mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8 xl:px-12`
+- **사용자 모니터 해상도가 2560x1440이므로, 텍스트 크기를 넉넉하게 설정한다.** 본문 텍스트는 최소 16px 이상, 라벨/보조 텍스트는 최소 14px 이상으로 한다. `text-[11px]`, `text-[12px]`, `text-[13px]` 같은 작은 텍스트는 지양한다.
+
 ### 컴포넌트 패턴
 
 - 폼: React Hook Form + Zod resolver 사용 (`useForm`, `zodResolver`)

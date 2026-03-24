@@ -34,6 +34,7 @@ import {
   AlertDialogMedia,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { ImageUploadField } from "@/components/admin/banners/ImageUploadField";
 import type { Category } from "@/types";
 
 interface CategoryWithCount extends Category {
@@ -45,6 +46,7 @@ interface CategoryFormData {
   subtitle: string;
   slug: string;
   icon: string;
+  image_url: string;
   is_visible: boolean;
 }
 
@@ -53,6 +55,7 @@ const INITIAL_FORM: CategoryFormData = {
   subtitle: "",
   slug: "",
   icon: "Tag",
+  image_url: "",
   is_visible: true,
 };
 
@@ -113,6 +116,7 @@ export function AdminCategoriesClient() {
       subtitle: cat.subtitle || "",
       slug: cat.slug,
       icon: cat.icon,
+      image_url: cat.image_url || "",
       is_visible: cat.is_visible,
     });
     setFormErrors({});
@@ -142,6 +146,7 @@ export function AdminCategoriesClient() {
         name: form.name.trim(),
         subtitle: form.subtitle.trim(),
         icon: form.icon.trim() || "Tag",
+        image_url: form.image_url || null,
         is_visible: form.is_visible,
       };
 
@@ -282,6 +287,7 @@ export function AdminCategoriesClient() {
           <thead>
             <tr className="border-b border-border bg-muted/30">
               <th className="px-4 py-3 text-left font-medium text-muted-foreground w-10">#</th>
+              <th className="px-4 py-3 text-left font-medium text-muted-foreground w-16">이미지</th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">이름</th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">서브타이틀</th>
               <th className="px-4 py-3 text-left font-medium text-muted-foreground">슬러그</th>
@@ -293,13 +299,13 @@ export function AdminCategoriesClient() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">
+                <td colSpan={8} className="px-4 py-12 text-center text-muted-foreground">
                   로딩 중...
                 </td>
               </tr>
             ) : categories.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-4 py-12 text-center text-muted-foreground">
+                <td colSpan={8} className="px-4 py-12 text-center text-muted-foreground">
                   등록된 카테고리가 없습니다.
                 </td>
               </tr>
@@ -330,6 +336,24 @@ export function AdminCategoriesClient() {
                           <ArrowDown size={12} />
                         </button>
                       </div>
+                    </div>
+                  </td>
+                  {/* 카테고리 이미지 */}
+                  <td className="px-4 py-3">
+                    <div className="h-[40px] w-[40px] overflow-hidden rounded-md border border-border bg-muted flex items-center justify-center">
+                      {cat.image_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={cat.image_url}
+                          alt={cat.name}
+                          className="h-full w-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = "none";
+                          }}
+                        />
+                      ) : (
+                        <span className="text-[10px] text-muted-foreground font-mono">{cat.icon}</span>
+                      )}
                     </div>
                   </td>
                   <td className="px-4 py-3 font-medium text-foreground">{cat.name}</td>
@@ -460,6 +484,25 @@ export function AdminCategoriesClient() {
                 placeholder="예: Tag, Gift, CreditCard"
                 className="h-9 text-[13px]"
               />
+              <p className="text-[11px] text-muted-foreground">
+                이미지를 업로드하면 아이콘 대신 이미지가 표시됩니다.
+              </p>
+            </div>
+
+            {/* 카테고리 이미지 */}
+            <div className="flex flex-col gap-1.5">
+              <Label className="text-[13px] font-medium">
+                카테고리 이미지 (선택)
+              </Label>
+              <ImageUploadField
+                value={form.image_url}
+                bucket="categories"
+                onChange={(url) => setForm((prev) => ({ ...prev, image_url: url }))}
+                previewSize="sm"
+              />
+              <p className="text-[11px] text-muted-foreground">
+                권장 사이즈: 80×80px. 이미지 미설정 시 아이콘이 사용됩니다.
+              </p>
             </div>
 
             {/* 노출 여부 */}

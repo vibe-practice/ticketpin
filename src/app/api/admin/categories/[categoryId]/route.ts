@@ -69,6 +69,7 @@ export async function PATCH(
     if (parsed.data.icon !== undefined) dbUpdate.icon = parsed.data.icon;
     if (parsed.data.is_visible !== undefined) dbUpdate.is_visible = parsed.data.is_visible;
     if (parsed.data.sort_order !== undefined) dbUpdate.sort_order = parsed.data.sort_order;
+    if (parsed.data.image_url !== undefined) dbUpdate.image_url = parsed.data.image_url;
 
     if (Object.keys(dbUpdate).length === 0) {
       return NextResponse.json(
@@ -104,7 +105,7 @@ export async function PATCH(
       .from("categories")
       .update(dbUpdate)
       .eq("id", categoryId)
-      .select("id, name, subtitle, slug, icon, is_visible, sort_order, created_at")
+      .select("id, name, subtitle, slug, icon, image_url, is_visible, sort_order, created_at")
       .single();
 
     if (updateError || !updated) {
@@ -139,6 +140,7 @@ export async function PATCH(
       subtitle: (updated.subtitle as string) ?? "",
       slug: updated.slug as string,
       icon: (updated.icon as string) ?? "Tag",
+      image_url: (updated.image_url as string) ?? null,
       is_visible: updated.is_visible as boolean,
       sort_order: updated.sort_order as number,
       created_at: updated.created_at as string,

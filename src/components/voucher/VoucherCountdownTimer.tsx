@@ -68,7 +68,7 @@ export default function VoucherCountdownTimer({
       />
       <span
         className={cn(
-          "text-sm font-medium transition-colors duration-300",
+          "text-[15px] font-medium transition-colors duration-300",
           isWarning ? "text-error/70" : "text-primary/60"
         )}
       >
@@ -85,7 +85,7 @@ export default function VoucherCountdownTimer({
         {formatTime(remaining)}
       </span>
       {isWarning && (
-        <span className="text-[13px] font-semibold text-error animate-pulse">
+        <span className="text-[14px] font-semibold text-error animate-pulse">
           시간 부족
         </span>
       )}

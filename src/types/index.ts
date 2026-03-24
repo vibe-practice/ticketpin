@@ -35,6 +35,7 @@ export interface Category {
   subtitle: string; // 영문 서브타이틀 (예: "CULTURELAND GIFT CARD")
   slug: string;
   icon: string; // Lucide 아이콘 이름
+  image_url: string | null; // 카테고리 대표 이미지
   is_visible: boolean;
   sort_order: number;
   created_at: Timestamp;
@@ -751,4 +752,37 @@ export interface PurchaseAccountGiftItem {
   installment_months: number | null;
   pin_recycled: boolean;
   created_at: Timestamp;
+}
+
+// ============================================================
+// Banner (메인 배너)
+// ============================================================
+
+export interface Banner {
+  id: string;
+  image_url: string;
+  link_url: string | null;
+  alt_text: string;
+  sort_order: number;
+  is_active: boolean;
+  created_at: Timestamp;
+  updated_at: Timestamp;
+}
+
+// ============================================================
+// SideBanner (사이드 배너)
+// ============================================================
+
+export type SideBannerPosition = "sidebar_top" | "sidebar_middle" | "sidebar_bottom";
+
+export interface SideBanner {
+  id: string;
+  image_url: string;
+  link_url: string | null;
+  alt_text: string;
+  position: SideBannerPosition;
+  sort_order: number;
+  is_active: boolean;
+  created_at: Timestamp;
+  updated_at: Timestamp;
 }
