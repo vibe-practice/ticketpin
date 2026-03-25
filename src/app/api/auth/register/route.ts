@@ -2,12 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { serverRegisterSchema } from "@/lib/validations/auth";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 
 const REGISTER_RATE_LIMIT = { maxAttempts: 5, windowMs: 60 * 1000 };
 
 export async function POST(request: NextRequest) {
   try {
-    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(`register:${ip}`, REGISTER_RATE_LIMIT);
 
     if (!rateLimitResult.success) {

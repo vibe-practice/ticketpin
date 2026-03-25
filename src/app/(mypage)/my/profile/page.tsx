@@ -166,7 +166,7 @@ export default function ProfilePage() {
                   <div className="flex items-center gap-2">
                     <span className="text-[15px] text-foreground font-medium">{user.name}</span>
                     {user.identity_verified && (
-                      <span className="inline-flex items-center gap-1 rounded-sm bg-success-bg px-2 py-0.5 text-[13px] font-semibold text-success">
+                      <span className="inline-flex items-center gap-1 rounded-sm bg-success-bg px-2 py-0.5 text-[14px] font-semibold text-success">
                         <BadgeCheck size={11} />본인인증 완료
                       </span>
                     )}

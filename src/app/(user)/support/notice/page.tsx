@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { ChevronRight, Bell, Pin, Loader2 } from "lucide-react";
+import { ChevronRight, Bell, Pin, Loader2, AlertCircle, RotateCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Pagination } from "@/components/ui/pagination";
 import type { NoticeCategory, Notice } from "@/types";
@@ -55,9 +55,11 @@ export default function NoticePage() {
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const fetchNotices = useCallback(async (category: NoticeCategory, page: number) => {
     setIsLoading(true);
+    setIsError(false);
     try {
       const params = new URLSearchParams();
       if (category !== "전체") {
@@ -74,9 +76,11 @@ export default function NoticePage() {
         setCategoryCounts(json.categoryCounts);
         setTotalPages(json.totalPages);
         setTotalCount(json.total);
+      } else {
+        setIsError(true);
       }
     } catch {
-      // 에러 시 빈 목록 유지
+      setIsError(true);
     } finally {
       setIsLoading(false);
     }
@@ -126,7 +130,7 @@ export default function NoticePage() {
                   {cat}
                   <span
                     className={cn(
-                      "inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-1 text-[13px] font-semibold tabular-nums",
+                      "inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-1 text-[14px] font-semibold tabular-nums",
                       isActive
                         ? "bg-white/25 text-background"
                         : "bg-muted text-muted-foreground"
@@ -139,11 +143,29 @@ export default function NoticePage() {
             })}
           </div>
 
-          {/* 로딩 상태 */}
+          {/* 로딩 / 에러 / 빈 상태 */}
           {isLoading ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card py-16 text-center">
               <Loader2 size={32} className="mb-4 animate-spin text-muted-foreground/60" />
               <p className="text-[16px] text-muted-foreground">불러오는 중...</p>
+            </div>
+          ) : isError ? (
+            <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card py-16 text-center">
+              <AlertCircle size={44} className="mb-4 text-muted-foreground/40" />
+              <p className="text-[16px] font-semibold text-foreground">
+                데이터를 불러오지 못했습니다
+              </p>
+              <p className="mt-1 text-[15px] text-muted-foreground">
+                잠시 후 다시 시도해 주세요.
+              </p>
+              <button
+                type="button"
+                onClick={() => fetchNotices(activeCategory, currentPage)}
+                className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-border px-4 py-2 text-[14px] font-medium text-foreground transition hover:bg-muted/30"
+              >
+                <RotateCw size={14} strokeWidth={2} />
+                다시 시도
+              </button>
             </div>
           ) : totalCount === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card py-16 text-center">
@@ -218,7 +240,7 @@ export default function NoticePage() {
                         <td className="px-5 py-4 text-center">
                           <span
                             className={cn(
-                              "inline-flex items-center justify-center rounded-sm px-2.5 py-0.5 text-[13px] font-semibold",
+                              "inline-flex items-center justify-center rounded-sm px-2.5 py-0.5 text-[14px] font-semibold",
                               NOTICE_CATEGORY_STYLES[notice.category]
                             )}
                           >
@@ -255,7 +277,7 @@ export default function NoticePage() {
                       )}
                       <span
                         className={cn(
-                          "mt-0.5 shrink-0 rounded-sm px-2 py-0.5 text-[13px] font-semibold",
+                          "mt-0.5 shrink-0 rounded-sm px-2 py-0.5 text-[14px] font-semibold",
                           NOTICE_CATEGORY_STYLES[notice.category]
                         )}
                       >

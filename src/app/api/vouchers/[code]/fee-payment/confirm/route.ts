@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { voucherCodeSchema, feePaymentConfirmSchema } from "@/lib/validations/voucher";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 import { confirmFeePayment } from "@/lib/payment/fee";
 import { cancelPgPayment } from "@/lib/payment/cancel";
 import { decryptPin } from "@/lib/crypto/pin";
@@ -51,10 +52,7 @@ export async function POST(
     }
 
     // ── Rate Limiting ──
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(`fee-confirm:${ip}`, FEE_CONFIRM_RATE_LIMIT);
     if (!rateLimitResult.success) {
       return NextResponse.json(
@@ -98,7 +96,7 @@ export async function POST(
       );
     }
 
-    const { payment_key, auth_token, mbr_ref_no, password } = parsed.data;
+    const { payment_key, auth_token, mbr_ref_no, password, verification_token } = parsed.data;
 
     // ── 바우처 조회 (주문 정보 + 비밀번호 해시 JOIN) ──
     const adminClient = createAdminClient();
@@ -165,53 +163,119 @@ export async function POST(
       );
     }
 
-    // ── 비밀번호 검증 (핀 복호화 권한) ──
-    if (!voucher.user_password_hash) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: { code: "NO_PASSWORD", message: "비밀번호가 설정되지 않았습니다." },
-        },
-        { status: 400 }
-      );
-    }
+    // ── 인증 검증: 검증 토큰 또는 비밀번호 ──
+    if (verification_token) {
+      // 모바일 리다이렉트 경로: 검증 토큰으로 인증
+      const { data: tokenData, error: tokenError } = await adminClient
+        .from("pin_verification_tokens")
+        .select("id, voucher_id, voucher_code, expires_at, used")
+        .eq("token", verification_token)
+        .maybeSingle();
 
-    const isPasswordMatch = await bcrypt.compare(password, voucher.user_password_hash);
-
-    if (!isPasswordMatch) {
-      // Atomic increment로 경쟁 조건 방지
-      const { data: updated } = await adminClient.rpc("increment_voucher_password_attempts", {
-        p_voucher_id: voucher.id,
-        p_max_attempts: VOUCHER_MAX_ATTEMPTS,
-      });
-
-      const result = updated as { new_attempts: number; is_locked: boolean } | null;
-      const newAttempts = result?.new_attempts ?? voucher.user_password_attempts + 1;
-      const isNowLocked = result?.is_locked ?? newAttempts >= VOUCHER_MAX_ATTEMPTS;
-
-      if (isNowLocked) {
+      if (tokenError || !tokenData) {
         return NextResponse.json(
           {
             success: false,
-            error: {
-              code: "VOUCHER_LOCKED",
-              message: `비밀번호를 ${VOUCHER_MAX_ATTEMPTS}회 잘못 입력하여 잠금 처리되었습니다. 고객센터에 문의해주세요.`,
-            },
-            data: { attempts: newAttempts, is_locked: true },
+            error: { code: "INVALID_TOKEN", message: "유효하지 않은 검증 토큰입니다." },
+          },
+          { status: 401 }
+        );
+      }
+
+      // 만료/사용 여부 + 바우처 일치 확인
+      if (new Date(tokenData.expires_at) < new Date()) {
+        await adminClient.from("pin_verification_tokens").delete().eq("id", tokenData.id);
+        return NextResponse.json(
+          {
+            success: false,
+            error: { code: "TOKEN_EXPIRED", message: "검증 토큰이 만료되었습니다. 비밀번호를 다시 입력해주세요." },
+          },
+          { status: 401 }
+        );
+      }
+
+      if (tokenData.used) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: { code: "TOKEN_USED", message: "이미 사용된 검증 토큰입니다." },
+          },
+          { status: 401 }
+        );
+      }
+
+      if (tokenData.voucher_id !== voucher.id) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: { code: "TOKEN_MISMATCH", message: "검증 토큰이 바우처와 일치하지 않습니다." },
           },
           { status: 403 }
         );
       }
 
-      const remaining = VOUCHER_MAX_ATTEMPTS - newAttempts;
+      // 토큰 사용 처리 (일회용)
+      await adminClient
+        .from("pin_verification_tokens")
+        .update({ used: true })
+        .eq("id", tokenData.id);
+    } else if (password) {
+      // PC 팝업 경로: 비밀번호로 인증
+      if (!voucher.user_password_hash) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: { code: "NO_PASSWORD", message: "비밀번호가 설정되지 않았습니다." },
+          },
+          { status: 400 }
+        );
+      }
+
+      const isPasswordMatch = await bcrypt.compare(password, voucher.user_password_hash);
+
+      if (!isPasswordMatch) {
+        // Atomic increment로 경쟁 조건 방지
+        const { data: updated } = await adminClient.rpc("increment_voucher_password_attempts", {
+          p_voucher_id: voucher.id,
+          p_max_attempts: VOUCHER_MAX_ATTEMPTS,
+        });
+
+        const result = updated as { new_attempts: number; is_locked: boolean } | null;
+        const newAttempts = result?.new_attempts ?? voucher.user_password_attempts + 1;
+        const isNowLocked = result?.is_locked ?? newAttempts >= VOUCHER_MAX_ATTEMPTS;
+
+        if (isNowLocked) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: {
+                code: "VOUCHER_LOCKED",
+                message: `비밀번호를 ${VOUCHER_MAX_ATTEMPTS}회 잘못 입력하여 잠금 처리되었습니다. 고객센터에 문의해주세요.`,
+              },
+              data: { attempts: newAttempts, is_locked: true },
+            },
+            { status: 403 }
+          );
+        }
+
+        const remaining = VOUCHER_MAX_ATTEMPTS - newAttempts;
+        return NextResponse.json(
+          {
+            success: false,
+            error: {
+              code: "WRONG_PASSWORD",
+              message: `비밀번호가 올바르지 않습니다. (${remaining}회 남음)`,
+            },
+            data: { attempts: newAttempts, remaining, is_locked: false },
+          },
+          { status: 401 }
+        );
+      }
+    } else {
       return NextResponse.json(
         {
           success: false,
-          error: {
-            code: "WRONG_PASSWORD",
-            message: `비밀번호가 올바르지 않습니다. (${remaining}회 남음)`,
-          },
-          data: { attempts: newAttempts, remaining, is_locked: false },
+          error: { code: "AUTH_REQUIRED", message: "비밀번호 또는 검증 토큰이 필요합니다." },
         },
         { status: 401 }
       );

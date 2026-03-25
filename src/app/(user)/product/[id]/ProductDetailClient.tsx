@@ -18,6 +18,7 @@ import {
 import type { ProductWithCategory } from "@/types";
 import { formatPrice, calcFeeAmount, formatFeePercent } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/toast";
 
 interface ProductDetailClientProps {
   product: ProductWithCategory;
@@ -61,6 +62,7 @@ const REFUND_ITEMS = [
 
 export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const router = useRouter();
+  const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [feeMode, setFeeMode] = useState<FeeMode>("included");
   const [activeTab, setActiveTab] = useState<TabKey>("description");
@@ -71,13 +73,18 @@ export function ProductDetailClient({ product }: ProductDetailClientProps) {
   const isUnavailable = isInactive || isSoldout;
   const feeAmount = calcFeeAmount(product.price, product.fee_rate, product.fee_unit);
 
-  // 품절 상품 접근 시 팝업 + 메인 이동
+  // 품절 상품 접근 시 toast + 메인 이동
   useEffect(() => {
     if (isSoldout) {
-      alert("품절된 상품입니다.");
+      toast({
+        type: "warning",
+        title: "품절된 상품입니다.",
+        description: "메인 페이지로 이동합니다.",
+        duration: 3000,
+      });
       router.replace("/");
     }
-  }, [isSoldout, router]);
+  }, [isSoldout, router, toast]);
 
   // 총액 계산
   const unitPrice =

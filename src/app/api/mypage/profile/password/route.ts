@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import bcrypt from "bcryptjs";
 import { getAuthenticatedUser } from "@/lib/api/auth-guard";
 import { createClient } from "@/lib/supabase/server";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 
 const changePasswordServerSchema = z
   .object({
@@ -34,10 +36,7 @@ export async function PUT(request: NextRequest) {
     const { adminClient } = auth;
 
     // Rate limiting (IP 기반, 5분에 5회)
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimit = await checkRateLimit(`change-password:${ip}`, {
       maxAttempts: 5,
       windowMs: 5 * 60 * 1000,
@@ -141,7 +140,7 @@ export async function PUT(request: NextRequest) {
     }
 
     // 업체 포털 계정 비밀번호 동기화 (business_accounts)
-    // auth.users.encrypted_password가 변경되었으므로 RPC로 새 해시를 가져와 업데이트
+    // get_auth_password RPC 대신 새 비밀번호를 직접 bcrypt 해싱하여 저장
     try {
       const { data: userRow } = await adminClient
         .from("users")
@@ -151,15 +150,13 @@ export async function PUT(request: NextRequest) {
 
       if (userRow) {
         const username = (userRow as Record<string, unknown>).username as string;
-        const { data: newHash } = await adminClient.rpc("get_auth_password", { p_auth_id: authUser.id });
+        const newHash = await bcrypt.hash(newPassword, 12);
 
-        if (newHash) {
-          // login_id = username인 업체 계정의 비밀번호 업데이트
-          await adminClient
-            .from("business_accounts")
-            .update({ password_hash: newHash as string })
-            .eq("login_id", username);
-        }
+        // login_id = username인 업체 계정의 비밀번호 업데이트
+        await adminClient
+          .from("business_accounts")
+          .update({ password_hash: newHash })
+          .eq("login_id", username);
       }
     } catch (syncError) {
       // 동기화 실패는 비밀번호 변경 성공에 영향을 주지 않음

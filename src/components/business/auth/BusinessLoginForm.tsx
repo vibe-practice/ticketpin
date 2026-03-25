@@ -92,7 +92,7 @@ export function BusinessLoginForm({ onLoggedIn }: BusinessLoginFormProps) {
       {/* SMS 인증 완료 배지 */}
       <div className="flex items-center gap-2 rounded-xl border border-green-200 bg-green-50 px-4 py-3">
         <CheckCircle2 size={16} className="text-green-600 shrink-0" strokeWidth={2} />
-        <span className="text-[13px] font-medium text-green-700">SMS 본인 인증 완료</span>
+        <span className="text-[14px] font-medium text-green-700">SMS 본인 인증 완료</span>
       </div>
 
       {/* 로그인 폼 */}
@@ -124,7 +124,7 @@ export function BusinessLoginForm({ onLoggedIn }: BusinessLoginFormProps) {
           {errors.username && (
             <div className="flex items-center gap-1.5">
               <AlertCircle size={13} strokeWidth={2} className="text-destructive shrink-0" />
-              <span className="text-[13px] text-destructive">{errors.username.message}</span>
+              <span className="text-[14px] text-destructive">{errors.username.message}</span>
             </div>
           )}
         </div>
@@ -169,7 +169,7 @@ export function BusinessLoginForm({ onLoggedIn }: BusinessLoginFormProps) {
           {errors.password && (
             <div className="flex items-center gap-1.5">
               <AlertCircle size={13} strokeWidth={2} className="text-destructive shrink-0" />
-              <span className="text-[13px] text-destructive">{errors.password.message}</span>
+              <span className="text-[14px] text-destructive">{errors.password.message}</span>
             </div>
           )}
         </div>
@@ -181,7 +181,7 @@ export function BusinessLoginForm({ onLoggedIn }: BusinessLoginFormProps) {
             role="alert"
           >
             <AlertCircle size={14} className="text-destructive shrink-0 mt-0.5" strokeWidth={2} />
-            <span className="text-[13px] text-destructive leading-relaxed">{loginError}</span>
+            <span className="text-[14px] text-destructive leading-relaxed">{loginError}</span>
           </div>
         )}
 

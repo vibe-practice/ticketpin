@@ -107,7 +107,7 @@ function SectionHeader({
       >
         <Icon size={13} />
       </div>
-      <h3 className="text-[13px] font-semibold text-foreground">{title}</h3>
+      <h3 className="text-[14px] font-semibold text-foreground">{title}</h3>
     </div>
   );
 }
@@ -115,8 +115,8 @@ function SectionHeader({
 function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-2 py-1.5">
-      <span className="w-28 shrink-0 text-[12px] text-muted-foreground">{label}</span>
-      <span className="flex-1 text-[13px] text-foreground">{children}</span>
+      <span className="w-28 shrink-0 text-[14px] text-muted-foreground">{label}</span>
+      <span className="flex-1 text-[14px] text-foreground">{children}</span>
     </div>
   );
 }
@@ -201,7 +201,7 @@ function InfoTab({ member, onStatusChange, statusLoading }: InfoTabProps) {
           </InfoRow>
           <InfoRow label="최근 업데이트">{formatDate(member.updated_at)}</InfoRow>
           <InfoRow label="회원번호">
-            <span className="flex items-center gap-1.5 font-mono text-[12px] text-muted-foreground">
+            <span className="flex items-center gap-1.5 font-mono text-[14px] text-muted-foreground">
               <Hash size={12} />
               {member.id}
             </span>
@@ -234,10 +234,10 @@ function InfoTab({ member, onStatusChange, statusLoading }: InfoTabProps) {
         <div className="rounded-lg border border-border bg-muted/20 p-4">
           <div className="flex items-center gap-3">
             <div className="flex-1">
-              <Label className="mb-1.5 block text-[12px] text-muted-foreground">현재 상태</Label>
+              <Label className="mb-1.5 block text-[14px] text-muted-foreground">현재 상태</Label>
               <span
                 className={cn(
-                  "inline-block rounded-sm px-2.5 py-1 text-[12px] font-semibold",
+                  "inline-block rounded-sm px-2.5 py-1 text-[14px] font-semibold",
                   MEMBER_STATUS_MAP[member.status]?.className
                 )}
               >
@@ -245,7 +245,7 @@ function InfoTab({ member, onStatusChange, statusLoading }: InfoTabProps) {
               </span>
             </div>
             <div className="flex-1">
-              <Label className="mb-1.5 block text-[12px] text-muted-foreground">변경</Label>
+              <Label className="mb-1.5 block text-[14px] text-muted-foreground">변경</Label>
               <Select
                 value={pendingStatus}
                 onValueChange={(v) => {
@@ -265,7 +265,7 @@ function InfoTab({ member, onStatusChange, statusLoading }: InfoTabProps) {
               </Select>
             </div>
             {statusLoading && (
-              <div className="flex items-center gap-1.5 self-end pb-1 text-[13px] text-muted-foreground">
+              <div className="flex items-center gap-1.5 self-end pb-1 text-[14px] text-muted-foreground">
                 <Loader2 size={14} className="animate-spin" />
                 처리 중
               </div>
@@ -294,7 +294,7 @@ function OrdersTab({ orders }: { orders: AdminOrderListItem[] }) {
 
   return (
     <div className="overflow-hidden rounded-lg border border-border">
-      <table className="w-full text-[12px]">
+      <table className="w-full text-[14px]">
         <thead>
           <tr className="border-b border-border bg-muted/40">
             <th className="px-3 py-2.5 text-left font-semibold text-muted-foreground">주문번호</th>
@@ -370,7 +370,7 @@ function VouchersTab({ orders }: { orders: AdminOrderListItem[] }) {
 
   return (
     <div className="overflow-hidden rounded-lg border border-border">
-      <table className="w-full text-[12px]">
+      <table className="w-full text-[14px]">
         <thead>
           <tr className="border-b border-border bg-muted/40">
             <th className="px-3 py-2.5 text-left font-semibold text-muted-foreground">바우처 코드</th>
@@ -445,11 +445,11 @@ function GiftTable({
   if (items.length === 0) return null;
   return (
     <div>
-      <p className="mb-2 text-[12px] font-semibold text-muted-foreground">
+      <p className="mb-2 text-[14px] font-semibold text-muted-foreground">
         {type === "sent" ? "보낸 선물" : "받은 선물"} ({items.length}건)
       </p>
       <div className="overflow-hidden rounded-lg border border-border">
-        <table className="w-full table-fixed text-[12px]">
+        <table className="w-full table-fixed text-[14px]">
           <colgroup>
             <col style={{ width: "16%" }} />
             <col style={{ width: "10%" }} />
@@ -630,7 +630,7 @@ export function MemberDetailModal({
             </div>
             <div className="flex items-center gap-2">
               <span className="font-bold text-foreground">{member.name}</span>
-              <span className="font-mono text-[13px] text-muted-foreground">@{member.username}</span>
+              <span className="font-mono text-[14px] text-muted-foreground">@{member.username}</span>
               <span
                 className={cn(
                   "rounded-sm px-2 py-0.5 text-[11px] font-semibold",
@@ -657,7 +657,7 @@ export function MemberDetailModal({
                 key={key}
                 onClick={() => setActiveTab(key)}
                 className={cn(
-                  "flex items-center gap-1.5 border-b-2 px-4 py-3 text-[13px] font-medium transition-colors",
+                  "flex items-center gap-1.5 border-b-2 px-4 py-3 text-[14px] font-medium transition-colors",
                   activeTab === key
                     ? "border-primary text-primary"
                     : "border-transparent text-muted-foreground hover:text-foreground"

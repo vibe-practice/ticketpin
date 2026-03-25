@@ -245,7 +245,6 @@ export function AdminProductsClient() {
         setProducts(json.data.data);
         setTotalCount(json.data.total);
       } else {
-        console.error("[AdminProductsClient] Fetch error:", json.error);
         showToast("error", json.error?.message ?? "상품 목록 조회 실패");
       }
     } catch {
@@ -271,10 +270,8 @@ export function AdminProductsClient() {
         }
         setProductCountByCategory(countMap);
       } else {
-        console.error("[AdminProductsClient] Categories fetch error:", json.error);
       }
     } catch {
-      console.error("[AdminProductsClient] Categories network error");
     }
   }, []);
 
@@ -292,7 +289,6 @@ export function AdminProductsClient() {
         setPopularRanks(slots);
       }
     } catch {
-      console.error("[AdminProductsClient] Popular ranks fetch error");
     }
   }, []);
 
@@ -311,7 +307,6 @@ export function AdminProductsClient() {
         );
       }
     } catch {
-      console.error("[AdminProductsClient] All products fetch error");
     }
   }, []);
 
@@ -468,7 +463,7 @@ export function AdminProductsClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[12px] text-muted-foreground">
+          <span className="whitespace-nowrap text-[14px] text-muted-foreground">
             {String(v).split("T")[0]}
           </span>
         ),
@@ -494,7 +489,7 @@ export function AdminProductsClient() {
               </div>
             )}
             <div className="min-w-0 text-left">
-              <p className="truncate text-[13px] font-medium text-foreground" title={String(v)}>
+              <p className="truncate text-[14px] font-medium text-foreground" title={String(v)}>
                 {String(v)}
               </p>
               <p className="text-[11px] text-muted-foreground">{String(row.category_name)}</p>
@@ -509,7 +504,7 @@ export function AdminProductsClient() {
         align: "center" as const,
         width: "90px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] font-semibold text-foreground">
+          <span className="whitespace-nowrap text-[14px] font-semibold text-foreground">
             {Number(v).toLocaleString()}원
           </span>
         ),
@@ -522,7 +517,7 @@ export function AdminProductsClient() {
         render: (_v: unknown, row: ProductRow) => {
           const p = row as AdminProductListItem;
           return (
-            <span className="whitespace-nowrap text-[13px] text-foreground">
+            <span className="whitespace-nowrap text-[14px] text-foreground">
               {p.fee_unit === "percent" ? `${p.fee_rate}%` : `${p.fee_rate.toLocaleString()}원`}
             </span>
           );
@@ -540,7 +535,7 @@ export function AdminProductsClient() {
           return (
             <span
               className={cn(
-                "whitespace-nowrap text-[13px] font-semibold",
+                "whitespace-nowrap text-[14px] font-semibold",
                 waiting === 0
                   ? "text-error"
                   : isLow
@@ -563,7 +558,7 @@ export function AdminProductsClient() {
         align: "center" as const,
         width: "70px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] text-foreground">
+          <span className="whitespace-nowrap text-[14px] text-foreground">
             {Number(v).toLocaleString()}
           </span>
         ),
@@ -891,7 +886,7 @@ export function AdminProductsClient() {
       {toastMsg && (
         <div
           className={cn(
-            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[13px] font-medium transition-all",
+            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[14px] font-medium transition-all",
             toastMsg.type === "success"
               ? "border-success/30 bg-success-bg text-success"
               : "border-error/30 bg-error-bg text-error"
@@ -914,7 +909,7 @@ export function AdminProductsClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">상품권 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               상품권 상품을 등록, 수정, 삭제합니다
             </p>
           </div>
@@ -941,7 +936,7 @@ export function AdminProductsClient() {
           <Button
             size="sm"
             onClick={() => { setEditTarget(null); setFormOpen(true); }}
-            className="h-9 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[13px]"
+            className="h-9 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[14px]"
           >
             <Plus size={15} />
             상품 등록
@@ -1040,7 +1035,7 @@ export function AdminProductsClient() {
             size="sm"
             onClick={handleSavePopularRanks}
             disabled={popularSaving}
-            className="h-8 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[13px]"
+            className="h-8 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[14px]"
           >
             {popularSaving ? "저장 중..." : "순위 저장"}
           </Button>
@@ -1059,7 +1054,7 @@ export function AdminProductsClient() {
             return (
               <div key={`slot-${idx}`} className="flex items-center gap-3 px-5 py-3 hover:bg-muted/30 transition-colors">
                 {/* 순위 번호 */}
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-primary-soft text-[13px] font-bold text-primary">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-primary-soft text-[14px] font-bold text-primary">
                   {idx + 1}
                 </span>
 
@@ -1174,10 +1169,10 @@ export function AdminProductsClient() {
                         prev ? { ...prev, sort_order: Number(e.target.value) } : null
                       )
                     }
-                    className="h-7 w-14 text-center text-[12px]"
+                    className="h-7 w-14 text-center text-[14px]"
                   />
                 ) : (
-                  <span className="w-14 text-center text-[12px] font-mono text-muted-foreground">
+                  <span className="w-14 text-center text-[14px] font-mono text-muted-foreground">
                     {String(cat.sort_order).padStart(2, "0")}
                   </span>
                 )}
@@ -1193,7 +1188,7 @@ export function AdminProductsClient() {
                         )
                       }
                       placeholder="카테고리 이름"
-                      className="h-7 flex-1 text-[13px]"
+                      className="h-7 flex-1 text-[14px]"
                       autoFocus
                       onKeyDown={(e) => {
                         if (e.key === "Enter") handleSaveCategoryEdit();
@@ -1208,7 +1203,7 @@ export function AdminProductsClient() {
                         )
                       }
                       placeholder="서브타이틀 (영문)"
-                      className="h-7 w-52 text-[13px]"
+                      className="h-7 w-52 text-[14px]"
                       onKeyDown={(e) => {
                         if (e.key === "Enter") handleSaveCategoryEdit();
                         if (e.key === "Escape") setCategoryEditState(null);
@@ -1217,7 +1212,7 @@ export function AdminProductsClient() {
                   </div>
                 ) : (
                   <div className="flex flex-1 items-center gap-2">
-                    <span className="text-[13px] font-medium text-foreground">
+                    <span className="text-[14px] font-medium text-foreground">
                       {cat.name}
                     </span>
                     {cat.subtitle && (
@@ -1254,7 +1249,7 @@ export function AdminProductsClient() {
                       size="sm"
                       onClick={handleSaveCategoryEdit}
                       disabled={categorySaving}
-                      className="h-7 px-3 text-[12px] bg-primary text-white hover:bg-brand-primary-dark"
+                      className="h-7 px-3 text-[14px] bg-primary text-white hover:bg-brand-primary-dark"
                     >
                       {categorySaving ? "저장 중..." : "저장"}
                     </Button>
@@ -1262,7 +1257,7 @@ export function AdminProductsClient() {
                       size="sm"
                       variant="outline"
                       onClick={() => setCategoryEditState(null)}
-                      className="h-7 px-3 text-[12px]"
+                      className="h-7 px-3 text-[14px]"
                     >
                       취소
                     </Button>
@@ -1315,7 +1310,7 @@ export function AdminProductsClient() {
             size="sm"
             onClick={handleAddCategory}
             disabled={!newCategoryName.trim() || categorySaving}
-            className="h-9 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[13px]"
+            className="h-9 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[14px]"
           >
             <Plus size={14} />
             {categorySaving ? "추가 중..." : "추가"}

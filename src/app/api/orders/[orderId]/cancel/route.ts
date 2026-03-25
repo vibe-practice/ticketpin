@@ -297,13 +297,13 @@ export async function POST(
       );
     }
 
-    // ── PG 결제 취소 (Stub) ──
+    // ── PG 결제 취소 ──
     const cancelReason =
       input.reason_type === "simple_change"
         ? "단순 변심"
         : input.reason_type === "wrong_purchase"
           ? "잘못된 구매"
-          : input.reason_detail!; // refine으로 "other"일 때 reason_detail 필수 보장됨
+          : input.reason_detail ?? "기타";
 
     const pgResult = await cancelPgPayment({
       refNo: order.pg_ref_no,

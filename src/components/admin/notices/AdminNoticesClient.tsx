@@ -138,8 +138,7 @@ export function AdminNoticesClient() {
       if (json.success) {
         setNotices(json.data);
       }
-    } catch (err) {
-      console.error("공지사항 목록 조회 실패:", err);
+    } catch {
     } finally {
       setIsLoading(false);
     }
@@ -299,7 +298,7 @@ export function AdminNoticesClient() {
               <Pin size={12} className="mt-0.5 shrink-0 text-warning" aria-label="중요 공지" />
             )}
             <div className="min-w-0">
-              <p className="truncate text-[13px] font-medium text-foreground max-w-[400px]" title={String(v)}>
+              <p className="truncate text-[14px] font-medium text-foreground max-w-[400px]" title={String(v)}>
                 {String(v)}
               </p>
               <p className="mt-0.5 line-clamp-1 text-[11px] text-muted-foreground max-w-[400px]">
@@ -353,7 +352,7 @@ export function AdminNoticesClient() {
         align: "center" as const,
         width: "70px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground">
+          <span className="text-[14px] text-muted-foreground">
             {Number(v).toLocaleString()}
           </span>
         ),
@@ -365,7 +364,7 @@ export function AdminNoticesClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[12px] text-muted-foreground">
+          <span className="whitespace-nowrap text-[14px] text-muted-foreground">
             {String(v).split("T")[0]}
           </span>
         ),
@@ -376,7 +375,7 @@ export function AdminNoticesClient() {
         align: "center" as const,
         width: "80px",
         render: (v: unknown) => (
-          <span className="text-[12px] text-muted-foreground">{String(v)}</span>
+          <span className="text-[14px] text-muted-foreground">{String(v)}</span>
         ),
       },
       {
@@ -567,7 +566,7 @@ export function AdminNoticesClient() {
       {toastMsg && (
         <div
           className={cn(
-            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[13px] font-medium transition-all",
+            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[14px] font-medium transition-all",
             toastMsg.type === "success"
               ? "border-success/30 bg-success-bg text-success"
               : "border-error/30 bg-error-bg text-error"
@@ -590,7 +589,7 @@ export function AdminNoticesClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">공지사항 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               공지사항을 등록, 수정, 삭제합니다
             </p>
           </div>
@@ -607,7 +606,7 @@ export function AdminNoticesClient() {
           <Button
             size="sm"
             onClick={() => { setEditTarget(null); setFormOpen(true); }}
-            className="h-9 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[13px]"
+            className="h-9 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[14px]"
           >
             <Plus size={15} />
             공지 등록

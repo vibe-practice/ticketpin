@@ -121,7 +121,7 @@ function SingleToast({
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-white leading-snug">{item.title}</p>
           {item.description && (
-            <p className="mt-0.5 text-[13px] text-white/60 leading-relaxed">
+            <p className="mt-0.5 text-[14px] text-white/60 leading-relaxed">
               {item.description}
             </p>
           )}

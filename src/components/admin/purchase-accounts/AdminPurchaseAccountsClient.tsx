@@ -156,7 +156,7 @@ export function AdminPurchaseAccountsClient() {
         align: "center" as const,
         width: "140px",
         render: (v: unknown) => (
-          <span className="text-[13px] font-semibold text-foreground">{String(v)}</span>
+          <span className="text-[14px] font-semibold text-foreground">{String(v)}</span>
         ),
       },
       {
@@ -165,7 +165,7 @@ export function AdminPurchaseAccountsClient() {
         align: "center" as const,
         width: "120px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground">{String(v)}</span>
+          <span className="text-[14px] text-muted-foreground">{String(v)}</span>
         ),
       },
       {
@@ -174,7 +174,7 @@ export function AdminPurchaseAccountsClient() {
         align: "center" as const,
         width: "120px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground">
+          <span className="text-[14px] text-muted-foreground">
             {v ? String(v).replace(/(\d{3})(\d{3,4})(\d{4})/, "$1-$2-$3") : "-"}
           </span>
         ),
@@ -202,7 +202,7 @@ export function AdminPurchaseAccountsClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-foreground">{Number(v).toLocaleString()}건</span>
+          <span className="text-[14px] text-foreground">{Number(v).toLocaleString()}건</span>
         ),
       },
       {
@@ -212,7 +212,7 @@ export function AdminPurchaseAccountsClient() {
         align: "center" as const,
         width: "120px",
         render: (v: unknown) => (
-          <span className="text-[13px] font-medium text-foreground">
+          <span className="text-[14px] font-medium text-foreground">
             {Number(v).toLocaleString()}원
           </span>
         ),
@@ -223,7 +223,7 @@ export function AdminPurchaseAccountsClient() {
         align: "center" as const,
         width: "150px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground truncate max-w-[150px] block">
+          <span className="text-[14px] text-muted-foreground truncate max-w-[150px] block">
             {v ? String(v) : "-"}
           </span>
         ),
@@ -235,7 +235,7 @@ export function AdminPurchaseAccountsClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground">
+          <span className="text-[14px] text-muted-foreground">
             {new Date(String(v)).toLocaleDateString("ko-KR")}
           </span>
         ),
@@ -254,7 +254,7 @@ export function AdminPurchaseAccountsClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">매입 아이디 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               상품권 매입용 아이디를 등록하고 관리합니다
             </p>
           </div>

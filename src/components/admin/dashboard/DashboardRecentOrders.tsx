@@ -56,7 +56,7 @@ const COLUMNS: ColumnDef<OrderRow>[] = [
     label: "주문번호",
     width: "17%",
     render: (v) => (
-      <span className="font-mono text-[12px] text-foreground">{String(v)}</span>
+      <span className="font-mono text-[14px] text-foreground">{String(v)}</span>
     ),
   },
   {
@@ -65,7 +65,7 @@ const COLUMNS: ColumnDef<OrderRow>[] = [
     width: "10%",
     render: (v, row) => (
       <div>
-        <p className="text-[13px] font-medium text-foreground">{String(v)}</p>
+        <p className="text-[14px] font-medium text-foreground">{String(v)}</p>
         <p className="text-[11px] text-muted-foreground">{String(row.buyer_username)}</p>
       </div>
     ),
@@ -75,7 +75,7 @@ const COLUMNS: ColumnDef<OrderRow>[] = [
     label: "상품명",
     width: "22%",
     render: (v) => (
-      <span className="text-[13px] text-foreground line-clamp-1">{String(v)}</span>
+      <span className="text-[14px] text-foreground line-clamp-1">{String(v)}</span>
     ),
   },
   {
@@ -84,7 +84,7 @@ const COLUMNS: ColumnDef<OrderRow>[] = [
     align: "center",
     width: "6%",
     render: (v) => (
-      <span className="text-[13px] font-semibold text-foreground">{String(v)}개</span>
+      <span className="text-[14px] font-semibold text-foreground">{String(v)}개</span>
     ),
   },
   {
@@ -100,7 +100,7 @@ const COLUMNS: ColumnDef<OrderRow>[] = [
     align: "right",
     width: "12%",
     render: (v) => (
-      <span className="text-[13px] font-semibold text-foreground">
+      <span className="text-[14px] font-semibold text-foreground">
         {Number(v).toLocaleString()}원
       </span>
     ),
@@ -119,7 +119,7 @@ const COLUMNS: ColumnDef<OrderRow>[] = [
     render: (v) => {
       const d = new Date(String(v));
       return (
-        <span className="text-[12px] text-muted-foreground">
+        <span className="text-[14px] text-muted-foreground">
           {`${d.getMonth() + 1}/${d.getDate()} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`}
         </span>
       );

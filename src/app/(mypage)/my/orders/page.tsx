@@ -120,7 +120,7 @@ function OrderStatusBadge({ status }: { status: OrderStatus }) {
   };
   const { label, className } = config[status] ?? { label: status, className: "bg-muted text-muted-foreground" };
   return (
-    <Badge className={cn("rounded-sm border px-2 py-0.5 text-[13px] font-semibold whitespace-nowrap", className)}>
+    <Badge className={cn("rounded-sm border px-2 py-0.5 text-[14px] font-semibold whitespace-nowrap", className)}>
       {label}
     </Badge>
   );
@@ -138,7 +138,7 @@ function VoucherStatusBadge({ status }: { status: VoucherStatus | null }) {
   };
   const { label, className } = config[status] ?? { label: status, className: "bg-muted text-muted-foreground" };
   return (
-    <Badge className={cn("rounded-sm border px-2 py-0.5 text-[13px] font-semibold whitespace-nowrap", className)}>
+    <Badge className={cn("rounded-sm border px-2 py-0.5 text-[14px] font-semibold whitespace-nowrap", className)}>
       {label}
     </Badge>
   );
@@ -151,7 +151,7 @@ function CancelStatusBadge({ status }: { status: CancelStatus }) {
   };
   const { label, icon: Icon, className } = config[status] ?? { label: status, icon: Clock, className: "bg-muted text-muted-foreground" };
   return (
-    <span className={cn("inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 text-[13px] font-semibold", className)}>
+    <span className={cn("inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 text-[14px] font-semibold", className)}>
       <Icon size={12} />
       {label}
     </span>
@@ -168,22 +168,22 @@ function ExpandedDetail({ item }: { item: OrderHistoryItem }) {
         <div className="bg-muted/20 border-b border-border px-6 py-5">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
-              <p className="text-[13px] text-muted-foreground mb-1">주문번호</p>
+              <p className="text-[14px] text-muted-foreground mb-1">주문번호</p>
               <p className="text-[14px] text-foreground font-medium tabular-nums">{item.order_number}</p>
             </div>
             <div>
-              <p className="text-[13px] text-muted-foreground mb-1">결제방법</p>
+              <p className="text-[14px] text-muted-foreground mb-1">결제방법</p>
               <p className="text-[14px] text-foreground font-medium">{getPaymentMethodLabel(item.payment_method)}</p>
             </div>
             <div>
-              <p className="text-[13px] text-muted-foreground mb-1">수수료</p>
+              <p className="text-[14px] text-muted-foreground mb-1">수수료</p>
               <p className="text-[14px] text-foreground font-medium">
                 {item.fee_type === "included" ? `포함 (${formatPrice(item.fee_amount)})` : `별도 (${formatPrice(item.fee_amount)})`}
               </p>
             </div>
             {item.voucher_code && (
               <div>
-                <p className="text-[13px] text-muted-foreground mb-1">교환권 코드</p>
+                <p className="text-[14px] text-muted-foreground mb-1">교환권 코드</p>
                 <p className="text-[14px] text-foreground font-medium tabular-nums">{maskCode(item.voucher_code)}</p>
               </div>
             )}
@@ -215,19 +215,19 @@ function ExpandedDetail({ item }: { item: OrderHistoryItem }) {
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div>
-                  <p className="text-[13px] text-muted-foreground mb-1">취소 사유</p>
+                  <p className="text-[14px] text-muted-foreground mb-1">취소 사유</p>
                   <p className="text-[14px] text-foreground">{getCancellationReasonLabel(item.cancellation.reason_type as CancellationReasonType)}</p>
                 </div>
                 <div>
-                  <p className="text-[13px] text-muted-foreground mb-1">환불 금액</p>
+                  <p className="text-[14px] text-muted-foreground mb-1">환불 금액</p>
                   <p className="text-[14px] text-foreground font-semibold">{formatPrice(item.cancellation.refund_amount)}</p>
                 </div>
                 <div>
-                  <p className="text-[13px] text-muted-foreground mb-1">취소 상태</p>
+                  <p className="text-[14px] text-muted-foreground mb-1">취소 상태</p>
                   <CancelStatusBadge status={item.cancellation.refund_status as CancelStatus} />
                 </div>
                 <div>
-                  <p className="text-[13px] text-muted-foreground mb-1">취소 요청일</p>
+                  <p className="text-[14px] text-muted-foreground mb-1">취소 요청일</p>
                   <p className="text-[14px] text-foreground">{formatDateTimeUtil(item.cancellation.created_at)}</p>
                 </div>
               </div>
@@ -272,7 +272,7 @@ function OrderRow({ item }: { item: OrderHistoryItem }) {
                 {item.product?.name ?? "(삭제된 상품)"}
               </p>
               {item.gift_receiver && (
-                <p className="text-[13px] text-muted-foreground mt-0.5">
+                <p className="text-[14px] text-muted-foreground mt-0.5">
                   → {item.gift_receiver.username}
                 </p>
               )}
@@ -357,9 +357,9 @@ function OrderMobileCard({ item }: { item: OrderHistoryItem }) {
             <div className="flex items-center gap-2 mt-1">
               <span className="text-[14px] font-bold text-foreground tabular-nums">{formatPrice(item.total_amount)}</span>
               <span className="text-muted-foreground/40">·</span>
-              <span className="text-[13px] text-muted-foreground">{item.quantity}개</span>
+              <span className="text-[14px] text-muted-foreground">{item.quantity}개</span>
               <span className="text-muted-foreground/40">·</span>
-              <span className="text-[13px] text-muted-foreground tabular-nums">{formatShortDate(item.created_at)}</span>
+              <span className="text-[14px] text-muted-foreground tabular-nums">{formatShortDate(item.created_at)}</span>
             </div>
           </div>
         </div>
@@ -369,30 +369,30 @@ function OrderMobileCard({ item }: { item: OrderHistoryItem }) {
         <div className="bg-muted/20 border-t border-border px-4 py-4 space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">주문번호</p>
-              <p className="text-[13px] text-foreground tabular-nums">{item.order_number}</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">주문번호</p>
+              <p className="text-[14px] text-foreground tabular-nums">{item.order_number}</p>
             </div>
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">결제방법</p>
-              <p className="text-[13px] text-foreground">{getPaymentMethodLabel(item.payment_method)}</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">결제방법</p>
+              <p className="text-[14px] text-foreground">{getPaymentMethodLabel(item.payment_method)}</p>
             </div>
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">수수료</p>
-              <p className="text-[13px] text-foreground">{item.fee_type === "included" ? `포함` : `별도`} ({formatPrice(item.fee_amount)})</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">수수료</p>
+              <p className="text-[14px] text-foreground">{item.fee_type === "included" ? `포함` : `별도`} ({formatPrice(item.fee_amount)})</p>
             </div>
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">날짜</p>
-              <p className="text-[13px] text-foreground tabular-nums">{formatShortDateTime(item.created_at)}</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">날짜</p>
+              <p className="text-[14px] text-foreground tabular-nums">{formatShortDateTime(item.created_at)}</p>
             </div>
           </div>
           {item.voucher_code && (
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">교환권 코드</p>
-              <p className="text-[13px] text-foreground tabular-nums">{maskCode(item.voucher_code)}</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">교환권 코드</p>
+              <p className="text-[14px] text-foreground tabular-nums">{maskCode(item.voucher_code)}</p>
             </div>
           )}
           {item.gift_receiver && (
-            <p className="text-[13px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               선물 → {item.gift_receiver.username} ({item.gift_receiver.name})
             </p>
           )}
@@ -402,7 +402,7 @@ function OrderMobileCard({ item }: { item: OrderHistoryItem }) {
           <div className="flex gap-2 pt-1">
             {item.voucher_code && !isCancelled && (
               <Link href={`/v/${item.voucher_code}`}>
-                <Button size="sm" variant="outline" className="h-8 gap-1 text-[13px]">
+                <Button size="sm" variant="outline" className="h-8 gap-1 text-[14px]">
                   <ExternalLink size={12} />
                   교환권 바로가기
                 </Button>
@@ -413,16 +413,16 @@ function OrderMobileCard({ item }: { item: OrderHistoryItem }) {
             <div className="rounded-lg border border-error/20 bg-error-bg/50 px-3 py-3 space-y-2">
               <div className="flex items-center gap-1.5">
                 <AlertTriangle size={13} className="text-error" />
-                <span className="text-[13px] font-semibold text-error">취소/환불</span>
+                <span className="text-[14px] font-semibold text-error">취소/환불</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <p className="text-[12px] text-muted-foreground">사유</p>
-                  <p className="text-[13px] text-foreground">{getCancellationReasonLabel(item.cancellation.reason_type as CancellationReasonType)}</p>
+                  <p className="text-[14px] text-muted-foreground">사유</p>
+                  <p className="text-[14px] text-foreground">{getCancellationReasonLabel(item.cancellation.reason_type as CancellationReasonType)}</p>
                 </div>
                 <div>
-                  <p className="text-[12px] text-muted-foreground">환불</p>
-                  <p className="text-[13px] text-foreground font-semibold">{formatPrice(item.cancellation.refund_amount)}</p>
+                  <p className="text-[14px] text-muted-foreground">환불</p>
+                  <p className="text-[14px] text-foreground font-semibold">{formatPrice(item.cancellation.refund_amount)}</p>
                 </div>
               </div>
               <CancelStatusBadge status={item.cancellation.refund_status as CancelStatus} />
@@ -677,12 +677,12 @@ export default function OrdersPage() {
           <table className="w-full">
             <thead>
               <tr className="bg-muted/40 border-b border-border">
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-4 sm:px-6 py-3">상품</th>
-                <th className="text-center text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[60px]">수량</th>
-                <th className="text-right text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">금액</th>
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[120px]">상태</th>
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[140px]">주문일</th>
-                <th className="text-center text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[50px]">상세</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-4 sm:px-6 py-3">상품</th>
+                <th className="text-center text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[60px]">수량</th>
+                <th className="text-right text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">금액</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[120px]">상태</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[140px]">주문일</th>
+                <th className="text-center text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[50px]">상세</th>
               </tr>
             </thead>
             <tbody>

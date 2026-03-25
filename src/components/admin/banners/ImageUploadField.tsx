@@ -129,7 +129,7 @@ export function ImageUploadField({
                 <button
                   type="button"
                   onClick={handleClear}
-                  className="flex items-center gap-1.5 rounded-md bg-error px-3 py-1.5 text-[12px] font-semibold text-white shadow-md transition-transform hover:scale-105"
+                  className="flex items-center gap-1.5 rounded-md bg-error px-3 py-1.5 text-[14px] font-semibold text-white shadow-md transition-transform hover:scale-105"
                   aria-label="이미지 삭제"
                 >
                   <X size={13} />
@@ -138,7 +138,7 @@ export function ImageUploadField({
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}
-                  className="flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 text-[12px] font-semibold text-foreground shadow-md transition-transform hover:scale-105"
+                  className="flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 text-[14px] font-semibold text-foreground shadow-md transition-transform hover:scale-105"
                   aria-label="이미지 교체"
                 >
                   <Upload size={13} />
@@ -150,7 +150,7 @@ export function ImageUploadField({
         ) : uploading ? (
           <div className="flex flex-col items-center gap-2 text-primary">
             <Loader2 size={24} className="animate-spin" />
-            <p className="text-[12px] font-medium">업로드 중...</p>
+            <p className="text-[14px] font-medium">업로드 중...</p>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-2 text-muted-foreground">
@@ -161,7 +161,7 @@ export function ImageUploadField({
               <ImageIcon size={28} strokeWidth={1.5} />
             </div>
             <div className="text-center">
-              <p className="text-[12px] font-medium text-foreground">
+              <p className="text-[14px] font-medium text-foreground">
                 {dragging ? "여기에 놓으세요" : "클릭하거나 드래그하여 업로드"}
               </p>
               <p className="text-[11px] text-muted-foreground">

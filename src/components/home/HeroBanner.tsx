@@ -5,12 +5,6 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const FALLBACK_SLIDES = [
-  { id: "f1", imageUrl: "https://placehold.co/760x420/f5f5f5/a3a3a3?text=Banner+1", alt: "티켓핀 배너 1", link: "/category" },
-  { id: "f2", imageUrl: "https://placehold.co/760x420/e5e5e5/737373?text=Banner+2", alt: "티켓핀 배너 2", link: "/category" },
-  { id: "f3", imageUrl: "https://placehold.co/760x420/d4d4d4/525252?text=Banner+3", alt: "티켓핀 배너 3", link: "/guide/gift" },
-];
-
 interface BannerSlide {
   id: string;
   imageUrl: string;
@@ -22,7 +16,17 @@ const SLIDE_INTERVAL = 5000;
 const TRANSITION_DURATION = 500;
 
 export function HeroBanner() {
-  const [bannerSlides, setBannerSlides] = useState<BannerSlide[]>(FALLBACK_SLIDES);
+  const [bannerSlides, setBannerSlides] = useState<BannerSlide[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // innerIndex: 0=복제마지막, 1~TOTAL=실제, TOTAL+1=복제첫번째
+  const [innerIndex, setInnerIndex] = useState(1);
+  const [animate, setAnimate] = useState(false); // 초기값 false로 변경 — 첫 렌더 시 transition 방지
+  const [isPaused, setIsPaused] = useState(false);
+  const isMoving = useRef(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const totalRef = useRef(0);
+  const innerIndexRef = useRef(1); // interval 콜백에서 최신값 참조용
 
   // API에서 배너 데이터 fetch
   useEffect(() => {
@@ -41,24 +45,21 @@ export function HeroBanner() {
           );
         }
       } catch {
-        // API 실패 시 fallback 유지
+        // API 실패 시 배너 영역 숨김
+      } finally {
+        setIsLoaded(true);
       }
     }
     fetchBanners();
   }, []);
 
   const TOTAL = bannerSlides.length;
-  const totalRef = useRef(TOTAL);
   useEffect(() => { totalRef.current = TOTAL; }, [TOTAL]);
-  // innerIndex: 0=복제마지막, 1~TOTAL=실제, TOTAL+1=복제첫번째
-  const [innerIndex, setInnerIndex] = useState(1);
-  const [animate, setAnimate] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
-  const isMoving = useRef(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => { innerIndexRef.current = innerIndex; }, [innerIndex]);
 
   const displayIndex =
-    innerIndex <= 0 ? TOTAL - 1
+    TOTAL === 0 ? 0
+    : innerIndex <= 0 ? TOTAL - 1
     : innerIndex > TOTAL ? 0
     : innerIndex - 1;
 
@@ -69,66 +70,90 @@ export function HeroBanner() {
     }
   }, []);
 
+  // 슬라이드 이동 — 경계 리셋 시 2-frame 접근으로 팅김 방지
   const moveTo = useCallback((nextIndex: number) => {
     if (isMoving.current) return;
     const t = totalRef.current;
+    if (t === 0) return;
+
     isMoving.current = true;
     setAnimate(true);
     setInnerIndex(nextIndex);
 
     setTimeout(() => {
-      if (nextIndex > t) {
+      const needsReset = nextIndex > t || nextIndex < 1;
+      if (needsReset) {
+        const resetTo = nextIndex > t ? 1 : t;
+        // 1프레임: transition 제거
         setAnimate(false);
-        setInnerIndex(1);
-      } else if (nextIndex < 1) {
-        setAnimate(false);
-        setInnerIndex(t);
-      }
-      requestAnimationFrame(() => {
+        // 2프레임: transition 없는 상태에서 위치 리셋 (눈에 안 보임)
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            setInnerIndex(resetTo);
+            innerIndexRef.current = resetTo;
+            isMoving.current = false;
+          });
+        });
+      } else {
         isMoving.current = false;
-      });
+      }
     }, TRANSITION_DURATION);
   }, []);
 
-  // 자동 재생용
+  // 자동 재생 — updater 함수 안에서 side effect 호출하지 않음
   useEffect(() => {
-    if (!isPaused) {
+    if (TOTAL === 0 || isPaused) {
       stopInterval();
-      intervalRef.current = setInterval(() => {
-        setInnerIndex((prev) => {
-          if (isMoving.current) return prev;
-          isMoving.current = true;
-          setAnimate(true);
-          const next = prev + 1;
-
-          setTimeout(() => {
-            if (next > totalRef.current) {
-              setAnimate(false);
-              setInnerIndex(1);
-            }
-            requestAnimationFrame(() => {
-              isMoving.current = false;
-            });
-          }, TRANSITION_DURATION);
-
-          return next;
-        });
-      }, SLIDE_INTERVAL);
-    } else {
-      stopInterval();
+      return stopInterval;
     }
+
+    stopInterval();
+    intervalRef.current = setInterval(() => {
+      const next = innerIndexRef.current + 1;
+      moveTo(next);
+    }, SLIDE_INTERVAL);
+
     return stopInterval;
-  }, [isPaused, stopInterval]);
+  }, [isPaused, stopInterval, TOTAL, moveTo]);
 
   const goPrev = useCallback(() => {
-    moveTo(innerIndex - 1);
-  }, [innerIndex, moveTo]);
+    stopInterval();
+    moveTo(innerIndexRef.current - 1);
+  }, [moveTo, stopInterval]);
 
   const goNext = useCallback(() => {
-    moveTo(innerIndex + 1);
-  }, [innerIndex, moveTo]);
+    stopInterval();
+    moveTo(innerIndexRef.current + 1);
+  }, [moveTo, stopInterval]);
 
-  // 슬라이드 배열: [복제 마지막] + [실제 1~5] + [복제 첫번째]
+  // 수동 조작 후 자동 재생 재시작
+  useEffect(() => {
+    if (isPaused || TOTAL === 0) return;
+    // goPrev/goNext가 interval을 멈추므로, 다음 틱에서 재시작
+    if (!intervalRef.current) {
+      intervalRef.current = setInterval(() => {
+        const next = innerIndexRef.current + 1;
+        moveTo(next);
+      }, SLIDE_INTERVAL);
+    }
+    return stopInterval;
+  }, [innerIndex, isPaused, TOTAL, moveTo, stopInterval]);
+
+  // 로딩 중 placeholder
+  if (!isLoaded) {
+    return (
+      <section className="w-full overflow-hidden rounded-2xl">
+        <div className="aspect-[16/9] w-full bg-gradient-to-br from-neutral-100 to-neutral-200 animate-pulse" />
+      </section>
+    );
+  }
+
+  // 배너 데이터 없으면 영역 숨김
+  if (TOTAL === 0) {
+    return null;
+  }
+
+  // 슬라이드 배열: [복제 마지막] + [실제 1~N] + [복제 첫번째]
   const slides = [
     bannerSlides[TOTAL - 1],
     ...bannerSlides,

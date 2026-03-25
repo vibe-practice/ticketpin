@@ -3,6 +3,7 @@ import { z } from "zod";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { voucherCodeSchema } from "@/lib/validations/voucher";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 
 const searchQuerySchema = z.object({
   q: z
@@ -43,10 +44,7 @@ export async function GET(
     }
 
     // ── Rate Limiting (IP + 바우처 코드 기반, 분당 30회) ──
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimit = await checkRateLimit(`voucher-search:${ip}:${code}`, {
       maxAttempts: 30,
       windowMs: 60 * 1000,

@@ -232,7 +232,7 @@ export function BusinessFormModal({ open, onClose, business, onSave }: BusinessF
                   <button
                     key={u.id}
                     type="button"
-                    className="w-full px-3 py-1.5 text-left text-[13px] hover:bg-muted/50 transition-colors"
+                    className="w-full px-3 py-1.5 text-left text-[14px] hover:bg-muted/50 transition-colors"
                     onClick={() => selectUser(u)}
                   >
                     {u.name} ({u.username})
@@ -241,12 +241,12 @@ export function BusinessFormModal({ open, onClose, business, onSave }: BusinessF
               </div>
             )}
             {selectedUser && (
-              <p className="text-[12px] text-success">
+              <p className="text-[14px] text-success">
                 선택됨: {selectedUser.name} ({selectedUser.username})
               </p>
             )}
             {errors.user_id && (
-              <p className="flex items-center gap-1 text-[13px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={13} /> {errors.user_id.message}
               </p>
             )}
@@ -257,7 +257,7 @@ export function BusinessFormModal({ open, onClose, business, onSave }: BusinessF
             <Label>업체명 *</Label>
             <Input {...register("business_name")} placeholder="업체명 입력" />
             {errors.business_name && (
-              <p className="flex items-center gap-1 text-[13px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={13} /> {errors.business_name.message}
               </p>
             )}
@@ -269,7 +269,7 @@ export function BusinessFormModal({ open, onClose, business, onSave }: BusinessF
               <Label>담당자명 *</Label>
               <Input {...register("contact_person")} placeholder="담당자명" />
               {errors.contact_person && (
-                <p className="flex items-center gap-1 text-[13px] text-destructive">
+                <p className="flex items-center gap-1 text-[14px] text-destructive">
                   <AlertCircle size={13} /> {errors.contact_person.message}
                 </p>
               )}
@@ -278,7 +278,7 @@ export function BusinessFormModal({ open, onClose, business, onSave }: BusinessF
               <Label>연락처 *</Label>
               <Input {...register("contact_phone")} placeholder="01012345678" />
               {errors.contact_phone && (
-                <p className="flex items-center gap-1 text-[13px] text-destructive">
+                <p className="flex items-center gap-1 text-[14px] text-destructive">
                   <AlertCircle size={13} /> {errors.contact_phone.message}
                 </p>
               )}
@@ -306,7 +306,7 @@ export function BusinessFormModal({ open, onClose, business, onSave }: BusinessF
               <Input {...register("account_holder")} placeholder="예금주" />
             </div>
             {(errors.bank_name || errors.account_number || errors.account_holder) && (
-              <p className="flex items-center gap-1 text-[13px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={13} />
                 {errors.bank_name?.message || errors.account_number?.message || errors.account_holder?.message}
               </p>
@@ -323,7 +323,7 @@ export function BusinessFormModal({ open, onClose, business, onSave }: BusinessF
               placeholder="96"
             />
             {errors.commission_rate && (
-              <p className="flex items-center gap-1 text-[13px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={13} /> {errors.commission_rate.message}
               </p>
             )}
@@ -349,7 +349,7 @@ export function BusinessFormModal({ open, onClose, business, onSave }: BusinessF
                   <button
                     key={u.id}
                     type="button"
-                    className="w-full px-3 py-1.5 text-left text-[13px] hover:bg-muted/50 transition-colors"
+                    className="w-full px-3 py-1.5 text-left text-[14px] hover:bg-muted/50 transition-colors"
                     onClick={() => selectReceiving(u)}
                   >
                     {u.name} ({u.username})
@@ -359,7 +359,7 @@ export function BusinessFormModal({ open, onClose, business, onSave }: BusinessF
             )}
             {selectedReceiving && (
               <div className="flex items-center gap-2">
-                <p className="text-[12px] text-success">
+                <p className="text-[14px] text-success">
                   선택됨: {selectedReceiving.username}
                 </p>
                 <button

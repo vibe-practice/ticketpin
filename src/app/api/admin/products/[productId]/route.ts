@@ -120,7 +120,15 @@ export async function PATCH(
     const { productId } = await params;
     if (!UUID_RE.test(productId)) return invalidIdResponse();
 
-    const body = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: { code: "INVALID_JSON", message: "요청 본문이 올바르지 않습니다." } },
+        { status: 400 }
+      );
+    }
     const parsed = adminUpdateProductSchema.safeParse(body);
 
     if (!parsed.success) {

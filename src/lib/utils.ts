@@ -63,16 +63,13 @@ export function formatPhone(raw: string): string {
 
 /**
  * 결제 취소 가능 여부 (결제 당일 자정까지만 가능)
+ * Intl.DateTimeFormat으로 KST 날짜를 명시적으로 비교 (수동 오프셋 계산 불필요)
  */
 export function isCancelableToday(orderCreatedAt: string | Date): boolean {
-  const KST_OFFSET_MS = 9 * 60 * 60 * 1000;
-  const nowKST = new Date(Date.now() + KST_OFFSET_MS);
-  const orderKST = new Date(new Date(orderCreatedAt).getTime() + KST_OFFSET_MS);
-  return (
-    orderKST.getUTCFullYear() === nowKST.getUTCFullYear() &&
-    orderKST.getUTCMonth() === nowKST.getUTCMonth() &&
-    orderKST.getUTCDate() === nowKST.getUTCDate()
-  );
+  const fmt = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" });
+  const todayKST = fmt.format(new Date());
+  const orderKST = fmt.format(new Date(orderCreatedAt));
+  return todayKST === orderKST;
 }
 
 export function formatFeePercent(feeAmount: number, price: number): string {
@@ -82,11 +79,11 @@ export function formatFeePercent(feeAmount: number, price: number): string {
 }
 
 /**
- * 오늘 날짜를 YYYY-MM-DD 형식으로 반환
+ * KST 기준 오늘 날짜를 YYYY-MM-DD 형식으로 반환
+ * Intl.DateTimeFormat("en-CA")는 YYYY-MM-DD 형식을 반환
  */
 export function getToday(): string {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Seoul" }).format(new Date());
 }
 
 /**

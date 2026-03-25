@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { voucherCodeSchema } from "@/lib/validations/voucher";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 import { prepareFeePayment } from "@/lib/payment/fee";
 import { createPaymentSession } from "@/lib/payment/session";
 
@@ -46,10 +47,7 @@ export async function POST(
     }
 
     // ── Rate Limiting ──
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(`fee-prepare:${ip}`, FEE_PREPARE_RATE_LIMIT);
     if (!rateLimitResult.success) {
       return NextResponse.json(

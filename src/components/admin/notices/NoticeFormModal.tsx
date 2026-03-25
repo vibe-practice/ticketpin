@@ -140,7 +140,7 @@ export function NoticeFormModal({
 
             {/* ── 제목 ──────────────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="title" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="title" className="text-[14px] font-medium text-foreground">
                 제목 <span className="text-error">*</span>
               </Label>
               <Input
@@ -150,7 +150,7 @@ export function NoticeFormModal({
                 {...register("title")}
               />
               {errors.title && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.title.message}
                 </p>
@@ -159,7 +159,7 @@ export function NoticeFormModal({
 
             {/* ── 카테고리 ──────────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="category" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="category" className="text-[14px] font-medium text-foreground">
                 카테고리 <span className="text-error">*</span>
               </Label>
               <Select
@@ -182,7 +182,7 @@ export function NoticeFormModal({
                 </SelectContent>
               </Select>
               {errors.category && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.category.message}
                 </p>
@@ -191,7 +191,7 @@ export function NoticeFormModal({
 
             {/* ── 내용 ──────────────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="content" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="content" className="text-[14px] font-medium text-foreground">
                 내용 <span className="text-error">*</span>
               </Label>
               <Textarea
@@ -202,7 +202,7 @@ export function NoticeFormModal({
                 {...register("content")}
               />
               {errors.content && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.content.message}
                 </p>
@@ -213,8 +213,8 @@ export function NoticeFormModal({
             <div className="flex flex-col gap-3">
               <div className="flex items-center justify-between rounded-xl border border-border bg-muted/20 px-4 py-3">
                 <div>
-                  <p className="text-[13px] font-medium text-foreground">중요 공지</p>
-                  <p className="text-[12px] text-muted-foreground">
+                  <p className="text-[14px] font-medium text-foreground">중요 공지</p>
+                  <p className="text-[14px] text-muted-foreground">
                     활성화 시 공지 목록 최상단에 고정됩니다
                   </p>
                 </div>
@@ -227,8 +227,8 @@ export function NoticeFormModal({
 
               <div className="flex items-center justify-between rounded-xl border border-border bg-muted/20 px-4 py-3">
                 <div>
-                  <p className="text-[13px] font-medium text-foreground">노출 여부</p>
-                  <p className="text-[12px] text-muted-foreground">
+                  <p className="text-[14px] font-medium text-foreground">노출 여부</p>
+                  <p className="text-[14px] text-muted-foreground">
                     비활성화 시 사용자 공지사항 페이지에 표시되지 않습니다
                   </p>
                 </div>
@@ -248,7 +248,7 @@ export function NoticeFormModal({
               variant="outline"
               size="sm"
               onClick={onClose}
-              className="h-9 px-5 text-[13px]"
+              className="h-9 px-5 text-[14px]"
             >
               취소
             </Button>
@@ -256,7 +256,7 @@ export function NoticeFormModal({
               type="submit"
               size="sm"
               disabled={isSubmitting}
-              className="h-9 px-6 text-[13px] bg-primary text-white hover:bg-brand-primary-dark"
+              className="h-9 px-6 text-[14px] bg-primary text-white hover:bg-brand-primary-dark"
             >
               {isSubmitting ? "저장 중..." : isEdit ? "수정 완료" : "공지 등록"}
             </Button>

@@ -275,11 +275,11 @@ export function VoucherDetailModal({
             {chainLoading ? (
               <div className="mt-2 flex items-center justify-center py-6">
                 <Loader2 size={18} className="animate-spin text-muted-foreground" />
-                <span className="ml-2 text-[12px] text-muted-foreground">체인 추적 중...</span>
+                <span className="ml-2 text-[14px] text-muted-foreground">체인 추적 중...</span>
               </div>
             ) : chain.length === 0 ? (
               <div className="mt-2 rounded-md border border-border bg-muted/20 py-6 text-center">
-                <p className="text-[12px] text-muted-foreground">체인 정보를 불러올 수 없습니다.</p>
+                <p className="text-[14px] text-muted-foreground">체인 정보를 불러올 수 없습니다.</p>
               </div>
             ) : (
               <div
@@ -296,7 +296,7 @@ export function VoucherDetailModal({
                       {idx > 0 && <ArrowRight size={14} className="shrink-0 text-muted-foreground" />}
                       <div className={cn("rounded-md border px-3 py-2 min-w-[140px]", getChainNodeStyle(idx, chain.length))}>
                         <p className="text-[10px] font-medium text-muted-foreground">{node.label}</p>
-                        <p className="text-[12px] font-medium text-foreground">
+                        <p className="text-[14px] font-medium text-foreground">
                           {node.name}
                           <span className="ml-1 text-[11px] text-muted-foreground">({node.username})</span>
                         </p>
@@ -317,7 +317,7 @@ export function VoucherDetailModal({
           {/* 2. 결제 정보 */}
           <section>
             <SectionHeader icon={CreditCard} title="결제 정보 (최초 주문)" />
-            <div className="mt-2 rounded-md border border-border bg-card p-3 grid grid-cols-3 gap-3 text-[13px]">
+            <div className="mt-2 rounded-md border border-border bg-card p-3 grid grid-cols-3 gap-3 text-[14px]">
               <div>
                 <span className="text-[11px] text-muted-foreground">주문번호</span>
                 <p className="font-medium text-foreground">{giftItem.original_order_number || "-"}</p>
@@ -357,7 +357,7 @@ export function VoucherDetailModal({
             <SectionHeader icon={ShieldCheck} title="교환권 검증" />
             <div className="mt-2 rounded-md border border-border bg-card p-3 space-y-3">
               <div className="flex items-center gap-3">
-                <span className="text-[12px] text-muted-foreground w-20">현재 상태</span>
+                <span className="text-[14px] text-muted-foreground w-20">현재 상태</span>
                 <span className={cn("rounded-sm px-2 py-0.5 text-[11px] font-semibold", VERIFICATION_STATUS_STYLE[giftItem.verification_status])}>
                   {VERIFICATION_STATUS_LABEL[giftItem.verification_status]}
                 </span>
@@ -365,7 +365,7 @@ export function VoucherDetailModal({
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
-                  <Label className="text-[12px]">검증 상태 변경</Label>
+                  <Label className="text-[14px]">검증 상태 변경</Label>
                   <Select value={verificationStatus} onValueChange={(v) => setVerificationStatus(v as VerificationStatus)}>
                     <SelectTrigger className="h-8 text-sm"><SelectValue /></SelectTrigger>
                     <SelectContent>
@@ -377,7 +377,7 @@ export function VoucherDetailModal({
                   </Select>
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-[12px]">검증 메모</Label>
+                  <Label className="text-[14px]">검증 메모</Label>
                   <Textarea value={verificationMemo} onChange={(e) => setVerificationMemo(e.target.value)} placeholder="검증 메모 입력" rows={1} className="text-sm" />
                 </div>
               </div>
@@ -395,7 +395,7 @@ export function VoucherDetailModal({
             <div className="mt-2 rounded-md border border-border bg-card p-3 space-y-3">
               {giftItem.pin_ids.length > 0 ? (
                 <div className="overflow-x-auto">
-                  <table className="w-full text-[13px]">
+                  <table className="w-full text-[14px]">
                     <thead>
                       <tr className="border-b border-border">
                         <th className="px-2 py-1.5 text-center font-medium text-muted-foreground w-[40px]">#</th>
@@ -406,8 +406,8 @@ export function VoucherDetailModal({
                     <tbody>
                       {giftItem.pin_ids.map((pinId, idx) => (
                         <tr key={pinId} className="border-b border-border last:border-b-0">
-                          <td className="px-2 py-1.5 text-center text-[12px] text-muted-foreground">{idx + 1}</td>
-                          <td className="px-2 py-1.5 font-mono text-[12px] text-foreground">
+                          <td className="px-2 py-1.5 text-center text-[14px] text-muted-foreground">{idx + 1}</td>
+                          <td className="px-2 py-1.5 font-mono text-[14px] text-foreground">
                             {pinRecycled ? "—" : pinId.slice(0, 8) + "..."}
                           </td>
                           <td className="px-2 py-1.5 text-center">
@@ -421,13 +421,13 @@ export function VoucherDetailModal({
                   </table>
                 </div>
               ) : (
-                <p className="text-[12px] text-muted-foreground py-2">핀 정보가 없습니다 (자동 복원된 선물일 수 있습니다).</p>
+                <p className="text-[14px] text-muted-foreground py-2">핀 정보가 없습니다 (자동 복원된 선물일 수 있습니다).</p>
               )}
 
               {/* 핀 재활용 */}
               <div className="flex items-center gap-3 pt-2 border-t border-border">
                 <RefreshCcw size={14} className="text-primary shrink-0" />
-                <span className="text-[12px] text-muted-foreground">
+                <span className="text-[14px] text-muted-foreground">
                   핀을 재고(waiting)로 복원하면 해당 상품의 판매 가능 재고로 다시 사용됩니다.
                 </span>
                 <Button
@@ -455,7 +455,7 @@ function SectionHeader({ icon: Icon, title }: { icon: React.ElementType; title: 
   return (
     <div className="flex items-center gap-2">
       <Icon size={14} className="text-primary" />
-      <p className="text-[13px] font-semibold text-foreground">{title}</p>
+      <p className="text-[14px] font-semibold text-foreground">{title}</p>
     </div>
   );
 }

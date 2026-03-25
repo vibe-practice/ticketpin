@@ -76,7 +76,7 @@ export function DashboardStatCard({
               )}
               <span
                 className={cn(
-                  "text-[12px] font-semibold",
+                  "text-[14px] font-semibold",
                   isPositive ? "text-success" : isNegative ? "text-error" : "text-muted-foreground"
                 )}
               >

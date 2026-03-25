@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { voucherCodeSchema, giftSchema } from "@/lib/validations/voucher";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 import {
   BCRYPT_SALT_ROUNDS,
   TEMP_PW_EXPIRY_MINUTES,
@@ -62,10 +63,7 @@ export async function POST(
     }
 
     // ── Rate Limiting (IP + 바우처 코드 기반) ──
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(
       `gift:${ip}:${code}`,
       GIFT_RATE_LIMIT

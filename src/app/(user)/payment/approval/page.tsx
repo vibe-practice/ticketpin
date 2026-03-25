@@ -83,8 +83,7 @@ function ApprovalContent() {
             productName: pending.productName ?? "",
           });
           router.replace(`/order/complete?${completeParams.toString()}`);
-        } catch (err) {
-          console.error("[PaymentApproval] 모바일 주문 결제 승인 오류:", err);
+        } catch {
           setMobileError("결제 처리 중 오류가 발생했습니다.");
         }
       } else if (feePendingRaw) {
@@ -92,6 +91,7 @@ function ApprovalContent() {
         const voucherCode = sessionStorage.getItem("mainpay_fee_voucher_code");
 
         // 처리 시작 시점에서 즉시 sessionStorage 정리 (모든 에러 경로에서 누락 방지)
+        // fee_verification_token은 유지 (pin 페이지에서 핀 조회에 사용)
         sessionStorage.removeItem("mainpay_fee_pending");
         sessionStorage.removeItem("mainpay_fee_voucher_code");
 
@@ -111,7 +111,7 @@ function ApprovalContent() {
               amount: pending.amount,
               auth_token: authToken,
               mbr_ref_no: pending.mbrRefNo,
-              password: pending.password,
+              verification_token: pending.verificationToken,
             }),
           });
 
@@ -122,14 +122,11 @@ function ApprovalContent() {
             return;
           }
 
-          // 결제 성공 시 핀 번호를 sessionStorage에 저장하여 pin 페이지에서 바로 표시
-          if (confirmData.data?.pins) {
-            sessionStorage.setItem("fee_revealed_pins", JSON.stringify(confirmData.data.pins));
-          }
+          // 핀 번호는 sessionStorage에 저장하지 않음 (보안 개선)
+          // pin 페이지에서 검증 토큰으로 서버에서 직접 조회
 
           router.replace(`/v/${voucherCode}/pin`);
-        } catch (err) {
-          console.error("[PaymentApproval] 모바일 수수료 결제 승인 오류:", err);
+        } catch {
           setMobileError("수수료 결제 처리 중 오류가 발생했습니다.");
         }
       } else {
@@ -182,7 +179,7 @@ function ApprovalContent() {
       <div className="flex flex-col items-center gap-4">
         <Loader2 size={32} className="animate-spin text-muted-foreground" />
         <p className="text-[15px] font-medium text-muted-foreground">결제 처리 중...</p>
-        <p className="text-[13px] text-muted-foreground">잠시만 기다려주세요.</p>
+        <p className="text-[14px] text-muted-foreground">잠시만 기다려주세요.</p>
       </div>
     </div>
   );

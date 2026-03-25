@@ -120,7 +120,7 @@ export function BusinessDetailModal({ open, onClose, business, onDelete, onEdit 
                 type="button"
                 onClick={() => setActiveTab(tab.key)}
                 className={cn(
-                  "flex items-center gap-1.5 px-4 py-2.5 text-[13px] font-medium transition-colors border-b-2 -mb-px",
+                  "flex items-center gap-1.5 px-4 py-2.5 text-[14px] font-medium transition-colors border-b-2 -mb-px",
                   activeTab === tab.key
                     ? "border-primary text-primary"
                     : "border-transparent text-muted-foreground hover:text-foreground"
@@ -286,11 +286,11 @@ function AuthPhoneSection({ business }: { business: AdminBusinessListItem }) {
   return (
     <div className="flex items-start gap-3">
       <Smartphone size={14} className="shrink-0 text-muted-foreground mt-0.5" />
-      <span className="text-[12px] text-muted-foreground w-24 shrink-0 mt-0.5">SMS 인증 휴대폰</span>
+      <span className="text-[14px] text-muted-foreground w-24 shrink-0 mt-0.5">SMS 인증 휴대폰</span>
       <div className="flex-1 space-y-2">
         {!editing ? (
           <div className="flex items-center gap-2">
-            <span className="text-[13px] text-foreground">
+            <span className="text-[14px] text-foreground">
               {formatPhone(currentAuthPhone)}
             </span>
             <Button
@@ -310,12 +310,12 @@ function AuthPhoneSection({ business }: { business: AdminBusinessListItem }) {
                   placeholder="01012345678"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value.replace(/[^0-9]/g, ""))}
-                  className="h-8 w-40 text-[13px]"
+                  className="h-8 w-40 text-[14px]"
                   maxLength={11}
                 />
                 <Button
                   size="sm"
-                  className="h-8 px-3 text-[12px]"
+                  className="h-8 px-3 text-[14px]"
                   onClick={handleSendCode}
                   disabled={sending || phone.replace(/\D/g, "").length < 10}
                 >
@@ -325,7 +325,7 @@ function AuthPhoneSection({ business }: { business: AdminBusinessListItem }) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-8 px-2 text-[12px] text-muted-foreground"
+                  className="h-8 px-2 text-[14px] text-muted-foreground"
                   onClick={handleCancel}
                 >
                   <X size={12} />
@@ -334,7 +334,7 @@ function AuthPhoneSection({ business }: { business: AdminBusinessListItem }) {
             )}
             {step === 2 && (
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
+                <div className="flex items-center gap-2 text-[14px] text-muted-foreground">
                   <span>{formatPhone(phone)}으로 인증번호 발송됨</span>
                   {timer > 0 && (
                     <span className={cn(
@@ -353,12 +353,12 @@ function AuthPhoneSection({ business }: { business: AdminBusinessListItem }) {
                     placeholder="인증번호 6자리"
                     value={code}
                     onChange={(e) => setCode(e.target.value.replace(/[^0-9]/g, "").slice(0, 6))}
-                    className="h-8 w-32 text-[13px]"
+                    className="h-8 w-32 text-[14px]"
                     maxLength={6}
                   />
                   <Button
                     size="sm"
-                    className="h-8 px-3 text-[12px]"
+                    className="h-8 px-3 text-[14px]"
                     onClick={handleVerify}
                     disabled={verifying || code.length !== 6 || timer <= 0}
                   >
@@ -368,7 +368,7 @@ function AuthPhoneSection({ business }: { business: AdminBusinessListItem }) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="h-8 px-2 text-[12px] text-muted-foreground"
+                    className="h-8 px-2 text-[14px] text-muted-foreground"
                     onClick={() => { setStep(1); setCode(""); }}
                   >
                     재발송
@@ -376,7 +376,7 @@ function AuthPhoneSection({ business }: { business: AdminBusinessListItem }) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="h-8 px-2 text-[12px] text-muted-foreground"
+                    className="h-8 px-2 text-[14px] text-muted-foreground"
                     onClick={handleCancel}
                   >
                     <X size={12} />
@@ -472,7 +472,7 @@ function InfoTab({ business, onDelete, onEdit }: { business: AdminBusinessListIt
         {business.memo && (
           <div className="rounded-md bg-muted/50 p-3">
             <p className="text-[11px] text-muted-foreground mb-1">메모</p>
-            <p className="text-[13px] text-foreground">{business.memo}</p>
+            <p className="text-[14px] text-foreground">{business.memo}</p>
           </div>
         )}
       </div>
@@ -528,8 +528,8 @@ function InfoRow({ icon: Icon, label, value }: { icon: React.ElementType; label:
   return (
     <div className="flex items-center gap-3">
       <Icon size={14} className="shrink-0 text-muted-foreground" />
-      <span className="text-[12px] text-muted-foreground w-24 shrink-0">{label}</span>
-      <span className="text-[13px] text-foreground">{value}</span>
+      <span className="text-[14px] text-muted-foreground w-24 shrink-0">{label}</span>
+      <span className="text-[14px] text-foreground">{value}</span>
     </div>
   );
 }
@@ -565,7 +565,7 @@ function GiftsTab({ businessId }: { businessId: string }) {
 
   return (
     <div className="space-y-3">
-      <p className="text-[12px] text-muted-foreground">
+      <p className="text-[14px] text-muted-foreground">
         수신 계정으로 들어온 선물 내역
       </p>
 
@@ -574,11 +574,11 @@ function GiftsTab({ businessId }: { businessId: string }) {
           <Loader2 size={20} className="animate-spin text-muted-foreground" />
         </div>
       ) : gifts.length === 0 ? (
-        <p className="py-6 text-center text-[13px] text-muted-foreground">매입 내역이 없습니다</p>
+        <p className="py-6 text-center text-[14px] text-muted-foreground">매입 내역이 없습니다</p>
       ) : (
         <>
           <div className="overflow-x-auto rounded-md border border-border">
-            <table className="w-full text-[13px]">
+            <table className="w-full text-[14px]">
               <thead>
                 <tr className="border-b border-border bg-muted/50">
                   <th className="px-3 py-2 text-left font-medium text-muted-foreground">일시</th>
@@ -657,8 +657,8 @@ function SettlementsTab({ businessId }: { businessId: string }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <p className="text-[12px] text-muted-foreground">해당 업체의 정산 내역</p>
-        <p className="text-[13px] font-semibold text-primary">
+        <p className="text-[14px] text-muted-foreground">해당 업체의 정산 내역</p>
+        <p className="text-[14px] font-semibold text-primary">
           총 정산액: {totalAmount.toLocaleString()}원
         </p>
       </div>
@@ -668,10 +668,10 @@ function SettlementsTab({ businessId }: { businessId: string }) {
           <Loader2 size={20} className="animate-spin text-muted-foreground" />
         </div>
       ) : settlements.length === 0 ? (
-        <p className="py-6 text-center text-[13px] text-muted-foreground">정산 내역이 없습니다</p>
+        <p className="py-6 text-center text-[14px] text-muted-foreground">정산 내역이 없습니다</p>
       ) : (
         <div className="overflow-x-auto rounded-md border border-border">
-          <table className="w-full text-[13px]">
+          <table className="w-full text-[14px]">
             <thead>
               <tr className="border-b border-border bg-muted/50">
                 <th className="px-3 py-2 text-left font-medium text-muted-foreground">대상일</th>

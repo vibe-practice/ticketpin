@@ -209,7 +209,7 @@ function IdentityVerificationModalInner({
               </Button>
 
               {isLoading && (
-                <p className="text-center text-[13px] text-muted-foreground">
+                <p className="text-center text-[14px] text-muted-foreground">
                   인증 팝업에서 인증을 완료해 주세요.
                   <br />
                   팝업이 보이지 않으면 팝업 차단을 해제해 주세요.

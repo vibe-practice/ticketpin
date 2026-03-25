@@ -76,8 +76,26 @@ export async function GET(request: NextRequest) {
       query = query.eq("pin_number_hash", hashPin(search));
     }
 
-    // 비-핀번호 텍스트 검색 여부 (상품명, 바우처코드, 사용자명 — post-filter 필요)
-    const needsPostFilter = !!search && !pinSearch;
+    // 비-핀번호 텍스트 검색: 상품명은 DB 레벨 필터, 바우처코드/사용자명은 post-filter
+    let needsPostFilter = false;
+    if (search && !pinSearch) {
+      // 상품명 DB 레벨 필터: 먼저 일치하는 product_id를 조회
+      const { data: matchedProducts } = await adminClient
+        .from("products")
+        .select("id")
+        .ilike("name", `%${search}%`);
+
+      if (matchedProducts && matchedProducts.length > 0) {
+        // 상품명 매치가 있으면 product_id로 DB 필터 적용
+        // 단, 바우처코드/사용자명 검색도 필요하므로 post-filter도 병행
+        query = query.in("product_id", matchedProducts.map((p) => p.id as string));
+        // 상품명으로 DB 필터를 적용했으므로 post-filter에서 추가 필터링 불필요
+        needsPostFilter = false;
+      } else {
+        // 상품명 매치가 없으면 바우처코드/사용자명 검색을 위해 post-filter
+        needsPostFilter = true;
+      }
+    }
 
     // 정렬
     const SORTABLE_COLUMNS = ["created_at", "status", "registration_method"];
@@ -266,7 +284,15 @@ export async function POST(request: NextRequest) {
     if ("error" in auth) return auth.error;
     const { adminClient } = auth;
 
-    const body = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: { code: "INVALID_JSON", message: "요청 본문이 올바르지 않습니다." } },
+        { status: 400 }
+      );
+    }
     const parsed = adminCreatePinSchema.safeParse(body);
 
     if (!parsed.success) {

@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { voucherCodeSchema } from "@/lib/validations/voucher";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 import { VOUCHER_MAX_REISSUE, TEMP_PW_EXPIRY_MINUTES, BCRYPT_SALT_ROUNDS, generateTempPassword } from "@/lib/constants";
 import { sendSmsSync, buildReissueMessage, resolveVoucherSmsPhone } from "@/lib/sms";
 
@@ -40,10 +41,7 @@ export async function POST(
     }
 
     // ── Rate Limiting ──
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(`reissue:${ip}`, REISSUE_RATE_LIMIT);
     if (!rateLimitResult.success) {
       return NextResponse.json(

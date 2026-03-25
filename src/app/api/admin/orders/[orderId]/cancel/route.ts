@@ -262,7 +262,16 @@ export async function POST(
       }
 
       if (fallbackErrors.length > 0) {
-        console.error("[cancel] Fallback 중 일부 실패:", fallbackErrors);
+        // PG 환불은 성공했으나 DB 상태 전이가 불완전한 위험 상태 — 상세 구조화 로그
+        console.error("[cancel] CRITICAL: PG 환불 완료 후 DB fallback 일부 실패", JSON.stringify({
+          severity: "CRITICAL",
+          orderId,
+          orderNumber: order.order_number,
+          pgCancelTransactionId: pgResult.pgCancelTransactionId,
+          cancelledAmount: pgResult.cancelledAmount,
+          fallbackErrors,
+          timestamp: new Date().toISOString(),
+        }));
       } else {
         console.log("[cancel] Fallback으로 모든 상태 전이 완료:", orderId);
       }

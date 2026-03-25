@@ -2,15 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { serverFindIdSchema } from "@/lib/validations/auth";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 
 const FIND_ID_RATE_LIMIT = { maxAttempts: 5, windowMs: 60 * 1000 };
 
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(
       `find-id:${ip}`,
       FIND_ID_RATE_LIMIT,

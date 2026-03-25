@@ -141,8 +141,7 @@ export function AdminFaqClient() {
       if (json.success) {
         setFaqs(json.data);
       }
-    } catch (err) {
-      console.error("FAQ 목록 조회 실패:", err);
+    } catch {
     } finally {
       setIsLoading(false);
     }
@@ -271,7 +270,7 @@ export function AdminFaqClient() {
         align: "center" as const,
         width: "60px",
         render: (v: unknown) => (
-          <span className="font-mono text-[12px] text-muted-foreground">
+          <span className="font-mono text-[14px] text-muted-foreground">
             {String(v).padStart(2, "0")}
           </span>
         ),
@@ -299,7 +298,7 @@ export function AdminFaqClient() {
         align: "left" as const,
         render: (v: unknown, row: FaqRow) => (
           <div className="min-w-0">
-            <p className="truncate text-[13px] font-medium text-foreground max-w-[360px]" title={String(v)}>
+            <p className="truncate text-[14px] font-medium text-foreground max-w-[360px]" title={String(v)}>
               {String(v)}
             </p>
             <p className="mt-0.5 line-clamp-1 text-[11px] text-muted-foreground max-w-[360px]">
@@ -336,7 +335,7 @@ export function AdminFaqClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[12px] text-muted-foreground">
+          <span className="whitespace-nowrap text-[14px] text-muted-foreground">
             {String(v).split("T")[0]}
           </span>
         ),
@@ -506,7 +505,7 @@ export function AdminFaqClient() {
       {toastMsg && (
         <div
           className={cn(
-            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[13px] font-medium transition-all",
+            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[14px] font-medium transition-all",
             toastMsg.type === "success"
               ? "border-success/30 bg-success-bg text-success"
               : "border-error/30 bg-error-bg text-error"
@@ -529,7 +528,7 @@ export function AdminFaqClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">FAQ 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               자주 묻는 질문을 등록, 수정, 삭제합니다
             </p>
           </div>
@@ -546,7 +545,7 @@ export function AdminFaqClient() {
           <Button
             size="sm"
             onClick={() => { setEditTarget(null); setFormOpen(true); }}
-            className="h-9 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[13px]"
+            className="h-9 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[14px]"
           >
             <Plus size={15} />
             FAQ 등록

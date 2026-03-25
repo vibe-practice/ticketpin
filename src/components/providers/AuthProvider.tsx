@@ -7,6 +7,9 @@ import { useAuthStore } from "@/store/authStore";
 // 인증이 필요한 경로 접두사
 const PROTECTED_PATHS = ["/my"];
 
+// 인증 fetch가 불필요한 경로 접두사 (관리자, 업체, 바우처 독립 페이지)
+const SKIP_AUTH_PATHS = ["/adminmaster", "/business", "/v/"];
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setUser, setLoading } = useAuthStore();
   const router = useRouter();
@@ -18,7 +21,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     pathnameRef.current = pathname;
   }, [pathname]);
 
+  // 현재 경로가 인증 fetch를 건너뛸 경로인지 판별
+  const shouldSkip = SKIP_AUTH_PATHS.some((p) => pathname.startsWith(p));
+
   useEffect(() => {
+    // 관리자·업체·바우처 페이지에서는 /api/auth/me를 호출하지 않음
+    if (shouldSkip) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
+
     const fetchUser = async () => {
       try {
         const res = await fetch("/api/auth/me");
@@ -50,7 +63,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     fetchUser();
-  }, [setUser, setLoading, router]);
+  }, [setUser, setLoading, router, shouldSkip]);
 
   return <>{children}</>;
 }

@@ -80,7 +80,15 @@ export async function POST(request: NextRequest) {
     if ("error" in auth) return auth.error;
     const { adminClient } = auth;
 
-    const body = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: { code: "INVALID_JSON", message: "요청 본문이 올바르지 않습니다." } },
+        { status: 400 }
+      );
+    }
     const parsed = adminCreateCategorySchema.safeParse(body);
 
     if (!parsed.success) {

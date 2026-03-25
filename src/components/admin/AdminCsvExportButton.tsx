@@ -103,8 +103,7 @@ export function AdminCsvExportButton<T>({
       const csv = generateCsv(data, columns);
       const today = new Date().toISOString().split("T")[0].replace(/-/g, "");
       downloadCsv(csv, `${filename}_${today}.csv`);
-    } catch (err) {
-      console.error("[CSV Export] 오류:", err);
+    } catch {
     } finally {
       setLoading(false);
     }

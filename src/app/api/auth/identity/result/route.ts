@@ -14,6 +14,7 @@ import { checkRateLimit } from "@/lib/rate-limit";
 import { createAdminClient } from "@/lib/supabase/admin";
 import type { IdentityResultApiResponse } from "@/lib/danal/types";
 import { maskUsername } from "@/lib/utils";
+import { getClientIp } from "@/lib/utils/ip";
 import { z } from "zod";
 
 const resultRequestSchema = z.object({
@@ -24,9 +25,7 @@ const resultRequestSchema = z.object({
 export async function POST(request: Request) {
   try {
     // Rate limiting
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimit = await checkRateLimit(`identity-result:${ip}`, {
       maxAttempts: 10,
       windowMs: 60_000,
@@ -44,7 +43,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const body = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: { code: "INVALID_JSON", message: "요청 본문이 올바르지 않습니다." } },
+        { status: 400 }
+      );
+    }
     const parsed = resultRequestSchema.safeParse(body);
 
     if (!parsed.success) {
@@ -59,7 +66,7 @@ export async function POST(request: Request) {
 
     const { sessionId, purpose } = parsed.data;
 
-    const session = getIdentitySession(sessionId);
+    const session = await getIdentitySession(sessionId);
 
     if (!session) {
       return NextResponse.json<IdentityResultApiResponse>(
@@ -107,7 +114,7 @@ export async function POST(request: Request) {
           } else {
             username = existingUser.username;
             // 비밀번호 재설정용 일회용 토큰 발급
-            resetToken = createResetToken(existingUser.username, session.result.phone);
+            resetToken = await createResetToken(existingUser.username, session.result.phone);
           }
         }
       } catch {
@@ -125,7 +132,7 @@ export async function POST(request: Request) {
     };
 
     // 일회성 사용: 결과 반환 후 세션 삭제
-    deleteIdentitySession(sessionId);
+    await deleteIdentitySession(sessionId);
 
     return NextResponse.json<IdentityResultApiResponse>({
       success: true,

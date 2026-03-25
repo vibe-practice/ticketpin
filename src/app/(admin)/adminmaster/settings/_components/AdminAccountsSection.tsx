@@ -138,7 +138,7 @@ export function AdminAccountsSection({ currentAdminId, onMessage }: AdminAccount
         onSubmit={handleSubmitAccount(onAddAccount)}
         className="mb-6 rounded-lg border border-dashed border-border bg-muted/30 p-4"
       >
-        <h3 className="text-[13px] font-semibold text-foreground mb-3">계정 추가</h3>
+        <h3 className="text-[14px] font-semibold text-foreground mb-3">계정 추가</h3>
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="flex-1 space-y-1.5">
             <Label htmlFor="account_username" className="text-xs text-muted-foreground">
@@ -151,7 +151,7 @@ export function AdminAccountsSection({ currentAdminId, onMessage }: AdminAccount
               className="h-9 text-sm font-mono"
             />
             {accountErrors.username && (
-              <p className="flex items-center gap-1 text-[12px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={11} />
                 {accountErrors.username.message}
               </p>
@@ -169,7 +169,7 @@ export function AdminAccountsSection({ currentAdminId, onMessage }: AdminAccount
               className="h-9 text-sm"
             />
             {accountErrors.password && (
-              <p className="flex items-center gap-1 text-[12px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={11} />
                 {accountErrors.password.message}
               </p>
@@ -186,7 +186,7 @@ export function AdminAccountsSection({ currentAdminId, onMessage }: AdminAccount
               className="h-9 text-sm"
             />
             {accountErrors.name && (
-              <p className="flex items-center gap-1 text-[12px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={11} />
                 {accountErrors.name.message}
               </p>

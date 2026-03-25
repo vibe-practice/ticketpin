@@ -156,7 +156,6 @@ export function AdminBannersClient() {
       const json = await res.json();
       if (json.success) setBanners(json.data);
     } catch {
-      console.error("배너 목록 조회 실패");
     } finally {
       setBannersLoading(false);
     }
@@ -169,7 +168,6 @@ export function AdminBannersClient() {
       const json = await res.json();
       if (json.success) setSideBanners(json.data);
     } catch {
-      console.error("사이드 배너 목록 조회 실패");
     } finally {
       setSideBannersLoading(false);
     }
@@ -437,7 +435,7 @@ export function AdminBannersClient() {
       {toast && (
         <div
           className={cn(
-            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[13px] font-medium transition-all",
+            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[14px] font-medium transition-all",
             toast.type === "success"
               ? "border-success/30 bg-success-bg text-success"
               : "border-error/30 bg-error-bg text-error"
@@ -459,21 +457,21 @@ export function AdminBannersClient() {
         </div>
         <div>
           <h1 className="text-xl font-bold text-foreground">배너 관리</h1>
-          <p className="text-[12px] text-muted-foreground">메인 배너와 사이드 배너를 관리합니다</p>
+          <p className="text-[14px] text-muted-foreground">메인 배너와 사이드 배너를 관리합니다</p>
         </div>
       </div>
 
       {/* 탭 */}
       <Tabs defaultValue="main">
         <TabsList className="h-10 bg-muted/50">
-          <TabsTrigger value="main" className="gap-1.5 text-[13px]">
+          <TabsTrigger value="main" className="gap-1.5 text-[14px]">
             <LayoutTemplate size={14} />
             메인 배너
             <span className="ml-1 rounded-full bg-primary/10 px-1.5 py-0.5 text-[11px] font-semibold text-primary">
               {banners.length}
             </span>
           </TabsTrigger>
-          <TabsTrigger value="side" className="gap-1.5 text-[13px]">
+          <TabsTrigger value="side" className="gap-1.5 text-[14px]">
             <Sidebar size={14} />
             사이드 배너
             <span className="ml-1 rounded-full bg-primary/10 px-1.5 py-0.5 text-[11px] font-semibold text-primary">
@@ -485,17 +483,17 @@ export function AdminBannersClient() {
         {/* ── 메인 배너 탭 ── */}
         <TabsContent value="main" className="mt-4">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-[13px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               메인 페이지 상단 슬라이더에 표시됩니다. 순서를 조정할 수 있습니다.
             </p>
-            <Button onClick={openBannerCreate} className="gap-1.5 h-9 px-4 text-[13px]">
+            <Button onClick={openBannerCreate} className="gap-1.5 h-9 px-4 text-[14px]">
               <Plus size={14} />
               배너 등록
             </Button>
           </div>
 
           <div className="rounded-xl border border-border bg-card overflow-hidden">
-            <table className="w-full text-[13px]">
+            <table className="w-full text-[14px]">
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   <th className="px-4 py-3 text-left font-medium text-muted-foreground w-10">#</th>
@@ -521,7 +519,7 @@ export function AdminBannersClient() {
                     <td colSpan={6} className="px-4 py-12 text-center">
                       <div className="flex flex-col items-center gap-2 text-muted-foreground">
                         <Images size={32} strokeWidth={1.5} className="opacity-40" />
-                        <p className="text-[13px]">등록된 배너가 없습니다.</p>
+                        <p className="text-[14px]">등록된 배너가 없습니다.</p>
                       </div>
                     </td>
                   </tr>
@@ -534,7 +532,7 @@ export function AdminBannersClient() {
                       {/* 순서 */}
                       <td className="px-4 py-3 text-muted-foreground">
                         <div className="flex items-center gap-1">
-                          <span className="w-4 text-center text-[12px]">{idx + 1}</span>
+                          <span className="w-4 text-center text-[14px]">{idx + 1}</span>
                           <div className="flex flex-col">
                             <button
                               type="button"
@@ -591,7 +589,7 @@ export function AdminBannersClient() {
                             title={banner.link_url}
                           >
                             <ExternalLink size={12} className="shrink-0" />
-                            <span className="truncate text-[12px]">{banner.link_url}</span>
+                            <span className="truncate text-[14px]">{banner.link_url}</span>
                           </a>
                         ) : (
                           <span className="italic text-muted-foreground/50">없음</span>
@@ -643,17 +641,17 @@ export function AdminBannersClient() {
         {/* ── 사이드 배너 탭 ── */}
         <TabsContent value="side" className="mt-4">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-[13px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               사이드바 영역에 표시되는 배너입니다. 위치(상단/중단/하단)를 지정할 수 있습니다.
             </p>
-            <Button onClick={openSideBannerCreate} className="gap-1.5 h-9 px-4 text-[13px]">
+            <Button onClick={openSideBannerCreate} className="gap-1.5 h-9 px-4 text-[14px]">
               <Plus size={14} />
               사이드 배너 등록
             </Button>
           </div>
 
           <div className="rounded-xl border border-border bg-card overflow-hidden">
-            <table className="w-full text-[13px]">
+            <table className="w-full text-[14px]">
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   <th className="px-4 py-3 text-left font-medium text-muted-foreground w-20">이미지</th>
@@ -679,7 +677,7 @@ export function AdminBannersClient() {
                     <td colSpan={6} className="px-4 py-12 text-center">
                       <div className="flex flex-col items-center gap-2 text-muted-foreground">
                         <Sidebar size={32} strokeWidth={1.5} className="opacity-40" />
-                        <p className="text-[13px]">등록된 사이드 배너가 없습니다.</p>
+                        <p className="text-[14px]">등록된 사이드 배너가 없습니다.</p>
                       </div>
                     </td>
                   </tr>
@@ -736,7 +734,7 @@ export function AdminBannersClient() {
                             title={sb.link_url}
                           >
                             <ExternalLink size={12} className="shrink-0" />
-                            <span className="truncate text-[12px]">{sb.link_url}</span>
+                            <span className="truncate text-[14px]">{sb.link_url}</span>
                           </a>
                         ) : (
                           <span className="italic text-muted-foreground/50">없음</span>
@@ -800,7 +798,7 @@ export function AdminBannersClient() {
           <div className="flex flex-col gap-4 px-6 py-5">
             {/* 이미지 업로드 */}
             <div className="flex flex-col gap-1.5">
-              <Label className="text-[13px] font-medium">
+              <Label className="text-[14px] font-medium">
                 배너 이미지 <span className="text-error">*</span>
               </Label>
               <ImageUploadField
@@ -810,7 +808,7 @@ export function AdminBannersClient() {
                 previewSize="lg"
               />
               {bannerFormErrors.image_url && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={12} />
                   {bannerFormErrors.image_url}
                 </p>
@@ -822,7 +820,7 @@ export function AdminBannersClient() {
 
             {/* 링크 URL */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="banner-link" className="text-[13px] font-medium">
+              <Label htmlFor="banner-link" className="text-[14px] font-medium">
                 링크 URL
               </Label>
               <Input
@@ -830,13 +828,13 @@ export function AdminBannersClient() {
                 value={bannerForm.link_url}
                 onChange={(e) => setBannerForm((prev) => ({ ...prev, link_url: e.target.value }))}
                 placeholder="https://example.com/promotion (선택)"
-                className="h-9 text-[13px]"
+                className="h-9 text-[14px]"
               />
             </div>
 
             {/* 대체 텍스트 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="banner-alt" className="text-[13px] font-medium">
+              <Label htmlFor="banner-alt" className="text-[14px] font-medium">
                 대체 텍스트 (alt)
               </Label>
               <Input
@@ -844,7 +842,7 @@ export function AdminBannersClient() {
                 value={bannerForm.alt_text}
                 onChange={(e) => setBannerForm((prev) => ({ ...prev, alt_text: e.target.value }))}
                 placeholder="예: 봄맞이 특가 이벤트 배너"
-                className="h-9 text-[13px]"
+                className="h-9 text-[14px]"
               />
               <p className="text-[11px] text-muted-foreground">
                 스크린 리더 및 이미지 로드 실패 시 표시됩니다.
@@ -854,7 +852,7 @@ export function AdminBannersClient() {
             {/* 활성 여부 */}
             <div className="flex items-center justify-between rounded-lg border border-border px-4 py-3">
               <div>
-                <Label htmlFor="banner-active" className="text-[13px] font-medium">
+                <Label htmlFor="banner-active" className="text-[14px] font-medium">
                   배너 활성화
                 </Label>
                 <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -873,14 +871,14 @@ export function AdminBannersClient() {
             <Button
               variant="outline"
               onClick={() => setBannerFormOpen(false)}
-              className="h-9 px-5 text-[13px]"
+              className="h-9 px-5 text-[14px]"
             >
               취소
             </Button>
             <Button
               onClick={handleBannerSave}
               disabled={bannerSaving}
-              className="h-9 px-6 text-[13px] bg-primary text-white hover:bg-brand-primary-dark"
+              className="h-9 px-6 text-[14px] bg-primary text-white hover:bg-brand-primary-dark"
             >
               {bannerSaving ? "저장 중..." : editingBannerId ? "수정" : "등록"}
             </Button>
@@ -927,7 +925,7 @@ export function AdminBannersClient() {
           <div className="flex flex-col gap-4 px-6 py-5">
             {/* 이미지 업로드 */}
             <div className="flex flex-col gap-1.5">
-              <Label className="text-[13px] font-medium">
+              <Label className="text-[14px] font-medium">
                 배너 이미지 <span className="text-error">*</span>
               </Label>
               <ImageUploadField
@@ -937,7 +935,7 @@ export function AdminBannersClient() {
                 previewSize="md"
               />
               {sideBannerFormErrors.image_url && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={12} />
                   {sideBannerFormErrors.image_url}
                 </p>
@@ -949,7 +947,7 @@ export function AdminBannersClient() {
 
             {/* 위치 선택 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="side-position" className="text-[13px] font-medium">
+              <Label htmlFor="side-position" className="text-[14px] font-medium">
                 표시 위치 <span className="text-error">*</span>
               </Label>
               <Select
@@ -958,7 +956,7 @@ export function AdminBannersClient() {
                   setSideBannerForm((prev) => ({ ...prev, position: v as SideBannerPosition }))
                 }
               >
-                <SelectTrigger id="side-position" className="h-9 text-[13px]">
+                <SelectTrigger id="side-position" className="h-9 text-[14px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -971,7 +969,7 @@ export function AdminBannersClient() {
 
             {/* 링크 URL */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="side-link" className="text-[13px] font-medium">
+              <Label htmlFor="side-link" className="text-[14px] font-medium">
                 링크 URL
               </Label>
               <Input
@@ -979,13 +977,13 @@ export function AdminBannersClient() {
                 value={sideBannerForm.link_url}
                 onChange={(e) => setSideBannerForm((prev) => ({ ...prev, link_url: e.target.value }))}
                 placeholder="https://example.com (선택)"
-                className="h-9 text-[13px]"
+                className="h-9 text-[14px]"
               />
             </div>
 
             {/* 대체 텍스트 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="side-alt" className="text-[13px] font-medium">
+              <Label htmlFor="side-alt" className="text-[14px] font-medium">
                 대체 텍스트 (alt)
               </Label>
               <Input
@@ -993,14 +991,14 @@ export function AdminBannersClient() {
                 value={sideBannerForm.alt_text}
                 onChange={(e) => setSideBannerForm((prev) => ({ ...prev, alt_text: e.target.value }))}
                 placeholder="예: 이벤트 사이드 배너"
-                className="h-9 text-[13px]"
+                className="h-9 text-[14px]"
               />
             </div>
 
             {/* 활성 여부 */}
             <div className="flex items-center justify-between rounded-lg border border-border px-4 py-3">
               <div>
-                <Label htmlFor="side-active" className="text-[13px] font-medium">
+                <Label htmlFor="side-active" className="text-[14px] font-medium">
                   배너 활성화
                 </Label>
                 <p className="text-[11px] text-muted-foreground mt-0.5">
@@ -1019,14 +1017,14 @@ export function AdminBannersClient() {
             <Button
               variant="outline"
               onClick={() => setSideBannerFormOpen(false)}
-              className="h-9 px-5 text-[13px]"
+              className="h-9 px-5 text-[14px]"
             >
               취소
             </Button>
             <Button
               onClick={handleSideBannerSave}
               disabled={sideBannerSaving}
-              className="h-9 px-6 text-[13px] bg-primary text-white hover:bg-brand-primary-dark"
+              className="h-9 px-6 text-[14px] bg-primary text-white hover:bg-brand-primary-dark"
             >
               {sideBannerSaving ? "저장 중..." : editingSideBannerId ? "수정" : "등록"}
             </Button>

@@ -31,6 +31,7 @@ export default function PaymentClosePage() {
         // 수수료 결제 취소 → 바우처 핀 페이지로 복귀
         sessionStorage.removeItem("mainpay_fee_pending");
         sessionStorage.removeItem("mainpay_fee_voucher_code");
+        sessionStorage.removeItem("fee_verification_token");
         router.replace(`/v/${feeVoucherCode}/pin`);
         return;
       }

@@ -17,7 +17,15 @@ export async function PUT(request: NextRequest, context: RouteContext) {
 
     const { faqId } = await context.params;
 
-    const body = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: { code: "INVALID_JSON", message: "요청 본문이 올바르지 않습니다." } },
+        { status: 400 }
+      );
+    }
     const parsed = adminUpdateFaqSchema.safeParse(body);
 
     if (!parsed.success) {

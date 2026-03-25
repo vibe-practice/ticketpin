@@ -92,7 +92,7 @@ export function DashboardPinStock({ stocks }: DashboardPinStockProps) {
                   )}
                   <p
                     className={cn(
-                      "truncate text-[13px] font-medium",
+                      "truncate text-[14px] font-medium",
                       isLow ? "text-error" : "text-foreground"
                     )}
                     title={stock.product_name}

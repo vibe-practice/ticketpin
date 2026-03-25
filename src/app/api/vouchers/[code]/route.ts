@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { voucherCodeSchema } from "@/lib/validations/voucher";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 
 // Rate limit: IP당 분당 30회 조회
 const VOUCHER_VIEW_RATE_LIMIT = { maxAttempts: 30, windowMs: 60 * 1000 };
@@ -37,10 +38,7 @@ export async function GET(
     }
 
     // ── Rate Limiting (IP 기반) ──
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(
       `voucher-view:${ip}`,
       VOUCHER_VIEW_RATE_LIMIT
@@ -112,17 +110,39 @@ export async function GET(
       );
     }
 
-    // ── 상품 정보 조회 ──
-    // Supabase JOIN + .single() 결과: orders는 단일 객체 (!inner 사용)
+    // ── 관련 데이터 병렬 조회 (상품, 소유자, 핀 개수, 선물 보낸 사람) ──
     const order = voucher.orders as unknown as Record<string, unknown>;
     const productId = order.product_id as string;
 
-    const { data: product, error: productError } = await adminClient
-      .from("products")
-      .select("id, name, price, fee_rate, fee_unit, image_url")
-      .eq("id", productId)
-      .single();
+    const [productResult, ownerResult, pinCountResult, senderResult] = await Promise.all([
+      // 상품 정보
+      adminClient
+        .from("products")
+        .select("id, name, price, fee_rate, fee_unit, image_url")
+        .eq("id", productId)
+        .single(),
+      // 소유자 정보
+      adminClient
+        .from("users")
+        .select("id, username, name")
+        .eq("id", voucher.owner_id)
+        .single(),
+      // 핀 개수
+      adminClient
+        .from("pins")
+        .select("id", { count: "exact", head: true })
+        .eq("voucher_id", voucher.id),
+      // 선물 보낸 사람 (선물받은 바우처인 경우만)
+      voucher.is_gift && voucher.gift_sender_id
+        ? adminClient
+            .from("users")
+            .select("username, name")
+            .eq("id", voucher.gift_sender_id)
+            .single()
+        : Promise.resolve({ data: null }),
+    ]);
 
+    const { data: product, error: productError } = productResult;
     if (productError || !product) {
       return NextResponse.json(
         {
@@ -136,34 +156,10 @@ export async function GET(
       );
     }
 
-    // ── 소유자 정보 조회 ──
-    const { data: owner } = await adminClient
-      .from("users")
-      .select("id, username, name")
-      .eq("id", voucher.owner_id)
-      .single();
-
-    // ── 핀 개수 조회 ──
-    const { count: pinCount } = await adminClient
-      .from("pins")
-      .select("id", { count: "exact", head: true })
-      .eq("voucher_id", voucher.id);
-
-    // ── user_password_hash 존재 여부만 반환 (해시값 노출 금지) ──
+    const { data: owner } = ownerResult;
+    const { count: pinCount } = pinCountResult;
     const hasUserPassword = !!voucher.user_password_hash;
-
-    // ── 선물 보낸 사람 정보 (선물받은 바우처인 경우) ──
-    let senderInfo: { username: string; name: string } | null = null;
-    if (voucher.is_gift && voucher.gift_sender_id) {
-      const { data: sender } = await adminClient
-        .from("users")
-        .select("username, name")
-        .eq("id", voucher.gift_sender_id)
-        .single();
-      if (sender) {
-        senderInfo = sender;
-      }
-    }
+    const senderInfo = senderResult.data as { username: string; name: string } | null;
 
     // ── 응답 구성 (내부 UUID 및 보안 상태 노출 방지) ──
     const TEMP_PW_MAX_ATTEMPTS = 5;

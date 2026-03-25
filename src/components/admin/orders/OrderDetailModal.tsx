@@ -125,7 +125,7 @@ function SectionHeader({
       >
         <Icon size={13} />
       </div>
-      <h3 className="text-[13px] font-semibold text-foreground">{title}</h3>
+      <h3 className="text-[14px] font-semibold text-foreground">{title}</h3>
     </div>
   );
 }
@@ -135,8 +135,8 @@ function SectionHeader({
 function InfoRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-2 py-1.5">
-      <span className="w-28 shrink-0 text-[12px] text-muted-foreground">{label}</span>
-      <span className="flex-1 text-[13px] text-foreground">{children}</span>
+      <span className="w-28 shrink-0 text-[14px] text-muted-foreground">{label}</span>
+      <span className="flex-1 text-[14px] text-foreground">{children}</span>
     </div>
   );
 }
@@ -188,13 +188,13 @@ function CancelReasonDialog({ open, onClose, onConfirm, loading, orderNumber, is
         </DialogHeader>
 
         <div className="space-y-4 pt-2">
-          <div className="rounded-lg border border-border bg-muted/30 px-3 py-2 text-[13px]">
+          <div className="rounded-lg border border-border bg-muted/30 px-3 py-2 text-[14px]">
             <span className="text-muted-foreground">주문번호: </span>
             <span className="font-mono font-medium">{orderNumber}</span>
           </div>
 
           <div className="space-y-2">
-            <Label className="text-[13px] font-medium">취소 사유</Label>
+            <Label className="text-[14px] font-medium">취소 사유</Label>
             <RadioGroup
               value={reasonType}
               onValueChange={(v) => setReasonType(v as CancellationReasonType)}
@@ -210,7 +210,7 @@ function CancelReasonDialog({ open, onClose, onConfirm, loading, orderNumber, is
               ).map(([value, label]) => (
                 <div key={value} className="flex items-center gap-2">
                   <RadioGroupItem value={value} id={`cancel-reason-${value}`} />
-                  <Label htmlFor={`cancel-reason-${value}`} className="text-[13px] font-normal cursor-pointer">
+                  <Label htmlFor={`cancel-reason-${value}`} className="text-[14px] font-normal cursor-pointer">
                     {label}
                   </Label>
                 </div>
@@ -220,18 +220,18 @@ function CancelReasonDialog({ open, onClose, onConfirm, loading, orderNumber, is
 
           {reasonType === "other" && (
             <div className="space-y-1.5">
-              <Label className="text-[13px] font-medium">상세 사유</Label>
+              <Label className="text-[14px] font-medium">상세 사유</Label>
               <Textarea
                 value={detail}
                 onChange={(e) => setDetail(e.target.value)}
                 placeholder="취소 사유를 입력해주세요"
-                className="h-20 resize-none text-[13px]"
+                className="h-20 resize-none text-[14px]"
               />
             </div>
           )}
 
           {(isPasswordSet || voucherStatus === "pin_revealed" || isGifted) && (
-            <div className="rounded-lg border border-warning/30 bg-warning-bg px-3 py-2 text-[12px] text-warning space-y-1">
+            <div className="rounded-lg border border-warning/30 bg-warning-bg px-3 py-2 text-[14px] text-warning space-y-1">
               {isGifted && (
                 <p>이 주문은 선물이 완료되었습니다. 취소 시 선물 수신자의 바우처도 함께 취소됩니다.</p>
               )}
@@ -243,7 +243,7 @@ function CancelReasonDialog({ open, onClose, onConfirm, loading, orderNumber, is
             </div>
           )}
 
-          <div className="rounded-lg border border-error/20 bg-error-bg px-3 py-2 text-[12px] text-error">
+          <div className="rounded-lg border border-error/20 bg-error-bg px-3 py-2 text-[14px] text-error">
             주문을 취소하면 PG 환불이 진행되며, 바우처가 비활성화되고 핀이 재고로 복구됩니다.
             이 작업은 되돌릴 수 없습니다.
           </div>
@@ -492,7 +492,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                 )}
                 <div className="flex-1">
                   <p className="text-[14px] font-semibold text-foreground">{order.product_name}</p>
-                  <div className="mt-1.5 flex items-center gap-4 text-[12px] text-muted-foreground">
+                  <div className="mt-1.5 flex items-center gap-4 text-[14px] text-muted-foreground">
                     <span>단가 <span className="font-medium text-foreground">{order.product_price.toLocaleString()}원</span></span>
                     <span>수량 <span className="font-medium text-foreground">{order.quantity}개</span></span>
                   </div>
@@ -515,16 +515,16 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                   {order.card_company_name ?? "—"}
                 </InfoRow>
                 <InfoRow label="카드번호">
-                  <span className="font-mono text-[12px]">{order.card_no ?? "—"}</span>
+                  <span className="font-mono text-[14px]">{order.card_no ?? "—"}</span>
                 </InfoRow>
                 <InfoRow label="할부">
                   {order.installment_months === 0 ? "일시불" : `${order.installment_months}개월`}
                 </InfoRow>
                 <InfoRow label="승인번호">
-                  <span className="font-mono text-[12px]">{order.approval_no ?? "—"}</span>
+                  <span className="font-mono text-[14px]">{order.approval_no ?? "—"}</span>
                 </InfoRow>
                 <InfoRow label="PG 거래번호">
-                  <span className="font-mono text-[12px]">{order.pg_ref_no ?? "—"}</span>
+                  <span className="font-mono text-[14px]">{order.pg_ref_no ?? "—"}</span>
                 </InfoRow>
                 <InfoRow label="결제일시">{formatDate(order.created_at)}</InfoRow>
               </div>
@@ -579,7 +579,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                   </InfoRow>
                 </div>
               ) : (
-                <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-[13px] text-muted-foreground">
+                <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-[14px] text-muted-foreground">
                   바우처 정보 없음
                 </div>
               )}
@@ -609,7 +609,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                   <span className="font-semibold">
                     {(order.fee_amount * order.quantity).toLocaleString()}원
                     {order.quantity > 1 && (
-                      <span className="ml-1 text-muted-foreground font-normal text-[12px]">
+                      <span className="ml-1 text-muted-foreground font-normal text-[14px]">
                         ({order.fee_amount.toLocaleString()}원 × {order.quantity}장)
                       </span>
                     )}
@@ -633,7 +633,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                     </InfoRow>
                     {order.fee_paid && order.fee_pg_transaction_id && (
                       <InfoRow label="수수료 PG 거래번호">
-                        <span className="font-mono text-[12px]">{order.fee_pg_transaction_id}</span>
+                        <span className="font-mono text-[14px]">{order.fee_pg_transaction_id}</span>
                       </InfoRow>
                     )}
                   </>
@@ -651,7 +651,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
               {order.gift_chain && order.gift_chain.length > 0 ? (
                 <div className="rounded-lg border border-border bg-muted/20 px-4 py-4 space-y-3">
                   {/* 체인 시각화: 보낸이 → 받는이 → 받는이 ... */}
-                  <div className="flex flex-wrap items-center gap-1 text-[13px]">
+                  <div className="flex flex-wrap items-center gap-1 text-[14px]">
                     <span className="font-medium text-foreground">
                       {order.gift_chain[0].sender_username}
                     </span>
@@ -675,7 +675,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                   </div>
 
                   {/* 요약 */}
-                  <div className="flex flex-wrap items-center gap-2 text-[12px] text-muted-foreground pt-1 border-t border-border/50">
+                  <div className="flex flex-wrap items-center gap-2 text-[14px] text-muted-foreground pt-1 border-t border-border/50">
                     <span>총 {order.gift_chain.length}회 선물</span>
                     {order.gift_chain.some((link) => link.auto_recycled) && (
                       <span className="rounded-sm bg-neutral-100 px-1.5 py-0.5 text-[11px] font-medium text-neutral-600">
@@ -685,7 +685,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                   </div>
                 </div>
               ) : (
-                <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-[13px] text-muted-foreground">
+                <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-[14px] text-muted-foreground">
                   선물 없음
                 </div>
               )}
@@ -700,7 +700,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
               />
               {order.sms_logs.length > 0 ? (
                 <div className="overflow-hidden rounded-lg border border-border">
-                  <table className="w-full text-[12px]">
+                  <table className="w-full text-[14px]">
                     <thead>
                       <tr className="border-b border-border bg-muted/40">
                         <th className="px-3 py-2 text-left font-semibold text-muted-foreground">발송 유형</th>
@@ -733,7 +733,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                   </table>
                 </div>
               ) : (
-                <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-[13px] text-muted-foreground">
+                <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-[14px] text-muted-foreground">
                   SMS 발송 이력 없음
                 </div>
               )}
@@ -768,7 +768,7 @@ export function OrderDetailModal({ order, open, onClose, onOrderUpdate }: OrderD
                   <InfoRow label="취소 일시">{formatDate(order.cancellation.created_at)}</InfoRow>
                 </div>
               ) : (
-                <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-[13px] text-muted-foreground">
+                <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-[14px] text-muted-foreground">
                   취소 없음
                 </div>
               )}

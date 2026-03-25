@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Clock, HelpCircle, Bell, BookOpen, LogIn } from "lucide-react";
 import { useAuthStore } from "@/store/authStore";
 
@@ -12,14 +13,9 @@ interface SideBannerItem {
   alt_text: string;
 }
 
-const FALLBACK_BANNERS: SideBannerItem[] = [
-  { id: "f1", image_url: "https://placehold.co/280x160/f5f5f5/a3a3a3?text=Event+Banner+1", link_url: "/category", alt_text: "이벤트 배너 1" },
-  { id: "f2", image_url: "https://placehold.co/280x160/e5e5e5/737373?text=Event+Banner+2", link_url: "/category", alt_text: "이벤트 배너 2" },
-];
-
 export function HomeSidebar() {
   const { user } = useAuthStore();
-  const [sideBanners, setSideBanners] = useState<SideBannerItem[]>(FALLBACK_BANNERS);
+  const [sideBanners, setSideBanners] = useState<SideBannerItem[]>([]);
 
   useEffect(() => {
     async function fetchSideBanners() {
@@ -30,7 +26,7 @@ export function HomeSidebar() {
           setSideBanners(json.data);
         }
       } catch {
-        // fallback 유지
+        // API 실패 시 사이드 배너 숨김
       }
     }
     fetchSideBanners();
@@ -102,11 +98,13 @@ export function HomeSidebar() {
       {/* ── 사이드 배너 (API 연동) ── */}
       {sideBanners.map((banner) => (
         <Link key={banner.id} href={banner.link_url || "/"} className="block overflow-hidden rounded-xl border border-neutral-200 group">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={banner.image_url}
             alt={banner.alt_text || "배너"}
-            className="w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            width={280}
+            height={280}
+            sizes="280px"
+            className="w-full h-auto transition-transform duration-300 group-hover:scale-[1.02]"
           />
         </Link>
       ))}

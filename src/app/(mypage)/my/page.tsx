@@ -106,7 +106,7 @@ function QuickMenuCard({ item }: { item: QuickMenuItem }) {
       <p className="text-xl sm:text-3xl font-bold text-foreground tabular-nums leading-none">
         {item.value.toLocaleString()}
       </p>
-      <p className="text-[13px] sm:text-[16px] text-muted-foreground mt-1.5 sm:mt-2">{item.label}</p>
+      <p className="text-[14px] sm:text-[16px] text-muted-foreground mt-1.5 sm:mt-2">{item.label}</p>
     </Link>
   );
 }
@@ -186,7 +186,7 @@ export default function MyPage() {
                   {user.name}님
                 </p>
                 {user.identity_verified && (
-                  <span className="shrink-0 inline-flex items-center gap-1 rounded border border-border px-2 py-0.5 text-[12px] sm:text-[13px] font-medium text-muted-foreground">
+                  <span className="shrink-0 inline-flex items-center gap-1 rounded border border-border px-2 py-0.5 text-[14px] sm:text-[14px] font-medium text-muted-foreground">
                     <BadgeCheck size={12} strokeWidth={2} />
                     본인인증 완료
                   </span>

@@ -108,7 +108,7 @@ export default async function NoticeDetailPage({ params }: Props) {
               <div className="flex items-center gap-2">
                 <span
                   className={cn(
-                    "rounded-sm px-2.5 py-0.5 text-[13px] font-semibold",
+                    "rounded-sm px-2.5 py-0.5 text-[14px] font-semibold",
                     NOTICE_CATEGORY_STYLES[notice.category]
                   )}
                 >

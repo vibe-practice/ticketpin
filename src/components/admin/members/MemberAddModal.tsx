@@ -163,7 +163,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
 
             {/* 아이디 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="admin-member-username" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="admin-member-username" className="text-[14px] font-medium text-foreground">
                 아이디 <span className="text-error">*</span>
               </Label>
               <div className="flex gap-2">
@@ -181,7 +181,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
                   type="button"
                   variant="outline"
                   size="sm"
-                  className="h-10 px-4 text-[13px] shrink-0"
+                  className="h-10 px-4 text-[14px] shrink-0"
                   onClick={handleCheckUsername}
                   disabled={usernameStatus === "checking"}
                 >
@@ -193,13 +193,13 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
                 </Button>
               </div>
               {errors.username && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.username.message}
                 </p>
               )}
               {usernameStatus === "available" && !errors.username && (
-                <p className="flex items-center gap-1 text-[12px] text-neutral-600">
+                <p className="flex items-center gap-1 text-[14px] text-neutral-600">
                   <CheckCircle2 size={11} />
                   사용 가능한 아이디입니다.
                 </p>
@@ -208,7 +208,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
 
             {/* 비밀번호 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="admin-member-password" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="admin-member-password" className="text-[14px] font-medium text-foreground">
                 비밀번호 <span className="text-error">*</span>
               </Label>
               <Input
@@ -237,7 +237,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
                 </div>
               )}
               {errors.password && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.password.message}
                 </p>
@@ -246,7 +246,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
 
             {/* 비밀번호 확인 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="admin-member-password-confirm" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="admin-member-password-confirm" className="text-[14px] font-medium text-foreground">
                 비밀번호 확인 <span className="text-error">*</span>
               </Label>
               <Input
@@ -257,7 +257,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
                 {...register("passwordConfirm")}
               />
               {errors.passwordConfirm && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.passwordConfirm.message}
                 </p>
@@ -266,7 +266,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
 
             {/* 이름 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="admin-member-name" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="admin-member-name" className="text-[14px] font-medium text-foreground">
                 이름 <span className="text-error">*</span>
               </Label>
               <Input
@@ -276,7 +276,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
                 {...register("name")}
               />
               {errors.name && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.name.message}
                 </p>
@@ -285,7 +285,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
 
             {/* 이메일 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="admin-member-email" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="admin-member-email" className="text-[14px] font-medium text-foreground">
                 이메일 <span className="text-error">*</span>
               </Label>
               <Input
@@ -296,7 +296,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
                 {...register("email")}
               />
               {errors.email && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.email.message}
                 </p>
@@ -305,7 +305,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
 
             {/* 전화번호 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="admin-member-phone" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="admin-member-phone" className="text-[14px] font-medium text-foreground">
                 전화번호 <span className="text-error">*</span>
               </Label>
               <Input
@@ -316,7 +316,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
                 {...register("phone")}
               />
               {errors.phone && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.phone.message}
                 </p>
@@ -325,7 +325,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
 
             {/* 안내 문구 */}
             <div className="rounded-lg border border-border bg-muted/30 px-4 py-3">
-              <p className="text-[12px] text-muted-foreground leading-relaxed">
+              <p className="text-[14px] text-muted-foreground leading-relaxed">
                 관리자가 직접 추가한 회원은 본인인증이 미완료 상태로 생성됩니다.
                 회원은 로그인 후 본인인증을 별도로 진행할 수 있습니다.
               </p>
@@ -339,7 +339,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
               variant="outline"
               size="sm"
               onClick={handleClose}
-              className="h-9 px-5 text-[13px]"
+              className="h-9 px-5 text-[14px]"
             >
               취소
             </Button>
@@ -347,7 +347,7 @@ export function MemberAddModal({ open, onClose, onSuccess }: MemberAddModalProps
               type="submit"
               size="sm"
               disabled={submitting || usernameStatus !== "available"}
-              className="h-9 px-6 text-[13px] bg-primary text-white hover:bg-brand-primary-dark"
+              className="h-9 px-6 text-[14px] bg-primary text-white hover:bg-brand-primary-dark"
             >
               {submitting ? (
                 <>

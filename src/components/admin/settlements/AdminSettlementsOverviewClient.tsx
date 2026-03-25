@@ -99,7 +99,7 @@ function SummaryCard({
         >
           <Icon size={14} className={color} />
         </div>
-        <span className="text-[12px] text-muted-foreground">{label}</span>
+        <span className="text-[14px] text-muted-foreground">{label}</span>
       </div>
       <p
         className={cn(
@@ -290,7 +290,7 @@ export function AdminSettlementsOverviewClient() {
           <h1 className="text-lg font-bold text-foreground md:text-xl">
             정산 전체보기
           </h1>
-          <p className="text-[12px] text-muted-foreground">
+          <p className="text-[14px] text-muted-foreground">
             전체 업체의 정산 현황을 한눈에 확인합니다
           </p>
         </div>
@@ -301,16 +301,16 @@ export function AdminSettlementsOverviewClient() {
         <div className="flex items-center gap-3 rounded-lg border border-error/30 bg-error-bg px-4 py-3">
           <AlertTriangle size={18} className="shrink-0 text-error" />
           <div className="flex-1">
-            <p className="text-[13px] font-semibold text-error">
+            <p className="text-[14px] font-semibold text-error">
               미처리 이중결제 환불 {duplicatePaymentFailedCount}건
             </p>
-            <p className="text-[12px] text-error/80">
+            <p className="text-[14px] text-error/80">
               수수료 이중결제 자동 취소가 실패한 건이 있습니다. 환불 관리에서 확인해 주세요.
             </p>
           </div>
           <a
             href="/admin/refunds"
-            className="shrink-0 rounded-md bg-error px-3 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-error/90"
+            className="shrink-0 rounded-md bg-error px-3 py-1.5 text-[14px] font-medium text-white transition-colors hover:bg-error/90"
           >
             환불 관리
           </a>
@@ -327,7 +327,7 @@ export function AdminSettlementsOverviewClient() {
               type="button"
               onClick={() => handlePresetChange(p.key)}
               className={cn(
-                "rounded-md px-3 py-1.5 text-[13px] font-medium transition-all duration-150",
+                "rounded-md px-3 py-1.5 text-[14px] font-medium transition-all duration-150",
                 preset === p.key
                   ? "bg-primary text-white shadow-sm"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
@@ -365,7 +365,7 @@ export function AdminSettlementsOverviewClient() {
               }}
               className="h-9 min-w-0 flex-1 cursor-pointer text-sm md:w-[145px] md:flex-none"
             />
-            <span className="shrink-0 text-[13px] text-muted-foreground">~</span>
+            <span className="shrink-0 text-[14px] text-muted-foreground">~</span>
             <Input
               type="date"
               value={endDate}
@@ -455,7 +455,7 @@ export function AdminSettlementsOverviewClient() {
           </SelectContent>
         </Select>
         {(search || statusFilter !== "all") && (
-          <span className="text-[12px] text-muted-foreground">
+          <span className="text-[14px] text-muted-foreground">
             {filteredRows.length}개 업체
           </span>
         )}
@@ -465,14 +465,14 @@ export function AdminSettlementsOverviewClient() {
       {loading ? (
         <div className="flex items-center justify-center py-16">
           <Loader2 size={24} className="animate-spin text-muted-foreground" />
-          <span className="ml-2 text-[13px] text-muted-foreground">데이터를 불러오는 중...</span>
+          <span className="ml-2 text-[14px] text-muted-foreground">데이터를 불러오는 중...</span>
         </div>
       ) : (
         <>
           {/* ── 업체 테이블 (데스크탑) ──────────────────────────────── */}
           <div className="hidden overflow-hidden rounded-lg border border-border bg-card md:block">
             <div className="overflow-x-auto">
-              <table className="w-full text-[13px]">
+              <table className="w-full text-[14px]">
                 <thead>
                   <tr className="border-b border-border bg-muted/40">
                     <th className="whitespace-nowrap px-4 py-3 text-left font-medium text-muted-foreground">
@@ -509,7 +509,7 @@ export function AdminSettlementsOverviewClient() {
                     <tr>
                       <td
                         colSpan={9}
-                        className="py-12 text-center text-[13px] text-muted-foreground"
+                        className="py-12 text-center text-[14px] text-muted-foreground"
                       >
                         {search ? "검색 결과가 없습니다." : "해당 기간에 정산 데이터가 없습니다."}
                       </td>
@@ -542,7 +542,7 @@ export function AdminSettlementsOverviewClient() {
                         <td className="px-4 py-3 text-center text-foreground">
                           {row.bank_name}
                         </td>
-                        <td className="whitespace-nowrap px-4 py-3 text-center font-mono text-[12px] text-muted-foreground">
+                        <td className="whitespace-nowrap px-4 py-3 text-center font-mono text-[14px] text-muted-foreground">
                           {row.account_number}
                         </td>
                         <td className="whitespace-nowrap px-4 py-3 text-right font-medium text-foreground">
@@ -562,7 +562,7 @@ export function AdminSettlementsOverviewClient() {
                               {SETTLEMENT_STATUS_LABEL[row.settlement_status]}
                             </span>
                           ) : (
-                            <span className="text-[12px] text-muted-foreground">
+                            <span className="text-[14px] text-muted-foreground">
                               미생성
                             </span>
                           )}
@@ -606,7 +606,7 @@ export function AdminSettlementsOverviewClient() {
           <div className="flex flex-col gap-2 md:hidden">
             {/* 합계 배너 */}
             <div className="flex items-center justify-between rounded-lg border border-primary/20 bg-brand-primary-muted px-4 py-3">
-              <span className="text-[13px] font-semibold text-foreground">
+              <span className="text-[14px] font-semibold text-foreground">
                 {displaySummary.total_businesses}개 업체
               </span>
               <div className="text-right">
@@ -621,7 +621,7 @@ export function AdminSettlementsOverviewClient() {
 
             {filteredRows.length === 0 ? (
               <div className="rounded-lg border border-border bg-card p-8 text-center">
-                <p className="text-[13px] text-muted-foreground">
+                <p className="text-[14px] text-muted-foreground">
                   {search ? "검색 결과가 없습니다." : "해당 기간에 정산 데이터가 없습니다."}
                 </p>
               </div>
@@ -669,13 +669,13 @@ export function AdminSettlementsOverviewClient() {
                   </div>
 
                   {/* 담당자 + 연락처 */}
-                  <div className="mb-2.5 flex items-center gap-4 text-[12px] text-muted-foreground">
+                  <div className="mb-2.5 flex items-center gap-4 text-[14px] text-muted-foreground">
                     <span>{row.contact_person}</span>
                     <span>{formatPhone(row.contact_phone)}</span>
                   </div>
 
                   {/* 계좌 정보 */}
-                  <div className="mb-3 flex items-center gap-1.5 text-[12px] text-muted-foreground">
+                  <div className="mb-3 flex items-center gap-1.5 text-[14px] text-muted-foreground">
                     <span>{row.bank_name}</span>
                     <span className="font-mono text-[11px]">{row.account_number}</span>
                   </div>
@@ -684,7 +684,7 @@ export function AdminSettlementsOverviewClient() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[11px] text-muted-foreground">선물 보낸 금액</p>
-                      <p className="text-[13px] font-medium text-foreground">
+                      <p className="text-[14px] font-medium text-foreground">
                         {row.gift_total_amount.toLocaleString()}원
                       </p>
                     </div>

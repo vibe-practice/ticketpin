@@ -174,7 +174,7 @@ export function AdminBusinessesClient() {
         align: "center" as const,
         width: "140px",
         render: (v: unknown) => (
-          <span className="text-[13px] font-semibold text-foreground">{String(v)}</span>
+          <span className="text-[14px] font-semibold text-foreground">{String(v)}</span>
         ),
       },
       {
@@ -183,7 +183,7 @@ export function AdminBusinessesClient() {
         align: "center" as const,
         width: "110px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground">{String(v)}</span>
+          <span className="text-[14px] text-muted-foreground">{String(v)}</span>
         ),
       },
       {
@@ -193,7 +193,7 @@ export function AdminBusinessesClient() {
         width: "130px",
         render: (_v: unknown, row: BusinessRow) => (
           <div>
-            <p className="text-[13px] text-foreground">{row.contact_person}</p>
+            <p className="text-[14px] text-foreground">{row.contact_person}</p>
             <p className="text-[11px] text-muted-foreground">
               {String(row.contact_phone).replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")}
             </p>
@@ -207,7 +207,7 @@ export function AdminBusinessesClient() {
         align: "center" as const,
         width: "80px",
         render: (v: unknown) => (
-          <span className="text-[13px] font-medium text-foreground">{Number(v)}%</span>
+          <span className="text-[14px] font-medium text-foreground">{Number(v)}%</span>
         ),
       },
       {
@@ -216,7 +216,7 @@ export function AdminBusinessesClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className={cn("text-[13px]", v ? "text-foreground" : "text-muted-foreground")}>
+          <span className={cn("text-[14px]", v ? "text-foreground" : "text-muted-foreground")}>
             {v ? String(v) : "미지정"}
           </span>
         ),
@@ -228,7 +228,7 @@ export function AdminBusinessesClient() {
         align: "center" as const,
         width: "90px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-foreground">{Number(v).toLocaleString()}건</span>
+          <span className="text-[14px] text-foreground">{Number(v).toLocaleString()}건</span>
         ),
       },
       {
@@ -238,7 +238,7 @@ export function AdminBusinessesClient() {
         align: "center" as const,
         width: "110px",
         render: (v: unknown) => (
-          <span className="text-[13px] font-medium text-foreground">
+          <span className="text-[14px] font-medium text-foreground">
             {Number(v).toLocaleString()}원
           </span>
         ),
@@ -251,7 +251,7 @@ export function AdminBusinessesClient() {
         width: "110px",
         render: (v: unknown) => (
           <span className={cn(
-            "text-[13px] font-semibold",
+            "text-[14px] font-semibold",
             Number(v) > 0 ? "text-error" : "text-muted-foreground"
           )}>
             {Number(v).toLocaleString()}원
@@ -288,7 +288,7 @@ export function AdminBusinessesClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">업체 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               업체 등록, 수수료율 관리, 매입/정산 내역을 확인합니다
             </p>
           </div>

@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     }
 
     // 세션에서 TID 검증 (변조 방지)
-    const found = findSessionByTid(tid);
+    const found = await findSessionByTid(tid);
     if (!found) {
       return new Response(
         buildErrorHtml("유효하지 않은 인증 세션입니다.", appOrigin),
@@ -88,7 +88,7 @@ export async function POST(request: Request) {
     }
 
     // 세션에 인증 결과 저장 (CI/DI는 프론트에 노출하지 않음)
-    setSessionResult(found.sessionId, { name, phone });
+    await setSessionResult(found.sessionId, { name, phone });
 
     // 부모 창(opener)에 postMessage로 완료 알림 후 팝업 닫기
     const html = buildSuccessHtml(found.sessionId, appOrigin);

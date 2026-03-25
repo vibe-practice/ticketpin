@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAuthenticatedAdmin } from "@/lib/admin/auth";
 import { adminCreateMemberSchema } from "@/lib/validations/admin";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 
 const ADMIN_CREATE_MEMBER_RATE_LIMIT = { maxAttempts: 10, windowMs: 60 * 1000 };
 
@@ -168,8 +169,7 @@ export async function POST(request: NextRequest) {
     const { adminClient } = auth;
 
     // Rate limiting
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(
       `admin-create-member:${ip}`,
       ADMIN_CREATE_MEMBER_RATE_LIMIT,

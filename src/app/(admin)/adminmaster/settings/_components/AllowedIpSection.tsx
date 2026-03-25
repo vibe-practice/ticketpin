@@ -175,7 +175,7 @@ export function AllowedIpSection({ onMessage }: AllowedIpSectionProps) {
           onSubmit={handleSubmit(onAddIp)}
           className="mb-6 rounded-lg border border-dashed border-border bg-muted/30 p-4"
         >
-          <h3 className="text-[13px] font-semibold text-foreground mb-3">IP 추가</h3>
+          <h3 className="text-[14px] font-semibold text-foreground mb-3">IP 추가</h3>
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1 space-y-1.5">
               <Label htmlFor="ip_address" className="text-xs text-muted-foreground">
@@ -188,7 +188,7 @@ export function AllowedIpSection({ onMessage }: AllowedIpSectionProps) {
                 className="h-9 text-sm font-mono"
               />
               {errors.ip_address && (
-                <p className="flex items-center gap-1 text-[12px] text-destructive">
+                <p className="flex items-center gap-1 text-[14px] text-destructive">
                   <AlertCircle size={11} />
                   {errors.ip_address.message}
                 </p>
@@ -205,7 +205,7 @@ export function AllowedIpSection({ onMessage }: AllowedIpSectionProps) {
                 className="h-9 text-sm"
               />
               {errors.description && (
-                <p className="flex items-center gap-1 text-[12px] text-destructive">
+                <p className="flex items-center gap-1 text-[14px] text-destructive">
                   <AlertCircle size={11} />
                   {errors.description.message}
                 </p>

@@ -291,7 +291,7 @@ export function PurchaseAccountHistoryClient() {
         align: "center" as const,
         width: "140px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground">
+          <span className="text-[14px] text-muted-foreground">
             {new Date(String(v)).toLocaleString("ko-KR")}
           </span>
         ),
@@ -340,7 +340,7 @@ export function PurchaseAccountHistoryClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-foreground">{String(v)}</span>
+          <span className="text-[14px] text-foreground">{String(v)}</span>
         ),
       },
       {
@@ -349,7 +349,7 @@ export function PurchaseAccountHistoryClient() {
         align: "center" as const,
         width: "80px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-foreground">{String(v)}</span>
+          <span className="text-[14px] text-foreground">{String(v)}</span>
         ),
       },
       {
@@ -358,7 +358,7 @@ export function PurchaseAccountHistoryClient() {
         align: "center" as const,
         width: "110px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground">
+          <span className="text-[14px] text-muted-foreground">
             {String(v).replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3")}
           </span>
         ),
@@ -369,7 +369,7 @@ export function PurchaseAccountHistoryClient() {
         align: "center" as const,
         width: "140px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-foreground">{String(v)}</span>
+          <span className="text-[14px] text-foreground">{String(v)}</span>
         ),
       },
       {
@@ -378,7 +378,7 @@ export function PurchaseAccountHistoryClient() {
         align: "center" as const,
         width: "50px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-foreground">{Number(v)}</span>
+          <span className="text-[14px] text-foreground">{Number(v)}</span>
         ),
       },
       {
@@ -388,7 +388,7 @@ export function PurchaseAccountHistoryClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="text-[13px] font-medium text-foreground">
+          <span className="text-[14px] font-medium text-foreground">
             {Number(v).toLocaleString()}원
           </span>
         ),
@@ -413,7 +413,7 @@ export function PurchaseAccountHistoryClient() {
         align: "center" as const,
         width: "80px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground">{v ? String(v) : "-"}</span>
+          <span className="text-[14px] text-muted-foreground">{v ? String(v) : "-"}</span>
         ),
       },
       {
@@ -422,7 +422,7 @@ export function PurchaseAccountHistoryClient() {
         align: "center" as const,
         width: "60px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-muted-foreground">
+          <span className="text-[14px] text-muted-foreground">
             {v && Number(v) > 0 ? `${v}개월` : "일시불"}
           </span>
         ),
@@ -457,7 +457,7 @@ export function PurchaseAccountHistoryClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">매입 내역</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               매입 아이디로 수신된 선물 내역을 확인합니다
             </p>
           </div>
@@ -477,7 +477,7 @@ export function PurchaseAccountHistoryClient() {
         {/* 1행: 매입 아이디 + 날짜 프리셋 */}
         <div className="flex flex-wrap items-end gap-4">
           <div className="space-y-1.5">
-            <Label className="text-[12px] text-muted-foreground">매입 아이디</Label>
+            <Label className="text-[14px] text-muted-foreground">매입 아이디</Label>
             <Select value={selectedAccountId} onValueChange={(v) => { setSelectedAccountId(v); setPage(1); }}>
               <SelectTrigger className="h-9 w-[180px] text-sm">
                 <SelectValue placeholder="전체" />
@@ -494,7 +494,7 @@ export function PurchaseAccountHistoryClient() {
           </div>
 
           <div className="space-y-1.5">
-            <Label className="text-[12px] text-muted-foreground">기간</Label>
+            <Label className="text-[14px] text-muted-foreground">기간</Label>
             <div className="flex gap-1">
               {DATE_PRESETS.map((p) => (
                 <Button
@@ -502,7 +502,7 @@ export function PurchaseAccountHistoryClient() {
                   type="button"
                   size="sm"
                   variant={datePreset === p.value ? "default" : "outline"}
-                  className="h-9 px-3 text-[13px]"
+                  className="h-9 px-3 text-[14px]"
                   onClick={() => handlePresetClick(p.value)}
                 >
                   {p.label}
@@ -517,7 +517,7 @@ export function PurchaseAccountHistoryClient() {
           {datePreset === "custom" && (
             <>
               <div className="space-y-1.5">
-                <Label className="text-[12px] text-muted-foreground">시작일</Label>
+                <Label className="text-[14px] text-muted-foreground">시작일</Label>
                 <Input
                   type="date"
                   value={dateFrom}
@@ -526,7 +526,7 @@ export function PurchaseAccountHistoryClient() {
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-[12px] text-muted-foreground">종료일</Label>
+                <Label className="text-[14px] text-muted-foreground">종료일</Label>
                 <Input
                   type="date"
                   value={dateTo}
@@ -566,7 +566,7 @@ export function PurchaseAccountHistoryClient() {
 
       {/* 결과 건수 */}
       <div className="flex items-center justify-between">
-        <p className="text-[13px] text-muted-foreground">
+        <p className="text-[14px] text-muted-foreground">
           총 <span className="font-semibold text-foreground">{total.toLocaleString()}</span>건
           {appliedSearch && (
             <span className="ml-2 text-primary">

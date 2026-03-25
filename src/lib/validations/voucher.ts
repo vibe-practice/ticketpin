@@ -50,7 +50,9 @@ export type UnlockPinsInput = z.infer<typeof unlockPinsSchema>;
  * 수수료 결제 승인 요청
  * POST /api/vouchers/[code]/fee-payment/confirm
  *
- * password: 바우처 사용자 비밀번호 (4자리 숫자) — 핀 복호화 권한 검증용
+ * password 또는 verification_token 중 하나 필수:
+ * - password: 바우처 사용자 비밀번호 (4자리 숫자) — PC 팝업 결제 시
+ * - verification_token: 검증 토큰 — 모바일 리다이렉트 결제 시 (비밀번호 대체)
  */
 export const feePaymentConfirmSchema = z.object({
   payment_key: z
@@ -73,8 +75,17 @@ export const feePaymentConfirmSchema = z.object({
   password: z
     .string()
     .length(4, "비밀번호는 4자리여야 합니다.")
-    .regex(/^\d{4}$/, "비밀번호는 숫자 4자리여야 합니다."),
-});
+    .regex(/^\d{4}$/, "비밀번호는 숫자 4자리여야 합니다.")
+    .optional(),
+  verification_token: z
+    .string()
+    .min(1, "검증 토큰이 필요합니다.")
+    .max(200, "검증 토큰이 너무 깁니다.")
+    .optional(),
+}).refine(
+  (data) => data.password || data.verification_token,
+  { message: "비밀번호 또는 검증 토큰이 필요합니다.", path: ["password"] }
+);
 
 export type FeePaymentConfirmInput = z.infer<typeof feePaymentConfirmSchema>;
 

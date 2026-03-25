@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { voucherCodeSchema, verifyTempPasswordSchema } from "@/lib/validations/voucher";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 import { VOUCHER_MAX_ATTEMPTS } from "@/lib/constants";
 
 // Rate limit: IP당 분당 10회
@@ -37,10 +38,7 @@ export async function POST(
     }
 
     // ── Rate Limiting ──
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(`verify-temp:${ip}`, VERIFY_RATE_LIMIT);
     if (!rateLimitResult.success) {
       return NextResponse.json(

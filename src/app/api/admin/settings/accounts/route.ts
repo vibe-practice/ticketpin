@@ -178,6 +178,12 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
+    // 삭제 대상 계정의 세션을 먼저 정리 (삭제된 계정의 토큰으로 접근 방지)
+    await auth.adminClient
+      .from("admin_sessions")
+      .delete()
+      .eq("admin_user_id", id);
+
     const { error } = await auth.adminClient
       .from("admin_users")
       .delete()

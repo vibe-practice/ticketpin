@@ -331,7 +331,7 @@ export function AdminSidebar({
                             href={child.href}
                             onClick={onMobileClose}
                             className={cn(
-                              "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[13px] font-medium transition-all duration-150",
+                              "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[14px] font-medium transition-all duration-150",
                               childActive
                                 ? "text-primary"
                                 : "text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100"
@@ -371,7 +371,7 @@ export function AdminSidebar({
             ) : (
               <>
                 <ChevronLeft size={16} strokeWidth={2} />
-                <span className="text-[13px] font-medium">메뉴 접기</span>
+                <span className="text-[14px] font-medium">메뉴 접기</span>
               </>
             )}
           </button>

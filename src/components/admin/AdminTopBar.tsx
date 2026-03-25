@@ -149,7 +149,7 @@ export function AdminTopBar({ onMobileMenuClick }: AdminTopBarProps) {
             {avatarInitial}
           </div>
           <div className="leading-tight">
-            <p className="text-[13px] font-semibold text-foreground">
+            <p className="text-[14px] font-semibold text-foreground">
               {adminInfo?.name || "관리자"}
             </p>
             <p className="text-[11px] text-muted-foreground">
@@ -163,7 +163,7 @@ export function AdminTopBar({ onMobileMenuClick }: AdminTopBarProps) {
           variant="outline"
           size="sm"
           onClick={handleLogout}
-          className="gap-1.5 text-[13px] h-9"
+          className="gap-1.5 text-[14px] h-9"
         >
           <LogOut size={14} strokeWidth={2} />
           <span className="hidden sm:inline">로그아웃</span>

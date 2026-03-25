@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 import { getAuthenticatedAdmin } from "@/lib/admin/auth";
 import { businessFormSchema } from "@/lib/validations/business";
 import { UUID_RE, escapeIlike } from "@/lib/admin/utils";
@@ -291,7 +292,15 @@ export async function POST(request: NextRequest) {
     if ("error" in auth) return auth.error;
     const { adminClient } = auth;
 
-    const body = await request.json();
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: { code: "INVALID_JSON", message: "요청 본문이 올바르지 않습니다." } },
+        { status: 400 }
+      );
+    }
     const parsed = businessFormSchema.safeParse(body);
 
     if (!parsed.success) {
@@ -381,41 +390,34 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 포털 로그인 계정 자동 생성 (회원 username + auth.users.encrypted_password 복사)
+    // 포털 로그인 계정 자동 생성
+    // get_auth_password RPC 대신 임시 비밀번호를 생성하여 bcrypt 해싱 후 저장
     const bizId = (newBiz as Record<string, unknown>).id as string;
     const userRow2 = user as Record<string, unknown>;
     const loginId = userRow2.username as string;
     let portalAccountWarning: string | null = null;
 
-    // public.users.auth_id로 auth.users.encrypted_password 조회 (RPC)
-    const { data: authIdRow } = await adminClient
-      .from("users")
-      .select("auth_id")
-      .eq("id", data.user_id)
-      .single();
+    // 임시 비밀번호: 8자리 랜덤 영숫자
+    const tempPassword = Array.from(crypto.getRandomValues(new Uint8Array(6)))
+      .map((b) => b.toString(36).padStart(2, "0"))
+      .join("")
+      .slice(0, 8);
+    const passwordHash = await bcrypt.hash(tempPassword, 12);
 
-    if (authIdRow) {
-      const authId = (authIdRow as Record<string, unknown>).auth_id as string;
-      const { data: passwordHash } = await adminClient.rpc("get_auth_password", { p_auth_id: authId });
+    const { error: accountError } = await adminClient
+      .from("business_accounts")
+      .insert({
+        business_id: bizId,
+        login_id: loginId,
+        password_hash: passwordHash,
+      });
 
-      if (passwordHash) {
-        const { error: accountError } = await adminClient
-          .from("business_accounts")
-          .insert({
-            business_id: bizId,
-            login_id: loginId,
-            password_hash: passwordHash as string,
-          });
-
-        if (accountError) {
-          console.error("[POST /api/admin/businesses] Portal account error:", accountError);
-          portalAccountWarning = "업체는 등록되었으나 포털 계정 생성에 실패했습니다. 수동으로 확인하세요.";
-        }
-      } else {
-        portalAccountWarning = "업체는 등록되었으나 회원 비밀번호를 조회할 수 없어 포털 계정이 생성되지 않았습니다.";
-      }
+    if (accountError) {
+      console.error("[POST /api/admin/businesses] Portal account error:", accountError);
+      portalAccountWarning = "업체는 등록되었으나 포털 계정 생성에 실패했습니다. 수동으로 확인하세요.";
     } else {
-      portalAccountWarning = "업체는 등록되었으나 회원 auth 정보를 찾을 수 없어 포털 계정이 생성되지 않았습니다.";
+      // 임시 비밀번호는 응답에 포함하여 관리자가 업체에 전달할 수 있도록 함
+      portalAccountWarning = `포털 계정이 생성되었습니다. 임시 비밀번호: ${tempPassword} (업체에 전달 후 변경을 안내하세요)`;
     }
 
     const biz = newBiz as Record<string, unknown>;

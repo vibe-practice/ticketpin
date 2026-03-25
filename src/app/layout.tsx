@@ -26,6 +26,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
+        {/* CDN preconnect로 DNS/TLS 사전 연결 */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+        {/* Pretendard Variable 폰트 (font-display: swap 포함 CSS) */}
         <link
           rel="preload"
           as="style"

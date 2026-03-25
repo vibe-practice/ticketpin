@@ -57,22 +57,17 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
   const needsFeePay =
     voucher.order.fee_type === "separate" && !voucher.fee_paid && voucher.order.fee_amount > 0;
 
-  // 모바일 수수료 결제 후 복귀 시: sessionStorage에 핀이 있으면 초기 상태를 revealed로 설정
-  const [initialPinsFromSession] = useState<string[] | null>(() => {
+  // 모바일 수수료 결제 후 복귀 시: sessionStorage에 검증 토큰이 있으면 서버에서 핀 조회
+  const [mobileReturnToken] = useState<string | null>(() => {
     if (typeof window === "undefined") return null;
-    const storedPins = sessionStorage.getItem("fee_revealed_pins");
-    if (!storedPins) return null;
-    sessionStorage.removeItem("fee_revealed_pins");
-    try {
-      const pins = JSON.parse(storedPins) as string[];
-      return Array.isArray(pins) && pins.length > 0 ? pins : null;
-    } catch {
-      return null;
-    }
+    const token = sessionStorage.getItem("fee_verification_token");
+    if (!token) return null;
+    sessionStorage.removeItem("fee_verification_token");
+    return token;
   });
 
   const [pageState, setPageState] = useState<PageState>(
-    initialPinsFromSession ? "revealed" : voucher.is_password_locked ? "locked" : "verify"
+    mobileReturnToken ? "revealed" : voucher.is_password_locked ? "locked" : "verify"
   );
   const [password, setPassword] = useState<string[]>(
     Array(PIN_LENGTH).fill("")
@@ -82,9 +77,10 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
   const [isVerifying, setIsVerifying] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [allCopied, setAllCopied] = useState(false);
-  const [revealedPins, setRevealedPins] = useState<string[]>(initialPinsFromSession ?? pinNumbers);
-  const [verifiedPassword, setVerifiedPassword] = useState<string>("");
+  const [revealedPins, setRevealedPins] = useState<string[]>(pinNumbers);
+  const [verificationToken, setVerificationToken] = useState<string>(mobileReturnToken ?? "");
   const [showOverlay, setShowOverlay] = useState(false);
+  const [isLoadingPins, setIsLoadingPins] = useState(!!mobileReturnToken);
   const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // 팝업/인터벌 정리를 위한 ref
@@ -104,7 +100,46 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
     popupRef.current = null;
   }, []);
 
-  // (sessionStorage 핀 복원은 useState 초기화에서 처리)
+  // 모바일 결제 복귀 시 검증 토큰으로 서버에서 핀 조회
+  useEffect(() => {
+    if (!mobileReturnToken) return;
+
+    const fetchPins = async () => {
+      try {
+        const res = await fetch(`/api/vouchers/${voucher.code}/retrieve-pins`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ verification_token: mobileReturnToken }),
+        });
+        const data = await res.json();
+
+        if (data.success && data.data.pins?.length > 0) {
+          setRevealedPins(data.data.pins);
+        } else {
+          // 토큰 만료/무효 시 비밀번호 재입력 화면으로
+          toast({
+            type: "error",
+            title: "핀 번호 조회 실패",
+            description: data.error?.message ?? "비밀번호를 다시 입력해주세요.",
+            duration: 5000,
+          });
+          setPageState("verify");
+        }
+      } catch {
+        toast({
+          type: "error",
+          title: "서버 오류",
+          description: "핀 번호를 불러올 수 없습니다. 다시 시도해주세요.",
+          duration: 5000,
+        });
+        setPageState("verify");
+      } finally {
+        setIsLoadingPins(false);
+      }
+    };
+
+    fetchPins();
+  }, [mobileReturnToken, voucher.code, toast]);
 
   useEffect(() => {
     return () => {
@@ -132,7 +167,10 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
       const data = await res.json();
 
       if (data.success) {
-        setVerifiedPassword(entered);
+        // 서버에서 발급한 검증 토큰 저장 (비밀번호 대체)
+        if (data.data.verification_token) {
+          setVerificationToken(data.data.verification_token);
+        }
         // 서버에서 복호화된 핀 번호 수신
         if (data.data.pins && data.data.pins.length > 0) {
           setRevealedPins(data.data.pins);
@@ -200,8 +238,13 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
 
       if (isMobile && nextMobileUrl) {
         // 모바일: 결제 상태를 sessionStorage에 저장 후 리다이렉트
-        sessionStorage.setItem("mainpay_fee_pending", JSON.stringify({ paymentKey, mbrRefNo, amount, password: verifiedPassword }));
+        // 비밀번호 대신 검증 토큰을 저장 (보안 개선)
+        sessionStorage.setItem("mainpay_fee_pending", JSON.stringify({ paymentKey, mbrRefNo, amount, verificationToken }));
         sessionStorage.setItem("mainpay_fee_voucher_code", voucher.code);
+        // 검증 토큰도 별도 저장 (결제 완료 후 핀 조회용)
+        if (verificationToken) {
+          sessionStorage.setItem("fee_verification_token", verificationToken);
+        }
         window.location.href = nextMobileUrl;
         return;
       }
@@ -275,7 +318,7 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
                   amount,
                   auth_token: authToken,
                   mbr_ref_no: mbrRefNo,
-                  password: verifiedPassword,
+                  verification_token: verificationToken,
                 }),
               }
             );
@@ -306,8 +349,7 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
             }
 
             setPageState("revealed");
-          } catch (err) {
-            console.error("[VoucherPin] 수수료 결제 처리 오류:", err);
+          } catch {
             toast({
               type: "error",
               title: "처리 중 오류",
@@ -344,8 +386,7 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
           setPageState("fee");
         }
       }, 500);
-    } catch (err) {
-      console.error("[VoucherPin] handleFeePay error:", err);
+    } catch {
       toast({
         type: "error",
         title: "결제 처리 중 오류",
@@ -354,7 +395,7 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
       });
       setPageState("fee");
     }
-  }, [voucher.order.fee_amount, voucher.order.quantity, voucher.code, toast, cleanup, verifiedPassword]);
+  }, [voucher.order.fee_amount, voucher.order.quantity, voucher.code, toast, cleanup, verificationToken]);
 
   const copyToClipboard = useCallback(async (text: string): Promise<boolean> => {
     try {
@@ -585,6 +626,25 @@ export default function VoucherPin({ voucher, pinNumbers }: VoucherPinProps) {
 
   // ── 핀 번호 표시 화면 ───────────────────────────────
   if (pageState === "revealed") {
+    // 모바일 복귀 시 핀 로딩 중
+    if (isLoadingPins) {
+      return (
+        <div className="w-full">
+          <VoucherProgressBar currentStep={4} />
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-2">
+            핀 번호를 불러오는 중...
+          </h1>
+          <p className="text-[16px] text-muted-foreground mb-6">
+            잠시만 기다려주세요.
+          </p>
+          <ProductInfoCard voucher={voucher} />
+          <div className="mt-8 flex justify-center">
+            <div className="h-8 w-8 animate-spin rounded-full border-3 border-foreground border-t-transparent" />
+          </div>
+        </div>
+      );
+    }
+
     const isSingle = revealedPins.length <= 1;
 
     return (

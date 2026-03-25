@@ -75,7 +75,7 @@ function VoucherStatusBadge({ status }: { status: VoucherStatus }) {
   };
   const { label, icon: Icon, className } = config[status];
   return (
-    <span className={cn("inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 text-[13px] font-semibold whitespace-nowrap", className)}>
+    <span className={cn("inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 text-[14px] font-semibold whitespace-nowrap", className)}>
       <Icon size={12} />
       {label}
     </span>
@@ -92,20 +92,20 @@ function ExpandedDetail({ item }: { item: VoucherListItem }) {
         <div className="bg-muted/20 border-b border-border px-6 py-5">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
-              <p className="text-[13px] text-muted-foreground mb-1">교환권 코드</p>
+              <p className="text-[14px] text-muted-foreground mb-1">교환권 코드</p>
               <p className="text-[14px] text-foreground font-medium tabular-nums">{maskCode(item.code)}</p>
             </div>
             <div>
-              <p className="text-[13px] text-muted-foreground mb-1">핀 개수</p>
+              <p className="text-[14px] text-muted-foreground mb-1">핀 개수</p>
               <p className="text-[14px] text-foreground font-medium">{item.pin_count}개</p>
             </div>
             <div>
-              <p className="text-[13px] text-muted-foreground mb-1">발급일</p>
+              <p className="text-[14px] text-muted-foreground mb-1">발급일</p>
               <p className="text-[14px] text-foreground font-medium tabular-nums">{formatShortDate(item.created_at)}</p>
             </div>
             {item.order.quantity > 1 && (
               <div>
-                <p className="text-[13px] text-muted-foreground mb-1">수량</p>
+                <p className="text-[14px] text-muted-foreground mb-1">수량</p>
                 <p className="text-[14px] text-foreground font-medium">{item.order.quantity}매</p>
               </div>
             )}
@@ -179,7 +179,7 @@ function VoucherRow({ item }: { item: VoucherListItem }) {
               <p className="text-[15px] font-semibold text-foreground leading-snug line-clamp-1">
                 {item.product?.name ?? "(삭제된 상품)"}
               </p>
-              <p className="text-[13px] text-muted-foreground mt-0.5 tabular-nums">
+              <p className="text-[14px] text-muted-foreground mt-0.5 tabular-nums">
                 <Hash size={10} className="inline -mt-0.5 mr-0.5" />
                 {maskCode(item.code)}
               </p>
@@ -257,11 +257,11 @@ function VoucherMobileCard({ item }: { item: VoucherListItem }) {
               {item.pin_count > 0 && (
                 <>
                   <span className="text-muted-foreground/40">·</span>
-                  <span className="text-[13px] text-muted-foreground">핀 {item.pin_count}개</span>
+                  <span className="text-[14px] text-muted-foreground">핀 {item.pin_count}개</span>
                 </>
               )}
               <span className="text-muted-foreground/40">·</span>
-              <span className="text-[13px] text-muted-foreground tabular-nums">{formatShortDate(item.created_at).slice(5)}</span>
+              <span className="text-[14px] text-muted-foreground tabular-nums">{formatShortDate(item.created_at).slice(5)}</span>
             </div>
           </div>
         </div>
@@ -271,32 +271,32 @@ function VoucherMobileCard({ item }: { item: VoucherListItem }) {
         <div className="bg-muted/20 border-t border-border px-4 py-4 space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">교환권 코드</p>
-              <p className="text-[13px] text-foreground tabular-nums">{maskCode(item.code)}</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">교환권 코드</p>
+              <p className="text-[14px] text-foreground tabular-nums">{maskCode(item.code)}</p>
             </div>
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">핀 개수</p>
-              <p className="text-[13px] text-foreground">{item.pin_count}개</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">핀 개수</p>
+              <p className="text-[14px] text-foreground">{item.pin_count}개</p>
             </div>
             {item.order.quantity > 1 && (
               <div>
-                <p className="text-[12px] text-muted-foreground mb-0.5">수량</p>
-                <p className="text-[13px] text-foreground">{item.order.quantity}매</p>
+                <p className="text-[14px] text-muted-foreground mb-0.5">수량</p>
+                <p className="text-[14px] text-foreground">{item.order.quantity}매</p>
               </div>
             )}
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">발급일</p>
-              <p className="text-[13px] text-foreground tabular-nums">{formatShortDate(item.created_at)}</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">발급일</p>
+              <p className="text-[14px] text-foreground tabular-nums">{formatShortDate(item.created_at)}</p>
             </div>
           </div>
           {item.pin_revealed_at && (
-            <div className="flex items-center gap-1.5 text-[13px] text-success">
+            <div className="flex items-center gap-1.5 text-[14px] text-success">
               <CheckCircle2 size={12} />
               <span>핀 확인 {formatDateTime(item.pin_revealed_at)}</span>
             </div>
           )}
           {item.is_gift && item.gift_sender_username && (
-            <p className="text-[13px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               <Gift size={12} className="inline -mt-0.5 mr-1" />
               @{item.gift_sender_username} 님으로부터 받은 선물
             </p>
@@ -304,7 +304,7 @@ function VoucherMobileCard({ item }: { item: VoucherListItem }) {
           {!isCancelled && (
             <Link
               href={`/v/${item.code}`}
-              className="flex items-center justify-center gap-1 w-full py-2 rounded-md border border-border text-[13px] font-medium text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+              className="flex items-center justify-center gap-1 w-full py-2 rounded-md border border-border text-[14px] font-medium text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
             >
               교환권 상세보기 <ChevronRight size={13} />
             </Link>
@@ -430,7 +430,7 @@ export default function VouchersPage() {
               <button key={tab.key} type="button" role="tab" aria-selected={isSelected} onClick={() => handleStatusTabChange(tab.key)} className={cn("relative flex items-center gap-1.5 px-4 py-2.5 text-[15px] font-medium transition-all duration-150", isSelected ? "text-foreground font-bold" : "text-muted-foreground hover:text-foreground")}>
                 {tab.label}
                 {count > 0 && (
-                  <span className={cn("inline-flex items-center justify-center rounded-full min-w-[20px] h-[20px] px-1.5 text-[12px] font-bold tabular-nums", isSelected ? "bg-foreground text-background" : "bg-muted text-muted-foreground")}>{count}</span>
+                  <span className={cn("inline-flex items-center justify-center rounded-full min-w-[20px] h-[20px] px-1.5 text-[14px] font-bold tabular-nums", isSelected ? "bg-foreground text-background" : "bg-muted text-muted-foreground")}>{count}</span>
                 )}
                 {isSelected && <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-foreground" />}
               </button>
@@ -453,12 +453,12 @@ export default function VouchersPage() {
           <table className="w-full">
             <thead>
               <tr className="bg-muted/40 border-b border-border">
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-4 sm:px-6 py-3">상품</th>
-                <th className="text-right text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">금액</th>
-                <th className="text-center text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[50px]">핀</th>
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[120px]">상태</th>
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">발급일</th>
-                <th className="text-center text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[50px]">상세</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-4 sm:px-6 py-3">상품</th>
+                <th className="text-right text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">금액</th>
+                <th className="text-center text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[50px]">핀</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[120px]">상태</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">발급일</th>
+                <th className="text-center text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[50px]">상세</th>
               </tr>
             </thead>
             <tbody>

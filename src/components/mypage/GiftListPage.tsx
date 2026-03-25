@@ -104,20 +104,20 @@ function ExpandedDetail({ item, type }: { item: GiftHistoryItem; type: "sent" | 
         <div className="bg-muted/20 border-b border-border px-6 py-5">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div>
-              <p className="text-[13px] text-muted-foreground mb-1">{type === "sent" ? "받는 사람" : "보낸 사람"}</p>
+              <p className="text-[14px] text-muted-foreground mb-1">{type === "sent" ? "받는 사람" : "보낸 사람"}</p>
               <p className="text-[14px] text-foreground font-medium">{c.getTargetFull(item)}</p>
             </div>
             <div>
-              <p className="text-[13px] text-muted-foreground mb-1">교환권 코드</p>
+              <p className="text-[14px] text-muted-foreground mb-1">교환권 코드</p>
               <p className="text-[14px] text-foreground font-medium tabular-nums">{maskCode(item.voucher_code)}</p>
             </div>
             <div>
-              <p className="text-[13px] text-muted-foreground mb-1">날짜</p>
+              <p className="text-[14px] text-muted-foreground mb-1">날짜</p>
               <p className="text-[14px] text-foreground font-medium tabular-nums">{formatShortDateTime(item.created_at)}</p>
             </div>
             {item.order_quantity > 1 && (
               <div>
-                <p className="text-[13px] text-muted-foreground mb-1">수량</p>
+                <p className="text-[14px] text-muted-foreground mb-1">수량</p>
                 <p className="text-[14px] text-foreground font-medium">{item.order_quantity}매</p>
               </div>
             )}
@@ -128,8 +128,8 @@ function ExpandedDetail({ item, type }: { item: GiftHistoryItem; type: "sent" | 
             if (!sc) return null;
             return (
               <div className="mt-3">
-                <span className="text-[13px] text-muted-foreground mr-2">받는 사람 상태:</span>
-                <span className={cn("rounded-sm px-2 py-0.5 text-[13px] font-semibold", sc.className)}>{sc.label}</span>
+                <span className="text-[14px] text-muted-foreground mr-2">받는 사람 상태:</span>
+                <span className={cn("rounded-sm px-2 py-0.5 text-[14px] font-semibold", sc.className)}>{sc.label}</span>
               </div>
             );
           })()}
@@ -190,7 +190,7 @@ function GiftRow({ item, type }: { item: GiftHistoryItem; type: "sent" | "receiv
 
         {/* 타입 */}
         <td className="py-4 px-3">
-          <span className={cn("inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 text-[13px] font-semibold whitespace-nowrap", c.badgeClass)}>
+          <span className={cn("inline-flex items-center gap-1 rounded-sm border px-2 py-0.5 text-[14px] font-semibold whitespace-nowrap", c.badgeClass)}>
             <BadgeIcon size={11} />
             {c.badgeLabel}
           </span>
@@ -236,9 +236,9 @@ function GiftMobileCard({ item, type }: { item: GiftHistoryItem; type: "sent" | 
             <div className="flex items-center gap-2 mt-1">
               <span className="text-[14px] font-bold text-foreground tabular-nums">{formatPrice(item.product?.price ?? 0)}</span>
               <span className="text-muted-foreground/40">·</span>
-              <span className="text-[13px] text-muted-foreground">{c.getTargetLabel(item)}</span>
+              <span className="text-[14px] text-muted-foreground">{c.getTargetLabel(item)}</span>
               <span className="text-muted-foreground/40">·</span>
-              <span className="text-[13px] text-muted-foreground tabular-nums">{formatShortDate(item.created_at)}</span>
+              <span className="text-[14px] text-muted-foreground tabular-nums">{formatShortDate(item.created_at)}</span>
             </div>
           </div>
         </div>
@@ -248,21 +248,21 @@ function GiftMobileCard({ item, type }: { item: GiftHistoryItem; type: "sent" | 
         <div className="bg-muted/20 border-t border-border px-4 py-4 space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">{type === "sent" ? "받는 사람" : "보낸 사람"}</p>
-              <p className="text-[13px] text-foreground">{c.getTargetFull(item)}</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">{type === "sent" ? "받는 사람" : "보낸 사람"}</p>
+              <p className="text-[14px] text-foreground">{c.getTargetFull(item)}</p>
             </div>
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">교환권 코드</p>
-              <p className="text-[13px] text-foreground tabular-nums">{maskCode(item.voucher_code)}</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">교환권 코드</p>
+              <p className="text-[14px] text-foreground tabular-nums">{maskCode(item.voucher_code)}</p>
             </div>
             <div>
-              <p className="text-[12px] text-muted-foreground mb-0.5">날짜</p>
-              <p className="text-[13px] text-foreground tabular-nums">{formatDateTime(item.created_at)}</p>
+              <p className="text-[14px] text-muted-foreground mb-0.5">날짜</p>
+              <p className="text-[14px] text-foreground tabular-nums">{formatDateTime(item.created_at)}</p>
             </div>
             {item.order_quantity > 1 && (
               <div>
-                <p className="text-[12px] text-muted-foreground mb-0.5">수량</p>
-                <p className="text-[13px] text-foreground">{item.order_quantity}매</p>
+                <p className="text-[14px] text-muted-foreground mb-0.5">수량</p>
+                <p className="text-[14px] text-foreground">{item.order_quantity}매</p>
               </div>
             )}
           </div>
@@ -271,14 +271,14 @@ function GiftMobileCard({ item, type }: { item: GiftHistoryItem; type: "sent" | 
             if (!sc) return null;
             return (
               <div>
-                <span className="text-[12px] text-muted-foreground mr-1.5">받는 사람 상태:</span>
-                <span className={cn("rounded-sm px-1.5 py-0.5 text-[12px] font-semibold", sc.className)}>{sc.label}</span>
+                <span className="text-[14px] text-muted-foreground mr-1.5">받는 사람 상태:</span>
+                <span className={cn("rounded-sm px-1.5 py-0.5 text-[14px] font-semibold", sc.className)}>{sc.label}</span>
               </div>
             );
           })()}
           <Link
             href={linkHref}
-            className="flex items-center justify-center gap-1 w-full py-2 rounded-md border border-border text-[13px] font-medium text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+            className="flex items-center justify-center gap-1 w-full py-2 rounded-md border border-border text-[14px] font-medium text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
           >
             교환권 상세보기 <ChevronRight size={13} />
           </Link>
@@ -397,12 +397,12 @@ export function GiftListPage({ type }: GiftListPageProps) {
           <table className="w-full">
             <thead>
               <tr className="bg-muted/40 border-b border-border">
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-4 sm:px-6 py-3">상품</th>
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[120px]">{c.targetHeader}</th>
-                <th className="text-right text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">금액</th>
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">구분</th>
-                <th className="text-left text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[140px]">날짜</th>
-                <th className="text-center text-[13px] font-semibold text-muted-foreground px-3 py-3 w-[50px]">상세</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-4 sm:px-6 py-3">상품</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[120px]">{c.targetHeader}</th>
+                <th className="text-right text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">금액</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[100px]">구분</th>
+                <th className="text-left text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[140px]">날짜</th>
+                <th className="text-center text-[14px] font-semibold text-muted-foreground px-3 py-3 w-[50px]">상세</th>
               </tr>
             </thead>
             <tbody>

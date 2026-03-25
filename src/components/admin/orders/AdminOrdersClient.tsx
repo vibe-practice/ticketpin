@@ -384,7 +384,7 @@ export function AdminOrdersClient() {
         align: "center" as const,
         width: "130px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[12px] text-muted-foreground">
+          <span className="whitespace-nowrap text-[14px] text-muted-foreground">
             {formatDateTime(String(v))}
           </span>
         ),
@@ -396,7 +396,7 @@ export function AdminOrdersClient() {
         align: "center" as const,
         width: "155px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap font-mono text-[12px] text-foreground">{String(v)}</span>
+          <span className="whitespace-nowrap font-mono text-[14px] text-foreground">{String(v)}</span>
         ),
       },
       {
@@ -406,7 +406,7 @@ export function AdminOrdersClient() {
         align: "center" as const,
         width: "60px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] font-medium text-foreground">{String(v)}</span>
+          <span className="whitespace-nowrap text-[14px] font-medium text-foreground">{String(v)}</span>
         ),
       },
       {
@@ -416,7 +416,7 @@ export function AdminOrdersClient() {
         align: "center" as const,
         width: "70px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] text-foreground">{String(v)}</span>
+          <span className="whitespace-nowrap text-[14px] text-foreground">{String(v)}</span>
         ),
       },
       {
@@ -425,7 +425,7 @@ export function AdminOrdersClient() {
         align: "center" as const,
         width: "110px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap font-mono text-[12px] text-foreground">
+          <span className="whitespace-nowrap font-mono text-[14px] text-foreground">
             {formatPhone(String(v))}
           </span>
         ),
@@ -448,7 +448,7 @@ export function AdminOrdersClient() {
               />
             )}
             <div className="min-w-0 text-left">
-              <p className="truncate text-[13px] text-foreground" title={String(v)}>{String(v)}</p>
+              <p className="truncate text-[14px] text-foreground" title={String(v)}>{String(v)}</p>
               <p className="text-[11px] text-muted-foreground">
                 {Number(row.product_price).toLocaleString()}원 × {row.quantity}개
               </p>
@@ -463,7 +463,7 @@ export function AdminOrdersClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] font-semibold text-foreground">
+          <span className="whitespace-nowrap text-[14px] font-semibold text-foreground">
             {Number(v).toLocaleString()}원
           </span>
         ),
@@ -474,7 +474,7 @@ export function AdminOrdersClient() {
         align: "center" as const,
         width: "70px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] text-foreground">{String(v ?? "—")}</span>
+          <span className="whitespace-nowrap text-[14px] text-foreground">{String(v ?? "—")}</span>
         ),
       },
       {
@@ -483,7 +483,7 @@ export function AdminOrdersClient() {
         align: "center" as const,
         width: "55px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[12px] text-foreground">
+          <span className="whitespace-nowrap text-[14px] text-foreground">
             {Number(v) === 0 ? "일시불" : `${v}개월`}
           </span>
         ),
@@ -540,7 +540,7 @@ export function AdminOrdersClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">주문 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               전체 주문 내역을 조회하고 상세 정보를 확인합니다
             </p>
           </div>

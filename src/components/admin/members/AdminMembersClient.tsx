@@ -133,12 +133,10 @@ export function AdminMembersClient() {
         setMembers(json.data.data);
         setTotalCount(json.data.total);
       } else {
-        console.error("[AdminMembersClient] Fetch error:", json.error);
         setMembers([]);
         setTotalCount(0);
       }
-    } catch (err) {
-      console.error("[AdminMembersClient] Network error:", err);
+    } catch {
       setMembers([]);
       setTotalCount(0);
     } finally {
@@ -317,7 +315,7 @@ export function AdminMembersClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap font-mono text-[12px] text-foreground">
+          <span className="whitespace-nowrap font-mono text-[14px] text-foreground">
             {String(v)}
           </span>
         ),
@@ -329,7 +327,7 @@ export function AdminMembersClient() {
         align: "center" as const,
         width: "65px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] font-medium text-foreground">
+          <span className="whitespace-nowrap text-[14px] font-medium text-foreground">
             {String(v)}
           </span>
         ),
@@ -340,7 +338,7 @@ export function AdminMembersClient() {
         align: "center" as const,
         width: "115px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap font-mono text-[12px] text-foreground">
+          <span className="whitespace-nowrap font-mono text-[14px] text-foreground">
             {formatPhone(String(v))}
           </span>
         ),
@@ -380,7 +378,7 @@ export function AdminMembersClient() {
         align: "center" as const,
         width: "130px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[12px] text-muted-foreground">
+          <span className="whitespace-nowrap text-[14px] text-muted-foreground">
             {formatDateTime(String(v))}
           </span>
         ),
@@ -392,7 +390,7 @@ export function AdminMembersClient() {
         align: "center" as const,
         width: "130px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[12px] text-muted-foreground">
+          <span className="whitespace-nowrap text-[14px] text-muted-foreground">
             {formatDateTime(String(v))}
           </span>
         ),
@@ -404,7 +402,7 @@ export function AdminMembersClient() {
         align: "center" as const,
         width: "75px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] font-semibold text-foreground">
+          <span className="whitespace-nowrap text-[14px] font-semibold text-foreground">
             {Number(v).toLocaleString()}건
           </span>
         ),
@@ -416,7 +414,7 @@ export function AdminMembersClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] font-semibold text-foreground">
+          <span className="whitespace-nowrap text-[14px] font-semibold text-foreground">
             {Number(v).toLocaleString()}원
           </span>
         ),
@@ -435,7 +433,7 @@ export function AdminMembersClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">회원 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               전체 회원 목록을 조회하고 상세 정보를 확인합니다
             </p>
           </div>

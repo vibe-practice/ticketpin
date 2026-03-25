@@ -3,15 +3,14 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { serverResetPasswordSchema } from "@/lib/validations/auth";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { validateAndConsumeResetToken } from "@/lib/danal/session";
+import { getClientIp } from "@/lib/utils/ip";
 
 const RESET_PW_RATE_LIMIT = { maxAttempts: 3, windowMs: 60 * 1000 };
 
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting (비밀번호 변경은 더 엄격하게)
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(
       `reset-pw:${ip}`,
       RESET_PW_RATE_LIMIT,
@@ -48,7 +47,7 @@ export async function POST(request: NextRequest) {
     const { resetToken, newPassword } = parsed.data;
 
     // 본인인증 토큰 검증 (일회용: 검증 후 자동 삭제)
-    const tokenData = validateAndConsumeResetToken(resetToken);
+    const tokenData = await validateAndConsumeResetToken(resetToken);
     if (!tokenData) {
       return NextResponse.json(
         { success: false, error: { code: "INVALID_TOKEN", message: "인증이 만료되었습니다. 본인인증을 다시 진행해 주세요." } },

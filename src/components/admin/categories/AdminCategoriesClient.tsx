@@ -84,7 +84,6 @@ export function AdminCategoriesClient() {
         setCategories(json.data);
       }
     } catch {
-      console.error("카테고리 목록 조회 실패");
     } finally {
       setLoading(false);
     }
@@ -253,11 +252,11 @@ export function AdminCategoriesClient() {
             <FolderTree size={20} strokeWidth={1.75} className="text-primary" />
             카테고리 관리
           </h1>
-          <p className="mt-1 text-[13px] text-muted-foreground">
+          <p className="mt-1 text-[14px] text-muted-foreground">
             상품권 카테고리를 등록·수정·삭제합니다. 총 {categories.length}개
           </p>
         </div>
-        <Button onClick={openCreate} className="gap-1.5 h-9 px-4 text-[13px]">
+        <Button onClick={openCreate} className="gap-1.5 h-9 px-4 text-[14px]">
           <Plus size={15} />
           카테고리 등록
         </Button>
@@ -266,7 +265,7 @@ export function AdminCategoriesClient() {
       {/* 토스트 */}
       {toast && (
         <div
-          className={`mb-4 flex items-center gap-2 rounded-lg px-4 py-3 text-[13px] font-medium ${
+          className={`mb-4 flex items-center gap-2 rounded-lg px-4 py-3 text-[14px] font-medium ${
             toast.type === "success"
               ? "bg-success-bg text-success"
               : "bg-error-bg text-error"
@@ -283,7 +282,7 @@ export function AdminCategoriesClient() {
 
       {/* 테이블 */}
       <div className="rounded-xl border border-border bg-card overflow-hidden">
-        <table className="w-full text-[13px]">
+        <table className="w-full text-[14px]">
           <thead>
             <tr className="border-b border-border bg-muted/30">
               <th className="px-4 py-3 text-left font-medium text-muted-foreground w-10">#</th>
@@ -361,7 +360,7 @@ export function AdminCategoriesClient() {
                     {cat.subtitle || <span className="italic text-muted-foreground/50">미설정</span>}
                   </td>
                   <td className="px-4 py-3">
-                    <code className="rounded bg-muted px-1.5 py-0.5 text-[12px] text-muted-foreground">
+                    <code className="rounded bg-muted px-1.5 py-0.5 text-[14px] text-muted-foreground">
                       {cat.slug}
                     </code>
                   </td>
@@ -420,7 +419,7 @@ export function AdminCategoriesClient() {
           <div className="flex flex-col gap-4 px-6 py-5">
             {/* 이름 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="cat-name" className="text-[13px] font-medium">
+              <Label htmlFor="cat-name" className="text-[14px] font-medium">
                 카테고리 이름 <span className="text-error">*</span>
               </Label>
               <Input
@@ -428,10 +427,10 @@ export function AdminCategoriesClient() {
                 value={form.name}
                 onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
                 placeholder="예: 컬쳐랜드 상품권"
-                className="h-9 text-[13px]"
+                className="h-9 text-[14px]"
               />
               {formErrors.name && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={12} />
                   {formErrors.name}
                 </p>
@@ -440,7 +439,7 @@ export function AdminCategoriesClient() {
 
             {/* 서브타이틀 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="cat-subtitle" className="text-[13px] font-medium">
+              <Label htmlFor="cat-subtitle" className="text-[14px] font-medium">
                 서브타이틀 (영문)
               </Label>
               <Input
@@ -448,7 +447,7 @@ export function AdminCategoriesClient() {
                 value={form.subtitle}
                 onChange={(e) => setForm((prev) => ({ ...prev, subtitle: e.target.value }))}
                 placeholder="예: CULTURELAND GIFT CARD"
-                className="h-9 text-[13px]"
+                className="h-9 text-[14px]"
               />
               <p className="text-[11px] text-muted-foreground">
                 메인 페이지 카테고리 섹션 위에 표시됩니다. 비워두면 카테고리 이름이 표시됩니다.
@@ -457,7 +456,7 @@ export function AdminCategoriesClient() {
 
             {/* 슬러그 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="cat-slug" className="text-[13px] font-medium">
+              <Label htmlFor="cat-slug" className="text-[14px] font-medium">
                 슬러그 (URL)
               </Label>
               <Input
@@ -465,7 +464,7 @@ export function AdminCategoriesClient() {
                 value={form.slug}
                 onChange={(e) => setForm((prev) => ({ ...prev, slug: e.target.value }))}
                 placeholder="예: cultureland (자동 생성 가능)"
-                className="h-9 text-[13px]"
+                className="h-9 text-[14px]"
               />
               <p className="text-[11px] text-muted-foreground">
                 영문 소문자, 숫자, 하이픈만 사용. 비워두면 자동 생성됩니다.
@@ -474,7 +473,7 @@ export function AdminCategoriesClient() {
 
             {/* 아이콘 */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="cat-icon" className="text-[13px] font-medium">
+              <Label htmlFor="cat-icon" className="text-[14px] font-medium">
                 아이콘 (Lucide)
               </Label>
               <Input
@@ -482,7 +481,7 @@ export function AdminCategoriesClient() {
                 value={form.icon}
                 onChange={(e) => setForm((prev) => ({ ...prev, icon: e.target.value }))}
                 placeholder="예: Tag, Gift, CreditCard"
-                className="h-9 text-[13px]"
+                className="h-9 text-[14px]"
               />
               <p className="text-[11px] text-muted-foreground">
                 이미지를 업로드하면 아이콘 대신 이미지가 표시됩니다.
@@ -491,7 +490,7 @@ export function AdminCategoriesClient() {
 
             {/* 카테고리 이미지 */}
             <div className="flex flex-col gap-1.5">
-              <Label className="text-[13px] font-medium">
+              <Label className="text-[14px] font-medium">
                 카테고리 이미지 (선택)
               </Label>
               <ImageUploadField
@@ -507,7 +506,7 @@ export function AdminCategoriesClient() {
 
             {/* 노출 여부 */}
             <div className="flex items-center justify-between">
-              <Label htmlFor="cat-visible" className="text-[13px] font-medium">
+              <Label htmlFor="cat-visible" className="text-[14px] font-medium">
                 사용자에게 노출
               </Label>
               <Switch
@@ -522,14 +521,14 @@ export function AdminCategoriesClient() {
             <Button
               variant="outline"
               onClick={() => setIsFormOpen(false)}
-              className="h-9 px-5 text-[13px]"
+              className="h-9 px-5 text-[14px]"
             >
               취소
             </Button>
             <Button
               onClick={handleSave}
               disabled={saving}
-              className="h-9 px-6 text-[13px] bg-primary text-white hover:bg-brand-primary-dark"
+              className="h-9 px-6 text-[14px] bg-primary text-white hover:bg-brand-primary-dark"
             >
               {saving ? "저장 중..." : editingId ? "수정" : "등록"}
             </Button>

@@ -316,7 +316,7 @@ export function AdminGiftsClient() {
         align: "center" as const,
         width: "130px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[12px] text-muted-foreground">
+          <span className="whitespace-nowrap text-[14px] text-muted-foreground">
             {formatDateTime(String(v))}
           </span>
         ),
@@ -328,7 +328,7 @@ export function AdminGiftsClient() {
         width: "120px",
         render: (_v: unknown, row: GiftRow) => (
           <div className="text-center">
-            <p className="text-[13px] font-medium text-foreground">{row.sender_name}</p>
+            <p className="text-[14px] font-medium text-foreground">{row.sender_name}</p>
             <p className="text-[11px] text-muted-foreground">{row.sender_username}</p>
           </div>
         ),
@@ -340,7 +340,7 @@ export function AdminGiftsClient() {
         width: "120px",
         render: (_v: unknown, row: GiftRow) => (
           <div className="text-center">
-            <p className="text-[13px] font-medium text-foreground">{row.receiver_name}</p>
+            <p className="text-[14px] font-medium text-foreground">{row.receiver_name}</p>
             <p className="text-[11px] text-muted-foreground">{row.receiver_username}</p>
           </div>
         ),
@@ -352,7 +352,7 @@ export function AdminGiftsClient() {
         align: "center" as const,
         width: "200px",
         render: (v: unknown) => (
-          <span className="truncate text-[13px] text-foreground" title={String(v)}>
+          <span className="truncate text-[14px] text-foreground" title={String(v)}>
             {String(v)}
           </span>
         ),
@@ -363,7 +363,7 @@ export function AdminGiftsClient() {
         align: "center" as const,
         width: "55px",
         render: (v: unknown) => (
-          <span className="text-[13px] text-foreground">{String(v)}개</span>
+          <span className="text-[14px] text-foreground">{String(v)}개</span>
         ),
       },
       {
@@ -373,7 +373,7 @@ export function AdminGiftsClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] font-semibold text-foreground">
+          <span className="whitespace-nowrap text-[14px] font-semibold text-foreground">
             {Number(v).toLocaleString()}원
           </span>
         ),
@@ -385,7 +385,7 @@ export function AdminGiftsClient() {
         width: "100px",
         render: (v: unknown, row: GiftRow) => (
           <div className="text-center">
-            <p className="text-[13px] text-foreground">{Number(v).toLocaleString()}원</p>
+            <p className="text-[14px] text-foreground">{Number(v).toLocaleString()}원</p>
             <p className="text-[11px] text-muted-foreground">
               {row.fee_type === "included" ? "포함" : "별도"}
             </p>
@@ -428,7 +428,7 @@ export function AdminGiftsClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">선물 이력</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               전체 선물 거래 내역을 조회하고 상세 정보를 확인합니다
             </p>
           </div>
@@ -535,14 +535,14 @@ export function AdminGiftsClient() {
               <div className="flex items-center gap-2">
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] text-muted-foreground">원본</p>
-                  <p className="truncate font-mono text-[12px] text-foreground" title={expandedGift.source_voucher_code}>
+                  <p className="truncate font-mono text-[14px] text-foreground" title={expandedGift.source_voucher_code}>
                     {expandedGift.source_voucher_code}
                   </p>
                 </div>
                 <ArrowRight size={16} className="shrink-0 text-primary" />
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] text-muted-foreground">새 코드</p>
-                  <p className="truncate font-mono text-[12px] text-foreground" title={expandedGift.new_voucher_code}>
+                  <p className="truncate font-mono text-[14px] text-foreground" title={expandedGift.new_voucher_code}>
                     {expandedGift.new_voucher_code}
                   </p>
                   <span
@@ -563,21 +563,21 @@ export function AdminGiftsClient() {
               <div className="space-y-2">
                 <div>
                   <p className="text-[11px] text-muted-foreground">보낸 사람</p>
-                  <p className="text-[13px] font-medium text-foreground">
+                  <p className="text-[14px] font-medium text-foreground">
                     {expandedGift.sender_name}{" "}
                     <span className="text-muted-foreground">({expandedGift.sender_username})</span>
                   </p>
-                  <p className="font-mono text-[12px] text-muted-foreground">
+                  <p className="font-mono text-[14px] text-muted-foreground">
                     {formatPhone(expandedGift.sender_phone)}
                   </p>
                 </div>
                 <div>
                   <p className="text-[11px] text-muted-foreground">받는 사람</p>
-                  <p className="text-[13px] font-medium text-foreground">
+                  <p className="text-[14px] font-medium text-foreground">
                     {expandedGift.receiver_name}{" "}
                     <span className="text-muted-foreground">({expandedGift.receiver_username})</span>
                   </p>
-                  <p className="font-mono text-[12px] text-muted-foreground">
+                  <p className="font-mono text-[14px] text-muted-foreground">
                     {formatPhone(expandedGift.receiver_phone)}
                   </p>
                 </div>
@@ -588,22 +588,22 @@ export function AdminGiftsClient() {
             <div className="rounded-md border border-border bg-card p-4">
               <p className="mb-2 text-xs font-medium text-muted-foreground">금액 상세</p>
               <div className="space-y-1">
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">상품단가</span>
                   <span className="text-foreground">{expandedGift.product_price.toLocaleString()}원</span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">수량</span>
                   <span className="text-foreground">{expandedGift.order_quantity}개</span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">
                     수수료 ({expandedGift.fee_type === "included" ? "포함" : "별도"})
                   </span>
                   <span className="text-foreground">{expandedGift.fee_amount.toLocaleString()}원</span>
                 </div>
                 <div className="mt-1 border-t border-border pt-1">
-                  <div className="flex justify-between text-[13px] font-semibold">
+                  <div className="flex justify-between text-[14px] font-semibold">
                     <span className="text-foreground">총 금액</span>
                     <span className="text-primary">{expandedGift.total_amount.toLocaleString()}원</span>
                   </div>
@@ -643,7 +643,7 @@ export function AdminGiftsClient() {
                             : "border-border bg-muted/40"
                       )}
                     >
-                      <p className="text-[12px] font-medium text-foreground">
+                      <p className="text-[14px] font-medium text-foreground">
                         {node.owner_name}
                         <span className="ml-1 text-[11px] text-muted-foreground">({node.owner_username})</span>
                       </p>

@@ -220,21 +220,21 @@ export function PurchaseAccountFormModal({
                 </Button>
               </div>
               {errors.username && (
-                <p className="flex items-center gap-1 text-[13px] text-destructive">
+                <p className="flex items-center gap-1 text-[14px] text-destructive">
                   <AlertCircle size={13} /> {errors.username.message}
                 </p>
               )}
               {usernameChecked && usernameAvailable && (
-                <p className="flex items-center gap-1 text-[13px] text-neutral-600">
+                <p className="flex items-center gap-1 text-[14px] text-neutral-600">
                   <CheckCircle2 size={13} /> 사용 가능한 아이디입니다
                 </p>
               )}
               {usernameChecked && !usernameAvailable && (
-                <p className="flex items-center gap-1 text-[13px] text-destructive">
+                <p className="flex items-center gap-1 text-[14px] text-destructive">
                   <AlertCircle size={13} /> 이미 사용 중인 아이디입니다
                 </p>
               )}
-              <p className="text-[12px] text-muted-foreground">손님이 선물 보낼 때 사용하는 아이디입니다</p>
+              <p className="text-[14px] text-muted-foreground">손님이 선물 보낼 때 사용하는 아이디입니다</p>
             </div>
 
             {/* 아이디명 */}
@@ -242,7 +242,7 @@ export function PurchaseAccountFormModal({
               <Label>아이디명 *</Label>
               <Input {...register("account_name")} placeholder="아이디명 입력" />
               {errors.account_name && (
-                <p className="flex items-center gap-1 text-[13px] text-destructive">
+                <p className="flex items-center gap-1 text-[14px] text-destructive">
                   <AlertCircle size={13} /> {errors.account_name.message}
                 </p>
               )}
@@ -276,7 +276,7 @@ export function PurchaseAccountFormModal({
                 maxLength={11}
               />
               {errors.notification_phone && (
-                <p className="flex items-center gap-1 text-[13px] text-destructive">
+                <p className="flex items-center gap-1 text-[14px] text-destructive">
                   <AlertCircle size={13} /> {errors.notification_phone.message}
                 </p>
               )}
@@ -317,7 +317,7 @@ export function PurchaseAccountFormModal({
             <Label>아이디명 *</Label>
             <Input {...register("account_name")} placeholder="매입 아이디 이름 (예: 매입1호)" />
             {errors.account_name && (
-              <p className="flex items-center gap-1 text-[13px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={13} /> {errors.account_name.message}
               </p>
             )}
@@ -328,7 +328,7 @@ export function PurchaseAccountFormModal({
             <Label>로그인 아이디 *</Label>
             <Input {...register("username")} placeholder="영문, 숫자, 밑줄 (4~20자)" />
             {errors.username && (
-              <p className="flex items-center gap-1 text-[13px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={13} /> {errors.username.message}
               </p>
             )}
@@ -339,7 +339,7 @@ export function PurchaseAccountFormModal({
             <Label>비밀번호 *</Label>
             <Input type="password" {...register("password")} placeholder="6자 이상" />
             {errors.password && (
-              <p className="flex items-center gap-1 text-[13px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={13} /> {errors.password.message}
               </p>
             )}
@@ -356,7 +356,7 @@ export function PurchaseAccountFormModal({
               maxLength={11}
             />
             {errors.notification_phone && (
-              <p className="flex items-center gap-1 text-[13px] text-destructive">
+              <p className="flex items-center gap-1 text-[14px] text-destructive">
                 <AlertCircle size={13} /> {errors.notification_phone.message}
               </p>
             )}

@@ -165,7 +165,7 @@ export default function AdminLoginPage() {
 
         {/* 카드 본체 */}
         <div className="rounded-2xl border border-neutral-700/50 bg-neutral-900/80 p-8 shadow-2xl backdrop-blur-sm">
-          <p className="mb-6 text-center text-[13px] font-medium text-neutral-400">
+          <p className="mb-6 text-center text-[14px] font-medium text-neutral-400">
             관리자 계정으로 로그인하세요
           </p>
 
@@ -194,7 +194,7 @@ export default function AdminLoginPage() {
             <div className="space-y-2">
               <Label
                 htmlFor="admin-username"
-                className="text-[13px] font-medium text-neutral-300"
+                className="text-[14px] font-medium text-neutral-300"
               >
                 관리자 아이디
               </Label>
@@ -221,7 +221,7 @@ export default function AdminLoginPage() {
                 />
               </div>
               {errors.username && (
-                <p className="flex items-center gap-1.5 text-[12px] text-red-400">
+                <p className="flex items-center gap-1.5 text-[14px] text-red-400">
                   <AlertCircle size={12} />
                   {errors.username.message}
                 </p>
@@ -232,7 +232,7 @@ export default function AdminLoginPage() {
             <div className="space-y-2">
               <Label
                 htmlFor="admin-password"
-                className="text-[13px] font-medium text-neutral-300"
+                className="text-[14px] font-medium text-neutral-300"
               >
                 비밀번호
               </Label>
@@ -269,7 +269,7 @@ export default function AdminLoginPage() {
                 </Button>
               </div>
               {errors.password && (
-                <p className="flex items-center gap-1.5 text-[12px] text-red-400">
+                <p className="flex items-center gap-1.5 text-[14px] text-red-400">
                   <AlertCircle size={12} />
                   {errors.password.message}
                 </p>
@@ -318,14 +318,14 @@ export default function AdminLoginPage() {
           {/* 사용자 페이지 링크 */}
           <Link
             href="/"
-            className="flex items-center justify-center gap-1.5 text-[13px] text-neutral-500 transition-colors hover:text-neutral-300"
+            className="flex items-center justify-center gap-1.5 text-[14px] text-neutral-500 transition-colors hover:text-neutral-300"
           >
             사용자 페이지로 이동
           </Link>
         </div>
 
         {/* 하단 안내 */}
-        <p className="mt-6 text-center text-[12px] text-neutral-600">
+        <p className="mt-6 text-center text-[14px] text-neutral-600">
           이 페이지는 관리자 전용입니다. 권한이 없는 접근은 기록됩니다.
         </p>
       </div>

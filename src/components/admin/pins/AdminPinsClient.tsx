@@ -200,7 +200,6 @@ export function AdminPinsClient() {
         setStockItems(json.data.summary ?? []);
       }
     } catch {
-      console.error("[AdminPinsClient] Failed to fetch stock");
     }
   }, []);
 
@@ -217,7 +216,6 @@ export function AdminPinsClient() {
         }
       }
     } catch {
-      console.error("[AdminPinsClient] Failed to fetch products");
     }
   }, []);
 
@@ -273,7 +271,6 @@ export function AdminPinsClient() {
         setModalTotal(json.data.total ?? 0);
       }
     } catch {
-      console.error("[AdminPinsClient] Failed to fetch modal pins");
     } finally {
       setModalLoading(false);
     }
@@ -467,7 +464,7 @@ export function AdminPinsClient() {
     return (
       <div className="flex flex-col items-center justify-center gap-3 py-24">
         <Loader2 size={28} className="animate-spin text-primary" />
-        <p className="text-[13px] text-muted-foreground">데이터를 불러오는 중...</p>
+        <p className="text-[14px] text-muted-foreground">데이터를 불러오는 중...</p>
       </div>
     );
   }
@@ -482,7 +479,7 @@ export function AdminPinsClient() {
       {toastMsg && (
         <div
           className={cn(
-            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[13px] font-medium transition-all",
+            "fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-xl border px-4 py-3 shadow-lg text-[14px] font-medium transition-all",
             toastMsg.type === "success"
               ? "border-success/30 bg-success-bg text-success"
               : "border-error/30 bg-error-bg text-error"
@@ -505,7 +502,7 @@ export function AdminPinsClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">핀 번호 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               상품별 핀 재고 현황을 확인하고, 핀 번호를 등록합니다.
             </p>
           </div>
@@ -525,14 +522,14 @@ export function AdminPinsClient() {
         <div className="flex items-center gap-2 border-b border-border px-5 py-3.5">
           <Package size={16} className="text-primary" />
           <h2 className="text-[14px] font-semibold text-foreground">상품별 핀 재고 현황</h2>
-          <span className="ml-auto text-[12px] text-muted-foreground">
+          <span className="ml-auto text-[14px] text-muted-foreground">
             {categoryGroups.length}개 카테고리 · {stockItems.length}개 상품
           </span>
         </div>
 
         <div className="flex flex-col gap-0">
           {categoryGroups.length === 0 ? (
-            <div className="px-4 py-12 text-center text-[13px] text-muted-foreground">
+            <div className="px-4 py-12 text-center text-[14px] text-muted-foreground">
               등록된 상품이 없습니다.
             </div>
           ) : (
@@ -540,7 +537,7 @@ export function AdminPinsClient() {
               <div key={categoryName}>
                 {/* 카테고리 헤더 */}
                 <div className="flex items-center gap-2 border-b border-border bg-muted/30 px-5 py-2.5">
-                  <span className="text-[13px] font-semibold text-foreground">{categoryName}</span>
+                  <span className="text-[14px] font-semibold text-foreground">{categoryName}</span>
                   <span className="text-[11px] text-muted-foreground">
                     {items.length}개 상품
                   </span>
@@ -571,7 +568,7 @@ export function AdminPinsClient() {
                           </div>
                         )}
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-[13px] font-semibold text-foreground">
+                          <p className="truncate text-[14px] font-semibold text-foreground">
                             {item.product_name}
                           </p>
                           <p className="text-[11px] text-muted-foreground">
@@ -657,15 +654,15 @@ export function AdminPinsClient() {
               <span className="flex h-5 w-5 items-center justify-center rounded-sm bg-brand-primary-soft text-[11px] font-bold text-primary">
                 1
               </span>
-              <p className="text-[13px] font-semibold text-foreground">개별 등록</p>
+              <p className="text-[14px] font-semibold text-foreground">개별 등록</p>
             </div>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               핀 번호를 직접 입력하여 하나씩 등록합니다.
             </p>
 
             {/* 상품 선택 */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-medium text-muted-foreground">상품 선택</label>
+              <label className="text-[14px] font-medium text-muted-foreground">상품 선택</label>
               <Select value={pinProductId} onValueChange={setPinProductId}>
                 <SelectTrigger className="h-10 text-sm">
                   <SelectValue placeholder="상품을 선택하세요" />
@@ -682,7 +679,7 @@ export function AdminPinsClient() {
 
             {/* 핀 번호 입력 */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-medium text-muted-foreground">핀 번호</label>
+              <label className="text-[14px] font-medium text-muted-foreground">핀 번호</label>
               <div className="flex gap-2">
                 <div className="flex-1">
                   <Input
@@ -696,7 +693,7 @@ export function AdminPinsClient() {
                     }}
                     placeholder="예: 1234-5678-9012-3456"
                     className={cn(
-                      "h-10 font-mono text-[13px]",
+                      "h-10 font-mono text-[14px]",
                       pinInputError && "border-error focus-visible:ring-error/30"
                     )}
                     aria-describedby={pinInputError ? "pin-input-error" : undefined}
@@ -705,7 +702,7 @@ export function AdminPinsClient() {
                   {pinInputError && (
                     <p
                       id="pin-input-error"
-                      className="mt-1 flex items-center gap-1 text-[12px] text-error"
+                      className="mt-1 flex items-center gap-1 text-[14px] text-error"
                     >
                       <AlertCircle size={11} />
                       {pinInputError}
@@ -716,7 +713,7 @@ export function AdminPinsClient() {
                   type="button"
                   onClick={handleAddPin}
                   disabled={!pinInput.trim() || !pinProductId || addingPin}
-                  className="h-10 shrink-0 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[13px]"
+                  className="h-10 shrink-0 gap-1.5 bg-primary text-white hover:bg-brand-primary-dark text-[14px]"
                 >
                   {addingPin ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
                   등록
@@ -731,17 +728,17 @@ export function AdminPinsClient() {
               <span className="flex h-5 w-5 items-center justify-center rounded-sm bg-success-bg text-[11px] font-bold text-success">
                 2
               </span>
-              <p className="text-[13px] font-semibold text-foreground">TXT 대량 등록</p>
+              <p className="text-[14px] font-semibold text-foreground">TXT 대량 등록</p>
             </div>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               TXT 파일로 여러 핀 번호를 한 번에 등록합니다. 한 줄에 핀 번호 하나씩 입력하세요.
             </p>
 
             {/* 상품 선택 */}
             <div className="flex flex-col gap-1">
-              <label className="text-[12px] font-medium text-muted-foreground">등록할 상품</label>
+              <label className="text-[14px] font-medium text-muted-foreground">등록할 상품</label>
               <Select value={txtProductId} onValueChange={setTxtProductId}>
-                <SelectTrigger className="h-9 w-full text-[13px]">
+                <SelectTrigger className="h-9 w-full text-[14px]">
                   <SelectValue placeholder="상품 선택" />
                 </SelectTrigger>
                 <SelectContent>
@@ -758,7 +755,7 @@ export function AdminPinsClient() {
               variant="outline"
               size="sm"
               onClick={downloadTxtTemplate}
-              className="h-9 w-fit gap-1.5 text-[12px]"
+              className="h-9 w-fit gap-1.5 text-[14px]"
             >
               <Download size={13} />
               TXT 템플릿 다운로드
@@ -780,12 +777,12 @@ export function AdminPinsClient() {
                 {uploadingTxt ? (
                   <div className="flex items-center gap-2">
                     <Loader2 size={20} className="animate-spin text-primary" />
-                    <span className="text-[13px] font-medium text-foreground">업로드 중...</span>
+                    <span className="text-[14px] font-medium text-foreground">업로드 중...</span>
                   </div>
                 ) : txtFileName ? (
                   <div className="flex items-center gap-2">
                     <FileText size={20} className="text-success" />
-                    <span className="text-[13px] font-medium text-foreground">{txtFileName}</span>
+                    <span className="text-[14px] font-medium text-foreground">{txtFileName}</span>
                     <button
                       type="button"
                       onClick={(e) => {
@@ -804,7 +801,7 @@ export function AdminPinsClient() {
                   <>
                     <Upload size={22} className="text-muted-foreground" />
                     <div>
-                      <p className="text-[13px] font-medium text-foreground">
+                      <p className="text-[14px] font-medium text-foreground">
                         TXT 파일을 클릭하여 업로드
                       </p>
                       <p className="text-[11px] text-muted-foreground">
@@ -825,7 +822,7 @@ export function AdminPinsClient() {
                 disabled={uploadingTxt}
               />
               {txtError && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {txtError}
                 </p>
@@ -858,7 +855,7 @@ export function AdminPinsClient() {
                 <DialogTitle className="text-[15px]">
                   {selectedProduct?.name ?? "핀 목록"}
                 </DialogTitle>
-                <DialogDescription className="text-[12px]">
+                <DialogDescription className="text-[14px]">
                   핀 번호 목록을 확인하고 관리합니다.
                 </DialogDescription>
               </div>
@@ -899,7 +896,7 @@ export function AdminPinsClient() {
                   value={pinSearchQuery}
                   onChange={(e) => handleSearchChange(e.target.value)}
                   placeholder="핀 번호 검색..."
-                  className="h-8 w-48 pl-8 text-[12px]"
+                  className="h-8 w-48 pl-8 text-[14px]"
                 />
               </div>
             </div>
@@ -912,7 +909,7 @@ export function AdminPinsClient() {
                 <Loader2 size={24} className="animate-spin text-primary" />
               </div>
             ) : modalPins.length > 0 ? (
-              <table className="w-full text-[12px]">
+              <table className="w-full text-[14px]">
                 <thead className="sticky top-0 bg-muted/50 z-10">
                   <tr className="text-muted-foreground">
                     <th className="px-4 py-2.5 text-left font-medium">핀 번호</th>
@@ -929,7 +926,7 @@ export function AdminPinsClient() {
                   {modalPins.map((pin) => (
                     <tr key={pin.id} className="hover:bg-muted/20">
                       <td className="px-4 py-2.5">
-                        <span className="font-mono text-[12px] font-medium tracking-wider text-foreground">
+                        <span className="font-mono text-[14px] font-medium tracking-wider text-foreground">
                           {pin.pin_number}
                         </span>
                       </td>
@@ -946,7 +943,7 @@ export function AdminPinsClient() {
                       <td className="px-4 py-2.5">
                         {pin.assigned_username ? (
                           <div className="flex flex-col">
-                            <span className="text-[12px] font-medium text-foreground">{pin.assigned_user_name}</span>
+                            <span className="text-[14px] font-medium text-foreground">{pin.assigned_user_name}</span>
                             <span className="text-[11px] text-muted-foreground">{pin.assigned_username}</span>
                           </div>
                         ) : (
@@ -997,7 +994,7 @@ export function AdminPinsClient() {
                 </tbody>
               </table>
             ) : (
-              <div className="px-4 py-16 text-center text-[13px] text-muted-foreground">
+              <div className="px-4 py-16 text-center text-[14px] text-muted-foreground">
                 {pinSearchQuery.trim()
                   ? "검색 결과가 없습니다."
                   : pinFilterTab === "all"
@@ -1010,7 +1007,7 @@ export function AdminPinsClient() {
           {/* 페이지네이션 */}
           {totalPages > 1 && (
             <div className="flex items-center justify-between border-t border-border px-6 py-3">
-              <span className="text-[12px] text-muted-foreground">
+              <span className="text-[14px] text-muted-foreground">
                 총 {modalTotal.toLocaleString()}개 중 {((pinPage - 1) * PINS_PER_PAGE) + 1}~{Math.min(pinPage * PINS_PER_PAGE, modalTotal)}
               </span>
               <div className="flex items-center gap-1">
@@ -1023,7 +1020,7 @@ export function AdminPinsClient() {
                 >
                   이전
                 </Button>
-                <span className="px-2 text-[12px] text-muted-foreground">
+                <span className="px-2 text-[14px] text-muted-foreground">
                   {pinPage} / {totalPages}
                 </span>
                 <Button

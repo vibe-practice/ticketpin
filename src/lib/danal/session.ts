@@ -1,46 +1,18 @@
 // ============================================================
-// 본인인증 세션 관리 (인메모리)
-// - TID와 인증 결과를 서버 메모리에 저장
+// 본인인증 세션 관리 (Supabase DB 기반)
+// - TID와 인증 결과를 Supabase DB에 저장
 // - 일회성 사용: result 조회 후 삭제
-// - TTL: 10분 (인증 완료까지의 타임아웃)
+// - TTL: identity_sessions 10분, reset_tokens 5분
+// - service_role 키로 접근 (RLS 우회)
 // ============================================================
-// WARNING: serverless 환경(Vercel 등)에서는 인스턴스마다 별도 Map이 생성됩니다.
-// TODO(Production): Upstash Redis 등 외부 저장소로 교체 필요
 
+import { createAdminClient } from "@/lib/supabase/admin";
 import type { IdentitySession } from "./types";
 
-const SESSION_TTL_MS = 10 * 60 * 1000; // 10분
-const CLEANUP_INTERVAL_MS = 5 * 60 * 1000; // 5분마다 정리
+const RESET_TOKEN_TTL_MS = 5 * 60 * 1000; // 5분
 
-// globalThis에 저장하여 Next.js 핫 리로드 시에도 세션 유지
-const globalKey = "__danal_identity_sessions__" as const;
-const globalStore = globalThis as unknown as {
-  [globalKey]?: Map<string, IdentitySession>;
-  __danal_last_cleanup__?: number;
-};
-
-if (!globalStore[globalKey]) {
-  globalStore[globalKey] = new Map<string, IdentitySession>();
-}
-
-const sessions = globalStore[globalKey];
-let lastCleanup = globalStore.__danal_last_cleanup__ ?? Date.now();
-
-/** 만료된 세션 정리 */
-function cleanup() {
-  const now = Date.now();
-  if (now - lastCleanup < CLEANUP_INTERVAL_MS) return;
-  lastCleanup = now;
-  globalStore.__danal_last_cleanup__ = now;
-  for (const [id, session] of sessions) {
-    if (now - session.createdAt > SESSION_TTL_MS) {
-      sessions.delete(id);
-    }
-  }
-}
-
-/** 랜덤 세션 ID 생성 (crypto 기반) */
-function generateSessionId(): string {
+/** 랜덤 세션/토큰 ID 생성 (crypto 기반) */
+function generateId(): string {
   const bytes = new Uint8Array(24);
   crypto.getRandomValues(bytes);
   return Array.from(bytes)
@@ -49,61 +21,122 @@ function generateSessionId(): string {
 }
 
 /** 세션 생성: TID 저장 후 sessionId 반환 */
-export function createIdentitySession(tid: string): string {
-  cleanup();
-  const sessionId = generateSessionId();
-  sessions.set(sessionId, {
+export async function createIdentitySession(tid: string): Promise<string> {
+  const sessionId = generateId();
+  const adminClient = createAdminClient();
+
+  const { error } = await adminClient.from("identity_sessions").insert({
+    session_id: sessionId,
     tid,
-    createdAt: Date.now(),
     confirmed: false,
   });
+
+  if (error) {
+    console.error("[session] createIdentitySession DB error:", error.message);
+    throw new Error("세션 생성에 실패했습니다.");
+  }
+
   return sessionId;
 }
 
 /** TID로 세션 찾기 (콜백에서 사용) */
-export function findSessionByTid(
+export async function findSessionByTid(
   tid: string
-): { sessionId: string; session: IdentitySession } | null {
-  cleanup();
-  for (const [sessionId, session] of sessions) {
-    if (session.tid === tid) {
-      return { sessionId, session };
-    }
-  }
-  return null;
-}
+): Promise<{ sessionId: string; session: IdentitySession } | null> {
+  const adminClient = createAdminClient();
 
-/** sessionId로 세션 조회 */
-export function getIdentitySession(
-  sessionId: string
-): IdentitySession | null {
-  cleanup();
-  const session = sessions.get(sessionId);
-  if (!session) return null;
+  const { data, error } = await adminClient
+    .from("identity_sessions")
+    .select("session_id, tid, confirmed, result_name, result_phone, created_at, expires_at")
+    .eq("tid", tid)
+    .gt("expires_at", new Date().toISOString())
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
 
-  // TTL 만료 체크
-  if (Date.now() - session.createdAt > SESSION_TTL_MS) {
-    sessions.delete(sessionId);
+  if (error) {
+    console.error("[session] findSessionByTid DB error:", error.message);
     return null;
   }
 
-  return session;
+  if (!data) return null;
+
+  const session: IdentitySession = {
+    tid: data.tid,
+    createdAt: new Date(data.created_at).getTime(),
+    confirmed: data.confirmed,
+    ...(data.result_name && data.result_phone
+      ? { result: { name: data.result_name, phone: data.result_phone } }
+      : {}),
+  };
+
+  return { sessionId: data.session_id, session };
+}
+
+/** sessionId로 세션 조회 */
+export async function getIdentitySession(
+  sessionId: string
+): Promise<IdentitySession | null> {
+  const adminClient = createAdminClient();
+
+  const { data, error } = await adminClient
+    .from("identity_sessions")
+    .select("tid, confirmed, result_name, result_phone, created_at, expires_at")
+    .eq("session_id", sessionId)
+    .gt("expires_at", new Date().toISOString())
+    .maybeSingle();
+
+  if (error) {
+    console.error("[session] getIdentitySession DB error:", error.message);
+    return null;
+  }
+
+  if (!data) return null;
+
+  return {
+    tid: data.tid,
+    createdAt: new Date(data.created_at).getTime(),
+    confirmed: data.confirmed,
+    ...(data.result_name && data.result_phone
+      ? { result: { name: data.result_name, phone: data.result_phone } }
+      : {}),
+  };
 }
 
 /** 세션에 인증 결과 저장 (콜백에서 confirm 후 호출) */
-export function setSessionResult(
+export async function setSessionResult(
   sessionId: string,
   result: { name: string; phone: string }
-): void {
-  const session = sessions.get(sessionId);
-  if (!session) return;
-  session.confirmed = true;
-  session.result = result;
+): Promise<void> {
+  const adminClient = createAdminClient();
+
+  const { error } = await adminClient
+    .from("identity_sessions")
+    .update({
+      confirmed: true,
+      result_name: result.name,
+      result_phone: result.phone,
+    })
+    .eq("session_id", sessionId)
+    .gt("expires_at", new Date().toISOString());
+
+  if (error) {
+    console.error("[session] setSessionResult DB error:", error.message);
+  }
 }
 
 /** 세션 삭제 (result 조회 후 일회성 사용) */
-export function deleteIdentitySession(sessionId: string): void {
-  sessions.delete(sessionId);
+export async function deleteIdentitySession(sessionId: string): Promise<void> {
+  const adminClient = createAdminClient();
+
+  const { error } = await adminClient
+    .from("identity_sessions")
+    .delete()
+    .eq("session_id", sessionId);
+
+  if (error) {
+    console.error("[session] deleteIdentitySession DB error:", error.message);
+  }
 }
 
 // ============================================================
@@ -111,58 +144,57 @@ export function deleteIdentitySession(sessionId: string): void {
 // - 본인인증 완료 후 발급, reset-password API에서 검증
 // ============================================================
 
-interface ResetToken {
-  username: string;
-  phone: string;
-  expiresAt: number;
-}
-
-const resetTokenKey = "__danal_reset_tokens__" as const;
-const globalStoreForTokens = globalThis as unknown as {
-  [resetTokenKey]?: Map<string, ResetToken>;
-};
-
-if (!globalStoreForTokens[resetTokenKey]) {
-  globalStoreForTokens[resetTokenKey] = new Map<string, ResetToken>();
-}
-
-const resetTokens = globalStoreForTokens[resetTokenKey];
-
-const RESET_TOKEN_TTL_MS = 5 * 60 * 1000; // 5분
-
 /** 비밀번호 재설정 토큰 생성 */
-export function createResetToken(username: string, phone: string): string {
-  // 만료된 토큰 정리
-  const now = Date.now();
-  for (const [id, token] of resetTokens) {
-    if (now > token.expiresAt) resetTokens.delete(id);
-  }
+export async function createResetToken(
+  username: string,
+  phone: string
+): Promise<string> {
+  const tokenId = generateId();
+  const expiresAt = new Date(Date.now() + RESET_TOKEN_TTL_MS).toISOString();
+  const adminClient = createAdminClient();
 
-  const bytes = new Uint8Array(24);
-  crypto.getRandomValues(bytes);
-  const tokenId = Array.from(bytes)
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-
-  resetTokens.set(tokenId, {
+  const { error } = await adminClient.from("reset_tokens").insert({
+    token_id: tokenId,
     username,
     phone,
-    expiresAt: now + RESET_TOKEN_TTL_MS,
+    expires_at: expiresAt,
   });
+
+  if (error) {
+    console.error("[session] createResetToken DB error:", error.message);
+    throw new Error("토큰 생성에 실패했습니다.");
+  }
 
   return tokenId;
 }
 
 /** 비밀번호 재설정 토큰 검증 (일회용: 검증 후 삭제) */
-export function validateAndConsumeResetToken(
+export async function validateAndConsumeResetToken(
   tokenId: string
-): { username: string; phone: string } | null {
-  const token = resetTokens.get(tokenId);
-  if (!token) return null;
+): Promise<{ username: string; phone: string } | null> {
+  const adminClient = createAdminClient();
 
-  resetTokens.delete(tokenId); // 일회용
+  // 조회 + 만료 체크
+  const { data, error } = await adminClient
+    .from("reset_tokens")
+    .select("id, username, phone, expires_at")
+    .eq("token_id", tokenId)
+    .maybeSingle();
 
-  if (Date.now() > token.expiresAt) return null;
+  if (error) {
+    console.error("[session] validateAndConsumeResetToken DB error:", error.message);
+    return null;
+  }
 
-  return { username: token.username, phone: token.phone };
+  if (!data) return null;
+
+  // 일회용: 즉시 삭제 (성공/만료 모두)
+  await adminClient.from("reset_tokens").delete().eq("id", data.id);
+
+  // 만료 체크
+  if (new Date(data.expires_at) < new Date()) {
+    return null;
+  }
+
+  return { username: data.username, phone: data.phone };
 }

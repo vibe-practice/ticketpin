@@ -136,7 +136,7 @@ export function FaqFormModal({
             {/* ── 카테고리 + 정렬 순서 ──────────────────── */}
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="category" className="text-[13px] font-medium text-foreground">
+                <Label htmlFor="category" className="text-[14px] font-medium text-foreground">
                   카테고리 <span className="text-error">*</span>
                 </Label>
                 <Select
@@ -159,7 +159,7 @@ export function FaqFormModal({
                   </SelectContent>
                 </Select>
                 {errors.category && (
-                  <p className="flex items-center gap-1 text-[12px] text-error">
+                  <p className="flex items-center gap-1 text-[14px] text-error">
                     <AlertCircle size={11} />
                     {errors.category.message}
                   </p>
@@ -167,7 +167,7 @@ export function FaqFormModal({
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="sort_order" className="text-[13px] font-medium text-foreground">
+                <Label htmlFor="sort_order" className="text-[14px] font-medium text-foreground">
                   정렬 순서 <span className="text-error">*</span>
                 </Label>
                 <Input
@@ -178,7 +178,7 @@ export function FaqFormModal({
                   {...register("sort_order", { valueAsNumber: true })}
                 />
                 {errors.sort_order && (
-                  <p className="flex items-center gap-1 text-[12px] text-error">
+                  <p className="flex items-center gap-1 text-[14px] text-error">
                     <AlertCircle size={11} />
                     {errors.sort_order.message}
                   </p>
@@ -188,7 +188,7 @@ export function FaqFormModal({
 
             {/* ── 질문 ──────────────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="question" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="question" className="text-[14px] font-medium text-foreground">
                 질문 <span className="text-error">*</span>
               </Label>
               <Input
@@ -198,7 +198,7 @@ export function FaqFormModal({
                 {...register("question")}
               />
               {errors.question && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.question.message}
                 </p>
@@ -207,7 +207,7 @@ export function FaqFormModal({
 
             {/* ── 답변 ──────────────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="answer" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="answer" className="text-[14px] font-medium text-foreground">
                 답변 <span className="text-error">*</span>
               </Label>
               <Textarea
@@ -218,7 +218,7 @@ export function FaqFormModal({
                 {...register("answer")}
               />
               {errors.answer && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.answer.message}
                 </p>
@@ -228,8 +228,8 @@ export function FaqFormModal({
             {/* ── 노출 여부 ──────────────────────────────── */}
             <div className="flex items-center justify-between rounded-xl border border-border bg-muted/20 px-4 py-3">
               <div>
-                <p className="text-[13px] font-medium text-foreground">노출 여부</p>
-                <p className="text-[12px] text-muted-foreground">
+                <p className="text-[14px] font-medium text-foreground">노출 여부</p>
+                <p className="text-[14px] text-muted-foreground">
                   비활성화 시 사용자 FAQ 페이지에 표시되지 않습니다
                 </p>
               </div>
@@ -248,7 +248,7 @@ export function FaqFormModal({
               variant="outline"
               size="sm"
               onClick={onClose}
-              className="h-9 px-5 text-[13px]"
+              className="h-9 px-5 text-[14px]"
             >
               취소
             </Button>
@@ -256,7 +256,7 @@ export function FaqFormModal({
               type="submit"
               size="sm"
               disabled={isSubmitting}
-              className="h-9 px-6 text-[13px] bg-primary text-white hover:bg-brand-primary-dark"
+              className="h-9 px-6 text-[14px] bg-primary text-white hover:bg-brand-primary-dark"
             >
               {isSubmitting ? "저장 중..." : isEdit ? "수정 완료" : "FAQ 등록"}
             </Button>

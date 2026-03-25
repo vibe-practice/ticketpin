@@ -315,7 +315,7 @@ export function BusinessVerifyForm({ onVerified }: BusinessVerifyFormProps) {
           {error && (
             <div className="flex items-start gap-2 rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-2.5" role="alert">
               <AlertCircle size={14} className="text-destructive shrink-0 mt-0.5" strokeWidth={2} />
-              <span className="text-[13px] text-destructive leading-relaxed">{error}</span>
+              <span className="text-[14px] text-destructive leading-relaxed">{error}</span>
             </div>
           )}
 
@@ -323,7 +323,7 @@ export function BusinessVerifyForm({ onVerified }: BusinessVerifyFormProps) {
           {isExpired && !error && (
             <div className="flex items-center gap-2 rounded-lg border border-destructive/20 bg-destructive/5 px-3 py-2.5" role="alert">
               <AlertCircle size={14} className="text-destructive shrink-0" strokeWidth={2} />
-              <span className="text-[13px] text-destructive">인증 시간이 만료되었습니다. 인증번호를 다시 발송해 주세요.</span>
+              <span className="text-[14px] text-destructive">인증 시간이 만료되었습니다. 인증번호를 다시 발송해 주세요.</span>
             </div>
           )}
 
@@ -352,7 +352,7 @@ export function BusinessVerifyForm({ onVerified }: BusinessVerifyFormProps) {
           </Button>
 
           {/* 안내 문구 */}
-          <p className="text-center text-[12px] text-muted-foreground leading-relaxed">
+          <p className="text-center text-[14px] text-muted-foreground leading-relaxed">
             인증번호가 오지 않는 경우, 관리자에게 문의하거나
             <br />
             위 &apos;재발송&apos; 버튼을 눌러주세요.

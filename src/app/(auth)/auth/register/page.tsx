@@ -142,6 +142,13 @@ function Step2({ onSubmit }: { onSubmit: () => void }) {
 
   const onFormSubmit = async (formData: RegisterFormData) => {
     setServerError("");
+
+    // 본인인증 정보 미존재 시 폼 제출 차단
+    if (!verification?.name || !verification?.phone) {
+      setServerError("본인인증 정보가 만료되었습니다. 처음부터 다시 진행해 주세요.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -150,8 +157,8 @@ function Step2({ onSubmit }: { onSubmit: () => void }) {
           username: formData.username,
           email: formData.email,
           password: formData.password,
-          name: verification?.name ?? "미인증",
-          phone: verification?.phone ?? "00000000000",
+          name: verification.name,
+          phone: verification.phone,
         }),
       });
 

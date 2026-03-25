@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getAuthenticatedUser } from "@/lib/api/auth-guard";
 import { createClient } from "@/lib/supabase/server";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 import { ACTIVE_VOUCHER_STATUSES } from "@/lib/voucher-status";
 
 /**
@@ -66,10 +67,7 @@ export async function DELETE(request: NextRequest) {
     const { userId, adminClient } = auth;
 
     // Rate limiting (IP 기반, 10분에 3회)
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimit = await checkRateLimit(`withdraw:${ip}`, {
       maxAttempts: 3,
       windowMs: 10 * 60 * 1000,

@@ -67,7 +67,12 @@ function LoginForm() {
       });
 
       if (res.ok) {
-        const redirectTo = searchParams.get("redirect") || "/";
+        // Open Redirect 방지: 상대 경로만 허용, 외부 URL 차단
+        const redirectParam = searchParams.get("redirect") || "/";
+        const redirectTo =
+          redirectParam.startsWith("/") && !redirectParam.startsWith("//")
+            ? redirectParam
+            : "/";
         window.location.assign(redirectTo);
         return;
       }

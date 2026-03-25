@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { voucherCodeSchema, unlockPinsSchema } from "@/lib/validations/voucher";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 import { decryptPin } from "@/lib/crypto/pin";
 import { VOUCHER_MAX_ATTEMPTS } from "@/lib/constants";
 
@@ -40,10 +41,7 @@ export async function POST(
     }
 
     // ── Rate Limiting ──
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-      request.headers.get("x-real-ip") ??
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimitResult = await checkRateLimit(`unlock-pins:${ip}`, UNLOCK_RATE_LIMIT);
     if (!rateLimitResult.success) {
       return NextResponse.json(
@@ -259,11 +257,38 @@ export async function POST(
 
     console.log(`[unlock-pins] 핀 복호화 완료: voucherId=${voucher.id}, code=${code}, pinCount=${decryptedPins.length}`);
 
+    // 검증 토큰 발급 (모바일 수수료 결제 리다이렉트 시 비밀번호 대체용)
+    let verificationToken: string | undefined;
+    try {
+      const tokenBytes = new Uint8Array(32);
+      crypto.getRandomValues(tokenBytes);
+      const token = Array.from(tokenBytes)
+        .map((b) => b.toString(16).padStart(2, "0"))
+        .join("");
+
+      const { error: tokenError } = await adminClient
+        .from("pin_verification_tokens")
+        .insert({
+          token,
+          voucher_id: voucher.id,
+          voucher_code: code,
+        });
+
+      if (!tokenError) {
+        verificationToken = token;
+      } else {
+        console.error("[unlock-pins] 검증 토큰 생성 실패:", tokenError.message);
+      }
+    } catch (tokenErr) {
+      console.error("[unlock-pins] 검증 토큰 생성 중 예외:", tokenErr);
+    }
+
     return NextResponse.json({
       success: true,
       data: {
         pins: decryptedPins,
         pin_count: decryptedPins.length,
+        ...(verificationToken ? { verification_token: verificationToken } : {}),
       },
     });
   } catch (error) {

@@ -200,7 +200,7 @@ export default function GuidePage() {
                       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-foreground text-background">
                         <Icon size={20} />
                       </div>
-                      <span className="text-[13px] font-semibold tracking-widest text-muted-foreground uppercase">
+                      <span className="text-[14px] font-semibold tracking-widest text-muted-foreground uppercase">
                         Step {step.number}
                       </span>
                     </div>
@@ -208,7 +208,7 @@ export default function GuidePage() {
                     {/* 배지 */}
                     {step.badge && step.badgeVariant && (
                       <span
-                        className={`mb-3 inline-flex w-fit items-center gap-1 rounded-sm px-2 py-0.5 text-[13px] font-semibold ${badgeStyles[step.badgeVariant]}`}
+                        className={`mb-3 inline-flex w-fit items-center gap-1 rounded-sm px-2 py-0.5 text-[14px] font-semibold ${badgeStyles[step.badgeVariant]}`}
                       >
                         <AlertCircle size={12} />
                         {step.badge}

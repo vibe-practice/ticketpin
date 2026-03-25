@@ -136,8 +136,7 @@ export function OrderPageClient() {
           const data = await res.json();
           setProduct(data.data ?? data);
         }
-      } catch (err) {
-        console.error("[OrderPageClient] 상품 조회 실패:", err);
+      } catch {
       } finally {
         setProductLoading(false);
       }
@@ -228,9 +227,8 @@ export function OrderPageClient() {
       const { aid, nextPcUrl, nextMobileUrl, mbrRefNo, amount } = readyData.data;
 
       // ── 2. 모바일/PC 분기하여 결제창 열기 ──
-      const isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
+      const isMobile = /Android|iPhone|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+        || (navigator.maxTouchPoints > 0 && /MacIntel/.test(navigator.platform));
 
       if (isMobile && nextMobileUrl) {
         // 모바일: 결제 상태를 sessionStorage에 저장 후 리다이렉트
@@ -345,8 +343,7 @@ export function OrderPageClient() {
               productName: product?.name ?? "",
             });
             router.push(`/order/complete?${completeParams.toString()}`);
-          } catch (err) {
-            console.error("[OrderPageClient] 결제/주문 처리 오류:", err);
+          } catch {
             toast({
               type: "error",
               title: "처리 중 오류",
@@ -383,8 +380,7 @@ export function OrderPageClient() {
           setIsLoading(false);
         }
       }, 500);
-    } catch (err) {
-      console.error("[OrderPageClient] handlePayment error:", err);
+    } catch {
       toast({
         type: "error",
         title: "결제 처리 중 오류",
@@ -501,17 +497,17 @@ export function OrderPageClient() {
                   <div className="flex flex-1 flex-col justify-between gap-2.5 min-w-0">
                     {/* 뱃지들 */}
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[13px] font-medium text-secondary-foreground">
+                      <span className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[14px] font-medium text-secondary-foreground">
                         <Tag size={10} strokeWidth={2} />
                         {product.category.name}
                       </span>
                       {feeType === "included" ? (
-                        <span className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[13px] font-medium text-secondary-foreground">
+                        <span className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[14px] font-medium text-secondary-foreground">
                           <BadgeCheck size={11} strokeWidth={2} />
                           수수료 포함
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[13px] font-medium text-secondary-foreground">
+                        <span className="inline-flex items-center gap-1 rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-[14px] font-medium text-secondary-foreground">
                           <Info size={11} strokeWidth={2} />
                           수수료 별도
                         </span>
@@ -574,7 +570,7 @@ export function OrderPageClient() {
                     <MessageSquare size={15} className="text-secondary-foreground" strokeWidth={1.75} />
                   </div>
                   <div>
-                    <p className="text-[12px] text-muted-foreground mb-0.5">수신 번호</p>
+                    <p className="text-[14px] text-muted-foreground mb-0.5">수신 번호</p>
                     <p className="text-[15px] font-semibold text-foreground">
                       {user?.phone ? formatPhone(user.phone) : "전화번호 정보 없음"}
                     </p>
@@ -674,7 +670,7 @@ export function OrderPageClient() {
                   isMuted={feeType === "separate"}
                   badge={
                     feeType === "separate" ? (
-                      <span className="rounded-md border border-neutral-200 bg-neutral-100 px-1.5 py-0.5 text-[12px] font-medium text-muted-foreground leading-none ml-1">
+                      <span className="rounded-md border border-neutral-200 bg-neutral-100 px-1.5 py-0.5 text-[14px] font-medium text-muted-foreground leading-none ml-1">
                         별도
                       </span>
                     ) : undefined
@@ -688,7 +684,7 @@ export function OrderPageClient() {
 
                 {/* 수수료 별도 안내 문구 */}
                 {feeType === "separate" && (
-                  <p className="text-[13px] text-muted-foreground leading-relaxed border-t border-neutral-200 pt-3">
+                  <p className="text-[14px] text-muted-foreground leading-relaxed border-t border-neutral-200 pt-3">
                     * 수수료{" "}
                     <span className="font-semibold text-secondary-foreground">
                       {formatPrice(feeAmount * quantity)}
@@ -727,7 +723,7 @@ export function OrderPageClient() {
                 {/* 보안 안내 */}
                 <div className="flex items-center justify-center gap-1.5 pt-1">
                   <ShieldCheck size={13} className="text-muted-foreground" strokeWidth={1.75} />
-                  <span className="text-[13px] text-muted-foreground">
+                  <span className="text-[14px] text-muted-foreground">
                     안전한 암호화 결제
                   </span>
                 </div>

@@ -345,7 +345,7 @@ export function AdminSettlementsClient() {
           </div>
           <div>
             <h1 className="text-lg font-bold text-foreground md:text-xl">정산 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               업체별 · 날짜별 정산을 관리합니다
             </p>
           </div>
@@ -415,7 +415,7 @@ export function AdminSettlementsClient() {
             onChange={(e) => { setStartDate(e.target.value); if (e.target.value > endDate) setEndDate(e.target.value); }}
             className="h-9 w-[150px] text-sm"
           />
-          <span className="text-[13px] text-muted-foreground">~</span>
+          <span className="text-[14px] text-muted-foreground">~</span>
           <Input
             type="date"
             value={endDate}
@@ -444,7 +444,7 @@ export function AdminSettlementsClient() {
                 key={preset.label}
                 variant="ghost"
                 size="sm"
-                className="h-7 px-2 text-[12px] text-muted-foreground hover:text-foreground"
+                className="h-7 px-2 text-[14px] text-muted-foreground hover:text-foreground"
                 onClick={() => { const [s, e] = preset.getRange(); setStartDate(s); setEndDate(e); }}
               >
                 {preset.label}
@@ -461,7 +461,7 @@ export function AdminSettlementsClient() {
             <>
               <span
                 className={cn(
-                  "whitespace-nowrap rounded-sm px-2.5 py-1 text-[12px] font-semibold",
+                  "whitespace-nowrap rounded-sm px-2.5 py-1 text-[14px] font-semibold",
                   SETTLEMENT_STATUS_STYLE[currentSettlement.status]
                 )}
               >
@@ -469,13 +469,13 @@ export function AdminSettlementsClient() {
               </span>
               {currentSettlement.status === "pending" && (
                 <>
-                  <Button size="sm" variant="outline" className="h-8 px-3 text-[12px]"
+                  <Button size="sm" variant="outline" className="h-8 px-3 text-[14px]"
                     disabled={isSameDaySettlement}
                     title={isSameDaySettlement ? "당일에는 정산이 불가능합니다" : undefined}
                     onClick={() => handleStatusChange(currentSettlement.id, "confirmed")}>
                     <CheckCircle2 size={13} className="mr-1" /> 확인
                   </Button>
-                  <Button size="sm" variant="outline" className="h-8 px-3 text-[12px] text-error hover:text-error"
+                  <Button size="sm" variant="outline" className="h-8 px-3 text-[14px] text-error hover:text-error"
                     onClick={() => handleStatusChange(currentSettlement.id, "cancelled")}>
                     <X size={13} className="mr-1" /> 취소
                   </Button>
@@ -483,13 +483,13 @@ export function AdminSettlementsClient() {
               )}
               {currentSettlement.status === "confirmed" && (
                 <>
-                  <Button size="sm" variant="outline" className="h-8 px-3 text-[12px]"
+                  <Button size="sm" variant="outline" className="h-8 px-3 text-[14px]"
                     disabled={isSameDaySettlement}
                     title={isSameDaySettlement ? "당일에는 정산이 불가능합니다" : undefined}
                     onClick={() => handleStatusChange(currentSettlement.id, "paid")}>
                     <CreditCard size={13} className="mr-1" /> 입금완료
                   </Button>
-                  <Button size="sm" variant="outline" className="h-8 px-3 text-[12px] text-error hover:text-error"
+                  <Button size="sm" variant="outline" className="h-8 px-3 text-[14px] text-error hover:text-error"
                     onClick={() => handleStatusChange(currentSettlement.id, "cancelled")}>
                     <X size={13} className="mr-1" /> 취소
                   </Button>
@@ -500,7 +500,7 @@ export function AdminSettlementsClient() {
               )}
             </>
           ) : (
-            <span className="text-[12px] text-muted-foreground">정산 미생성</span>
+            <span className="text-[14px] text-muted-foreground">정산 미생성</span>
           )}
         </div>
       </div>
@@ -531,7 +531,7 @@ export function AdminSettlementsClient() {
             onClick={() => setMobileFilterOpen((v) => !v)}
           >
             <SlidersHorizontal size={15} />
-            <span className="text-[13px]">필터</span>
+            <span className="text-[14px]">필터</span>
             <ChevronDown
               size={12}
               className={cn("transition-transform duration-200", mobileFilterOpen && "rotate-180")}
@@ -544,7 +544,7 @@ export function AdminSettlementsClient() {
           <div className="flex flex-col gap-3 rounded-lg border border-border bg-card p-4">
             {/* 정산 상태 필터 */}
             <div className="flex flex-col gap-2">
-              <span className="text-[13px] font-medium text-foreground">정산 상태</span>
+              <span className="text-[14px] font-medium text-foreground">정산 상태</span>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
                 <SelectTrigger className="h-10 text-sm">
                   <SelectValue placeholder="상태 전체" />
@@ -565,7 +565,7 @@ export function AdminSettlementsClient() {
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1.5">
                 <Calendar size={14} className="text-primary" />
-                <span className="text-[13px] font-medium text-foreground">기간 선택</span>
+                <span className="text-[14px] font-medium text-foreground">기간 선택</span>
               </div>
 
               {/* 날짜 인풋 행 */}
@@ -584,7 +584,7 @@ export function AdminSettlementsClient() {
                   onChange={(e) => { setStartDate(e.target.value); if (e.target.value > endDate) setEndDate(e.target.value); }}
                   className="h-10 flex-1 text-sm"
                 />
-                <span className="text-[13px] text-muted-foreground shrink-0">~</span>
+                <span className="text-[14px] text-muted-foreground shrink-0">~</span>
                 <Input
                   type="date"
                   value={endDate}
@@ -613,7 +613,7 @@ export function AdminSettlementsClient() {
                     key={preset.label}
                     variant="outline"
                     size="sm"
-                    className="h-8 px-3 text-[12px]"
+                    className="h-8 px-3 text-[14px]"
                     onClick={() => { const [s, e] = preset.getRange(); setStartDate(s); setEndDate(e); }}
                   >
                     {preset.label}
@@ -633,7 +633,7 @@ export function AdminSettlementsClient() {
                 <>
                   <span
                     className={cn(
-                      "rounded-sm px-2.5 py-1 text-[12px] font-semibold",
+                      "rounded-sm px-2.5 py-1 text-[14px] font-semibold",
                       SETTLEMENT_STATUS_STYLE[currentSettlement.status]
                     )}
                   >
@@ -641,12 +641,12 @@ export function AdminSettlementsClient() {
                   </span>
                   {currentSettlement.status === "pending" && (
                     <>
-                      <Button size="sm" variant="outline" className="h-10 px-4 text-[13px]"
+                      <Button size="sm" variant="outline" className="h-10 px-4 text-[14px]"
                         disabled={isSameDaySettlement}
                         onClick={() => handleStatusChange(currentSettlement.id, "confirmed")}>
                         <CheckCircle2 size={14} className="mr-1.5" /> 확인
                       </Button>
-                      <Button size="sm" variant="outline" className="h-10 px-4 text-[13px] text-error hover:text-error"
+                      <Button size="sm" variant="outline" className="h-10 px-4 text-[14px] text-error hover:text-error"
                         onClick={() => handleStatusChange(currentSettlement.id, "cancelled")}>
                         <X size={14} className="mr-1.5" /> 취소
                       </Button>
@@ -654,12 +654,12 @@ export function AdminSettlementsClient() {
                   )}
                   {currentSettlement.status === "confirmed" && (
                     <>
-                      <Button size="sm" variant="outline" className="h-10 px-4 text-[13px]"
+                      <Button size="sm" variant="outline" className="h-10 px-4 text-[14px]"
                         disabled={isSameDaySettlement}
                         onClick={() => handleStatusChange(currentSettlement.id, "paid")}>
                         <CreditCard size={14} className="mr-1.5" /> 입금완료
                       </Button>
-                      <Button size="sm" variant="outline" className="h-10 px-4 text-[13px] text-error hover:text-error"
+                      <Button size="sm" variant="outline" className="h-10 px-4 text-[14px] text-error hover:text-error"
                         onClick={() => handleStatusChange(currentSettlement.id, "cancelled")}>
                         <X size={14} className="mr-1.5" /> 취소
                       </Button>
@@ -670,7 +670,7 @@ export function AdminSettlementsClient() {
                   )}
                 </>
               ) : (
-                <span className="text-[12px] text-muted-foreground">정산 미생성</span>
+                <span className="text-[14px] text-muted-foreground">정산 미생성</span>
               )}
             </div>
           </div>
@@ -706,7 +706,7 @@ export function AdminSettlementsClient() {
           <Button
             variant="outline"
             size="sm"
-            className="h-10 shrink-0 gap-1.5 px-3 text-[12px] md:h-9"
+            className="h-10 shrink-0 gap-1.5 px-3 text-[14px] md:h-9"
             onClick={() => setSortOrder((prev) => prev === "none" ? "desc" : prev === "desc" ? "asc" : "none")}
           >
             <ArrowUpDown size={13} />
@@ -714,7 +714,7 @@ export function AdminSettlementsClient() {
             {sortOrder === "desc" ? "↓" : sortOrder === "asc" ? "↑" : <span className="hidden sm:inline">정렬</span>}
           </Button>
           {searchQuery && (
-            <span className="hidden shrink-0 text-[12px] text-muted-foreground sm:inline">
+            <span className="hidden shrink-0 text-[14px] text-muted-foreground sm:inline">
               {filteredGiftItems.length}건
             </span>
           )}
@@ -738,7 +738,7 @@ export function AdminSettlementsClient() {
           {/* 데스크탑 테이블 */}
           <div className="hidden md:block rounded-lg border border-border bg-card overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-[13px]">
+              <table className="w-full text-[14px]">
                 <thead>
                   <tr className="border-b border-border bg-muted/40">
                     <th className="px-3 py-2.5 text-center font-medium text-muted-foreground whitespace-nowrap">상품명</th>
@@ -764,7 +764,7 @@ export function AdminSettlementsClient() {
                       <td className="px-3 py-2.5 text-center whitespace-nowrap">{gift.quantity}개</td>
                       <td className="px-3 py-2.5 text-center whitespace-nowrap">{gift.total_amount.toLocaleString()}원</td>
                       <td className="px-3 py-2.5 text-center font-medium text-primary whitespace-nowrap">{gift.settlement_per_item.toLocaleString()}원</td>
-                      <td className="px-3 py-2.5 text-center text-muted-foreground whitespace-nowrap text-[12px]">{getDateTimeShort(gift.created_at)}</td>
+                      <td className="px-3 py-2.5 text-center text-muted-foreground whitespace-nowrap text-[14px]">{getDateTimeShort(gift.created_at)}</td>
                       <td className="px-3 py-2.5 text-center whitespace-nowrap">
                         <span className={cn("rounded-sm px-1.5 py-0.5 text-[11px] font-semibold", VOUCHER_STATUS_STYLE[gift.new_voucher_status])}>
                           {VOUCHER_STATUS_LABEL[gift.new_voucher_status]}
@@ -795,7 +795,7 @@ export function AdminSettlementsClient() {
           <div className="flex flex-col gap-2 md:hidden">
             {/* 합계 배너 */}
             <div className="flex items-center justify-between rounded-lg border border-primary/20 bg-brand-primary-muted px-4 py-3">
-              <span className="text-[13px] font-semibold text-foreground">
+              <span className="text-[14px] font-semibold text-foreground">
                 합계 {summary.giftCount}건 · {summary.totalQuantity}개
               </span>
               <div className="text-right">
@@ -837,11 +837,11 @@ export function AdminSettlementsClient() {
                 <div className="mb-2.5 flex items-center justify-between">
                   <div>
                     <p className="text-[11px] text-muted-foreground">수량</p>
-                    <p className="text-[13px] font-medium text-foreground">{gift.quantity}개</p>
+                    <p className="text-[14px] font-medium text-foreground">{gift.quantity}개</p>
                   </div>
                   <div className="text-right">
                     <p className="text-[11px] text-muted-foreground">금액</p>
-                    <p className="text-[13px] font-medium text-foreground">{gift.total_amount.toLocaleString()}원</p>
+                    <p className="text-[14px] font-medium text-foreground">{gift.total_amount.toLocaleString()}원</p>
                   </div>
                   <div className="text-right">
                     <p className="text-[11px] text-muted-foreground">정산금액</p>
@@ -865,19 +865,19 @@ export function AdminSettlementsClient() {
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           {/* 표시 개수 선택 */}
           <div className="flex items-center gap-2">
-            <span className="text-[12px] text-muted-foreground">표시:</span>
+            <span className="text-[14px] text-muted-foreground">표시:</span>
             {([20, 50, 100] as const).map((size) => (
               <Button
                 key={size}
                 variant={pageSize === size ? "default" : "outline"}
                 size="sm"
-                className="h-8 px-3 text-[12px]"
+                className="h-8 px-3 text-[14px]"
                 onClick={() => { setPageSize(size); setCurrentPage(1); }}
               >
                 {size}개
               </Button>
             ))}
-            <span className="text-[12px] text-muted-foreground">
+            <span className="text-[14px] text-muted-foreground">
               {filteredGiftItems.length}건 중 {Math.min((currentPage - 1) * pageSize + 1, filteredGiftItems.length)}-{Math.min(currentPage * pageSize, filteredGiftItems.length)}
             </span>
           </div>
@@ -913,7 +913,7 @@ function SummaryCard({
         <div className={cn("flex h-6 w-6 items-center justify-center rounded-md md:h-7 md:w-7", bgColor)}>
           <Icon size={12} className={cn(color, "md:text-[14px]")} />
         </div>
-        <span className="text-[11px] text-muted-foreground md:text-[12px]">{label}</span>
+        <span className="text-[11px] text-muted-foreground md:text-[14px]">{label}</span>
       </div>
       <p className={cn("text-[15px] font-bold md:text-[17px]", highlight ? "text-primary" : "text-foreground")}>{value}</p>
       {sub && <p className="text-[10px] text-muted-foreground mt-0.5 truncate md:text-[11px]" title={sub}>{sub}</p>}

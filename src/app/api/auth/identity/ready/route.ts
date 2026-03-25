@@ -8,14 +8,13 @@ import { NextResponse } from "next/server";
 import { danalReady, DANAL_AUTH_FORM_URL } from "@/lib/danal/client";
 import { createIdentitySession } from "@/lib/danal/session";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/utils/ip";
 import type { IdentityReadyApiResponse } from "@/lib/danal/types";
 
 export async function POST(request: Request) {
   try {
     // Rate limiting: IP당 1분에 5회
-    const ip =
-      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-      "unknown";
+    const ip = getClientIp(request.headers);
     const rateLimit = await checkRateLimit(`identity-ready:${ip}`, {
       maxAttempts: 5,
       windowMs: 60_000,
@@ -81,8 +80,8 @@ export async function POST(request: Request) {
       );
     }
 
-    // 인메모리 세션 생성
-    const sessionId = createIdentitySession(tid);
+    // DB 세션 생성
+    const sessionId = await createIdentitySession(tid);
 
     // form hidden fields 추출 (RETURNCODE, RETURNMSG 제외)
     const formFields: Record<string, string> = {};

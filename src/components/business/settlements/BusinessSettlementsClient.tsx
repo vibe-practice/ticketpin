@@ -442,7 +442,7 @@ function SettlementRow({ item }: { item: Settlement }) {
       <td className="px-5 py-3.5">
         <span
           className={cn(
-            "inline-flex items-center rounded-sm px-2 py-0.5 text-[12px] font-semibold",
+            "inline-flex items-center rounded-sm px-2 py-0.5 text-[14px] font-semibold",
             badge.className
           )}
         >

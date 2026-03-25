@@ -29,7 +29,7 @@ export default function VoucherProgressBar({ currentStep }: VoucherProgressBarPr
               <div className="flex flex-col items-center gap-1.5">
                 <div
                   className={cn(
-                    "flex h-8 w-8 items-center justify-center rounded-full text-[13px] font-bold transition-colors",
+                    "flex h-8 w-8 items-center justify-center rounded-full text-[14px] font-bold transition-colors",
                     isCompleted && "bg-foreground text-background",
                     isCurrent && "bg-foreground text-background ring-4 ring-foreground/10",
                     !isCompleted && !isCurrent && "bg-muted text-muted-foreground"
@@ -39,7 +39,7 @@ export default function VoucherProgressBar({ currentStep }: VoucherProgressBarPr
                 </div>
                 <span
                   className={cn(
-                    "text-[12px] font-medium whitespace-nowrap",
+                    "text-[14px] font-medium whitespace-nowrap",
                     isCurrent ? "text-foreground" : "text-muted-foreground"
                   )}
                 >

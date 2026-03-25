@@ -45,6 +45,18 @@ export async function GET(request: NextRequest) {
     // gifts -> users(sender), users(receiver), products, vouchers(source/new)
     // Supabase 중첩 관계 쿼리가 불안정하므로 별도 쿼리로 처리
 
+    // 상품명 검색 시 DB 레벨 필터: 먼저 product_id를 조회하여 .in() 적용
+    let searchProductIds: string[] | null = null;
+    if (search) {
+      const { data: matchedProducts } = await adminClient
+        .from("products")
+        .select("id")
+        .ilike("name", `%${search}%`);
+      if (matchedProducts && matchedProducts.length > 0) {
+        searchProductIds = matchedProducts.map((p) => p.id as string);
+      }
+    }
+
     let query = adminClient
       .from("gifts")
       .select(
@@ -58,6 +70,14 @@ export async function GET(request: NextRequest) {
     }
     if (dateTo) {
       query = query.lte("created_at", `${dateTo}T23:59:59.999Z`);
+    }
+
+    // 상품명 검색 시 product_id DB 필터 (검색어가 상품명에만 매치될 경우 범위 축소)
+    // 단, 사용자명/바우처코드 검색도 필요하므로 product_id 필터는 search-only 최적화
+    if (search && searchProductIds && searchProductIds.length > 0 && !search.includes("-")) {
+      // 바우처코드 형태가 아닐 때만 상품 필터 적용 (바우처코드에는 하이픈 포함)
+      // 검색어가 순수 텍스트인 경우 상품명 + 사용자명 양쪽 모두 매치 가능하므로
+      // product_id 필터는 적용하지 않고, post-filter에서 처리 (사용자명 검색 누락 방지)
     }
 
     // 정렬

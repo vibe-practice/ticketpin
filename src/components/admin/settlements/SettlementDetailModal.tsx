@@ -186,7 +186,7 @@ export function SettlementDetailModal({ open, onClose, settlement }: SettlementD
 
           {/* 정산 요약 */}
           <div className="rounded-md border border-border bg-card p-4 space-y-3">
-            <div className="grid grid-cols-3 gap-3 text-[13px]">
+            <div className="grid grid-cols-3 gap-3 text-[14px]">
               <InfoItem icon={Building2} label="업체명" value={settlement.business_name} />
               <InfoItem icon={Calendar} label="정산 대상일" value={settlement.settlement_date} />
               <InfoItem icon={Hash} label="선물 건수" value={`${settlement.gift_count}건`} />
@@ -202,7 +202,7 @@ export function SettlementDetailModal({ open, onClose, settlement }: SettlementD
 
             <div className="rounded-md bg-muted/50 p-3">
               <p className="text-[11px] text-muted-foreground mb-1">입금 계좌</p>
-              <p className="text-[13px] font-medium text-foreground">
+              <p className="text-[14px] font-medium text-foreground">
                 {settlement.bank_name} {settlement.account_number} ({settlement.account_holder})
               </p>
             </div>
@@ -210,10 +210,10 @@ export function SettlementDetailModal({ open, onClose, settlement }: SettlementD
 
           {/* 건별 선물 목록 */}
           <div className="mt-4">
-            <p className="text-[13px] font-semibold text-foreground mb-2">건별 선물 목록</p>
+            <p className="text-[14px] font-semibold text-foreground mb-2">건별 선물 목록</p>
 
             <div className="overflow-x-auto rounded-md border border-border">
-              <table className="w-full text-[13px]">
+              <table className="w-full text-[14px]">
                 <thead>
                   <tr className="border-b border-border bg-muted/50">
                     <th className="px-3 py-2 text-left font-medium text-muted-foreground whitespace-nowrap">상품명</th>
@@ -273,7 +273,7 @@ export function SettlementDetailModal({ open, onClose, settlement }: SettlementD
             </div>
 
             {giftItems.some((i) => i.verification_status === "rejected") && (
-              <p className="mt-2 text-[12px] text-error">
+              <p className="mt-2 text-[14px] text-error">
                 * 거부된 건은 정산 금액에서 제외됩니다
               </p>
             )}
@@ -282,7 +282,7 @@ export function SettlementDetailModal({ open, onClose, settlement }: SettlementD
           {settlement.memo && (
             <div className="mt-3 rounded-md bg-muted/50 p-3">
               <p className="text-[11px] text-muted-foreground mb-1">메모</p>
-              <p className="text-[13px] text-foreground">{settlement.memo}</p>
+              <p className="text-[14px] text-foreground">{settlement.memo}</p>
             </div>
           )}
         </DialogContent>
@@ -314,8 +314,8 @@ function InfoItem({
   return (
     <div className="flex items-center gap-2">
       <Icon size={14} className="shrink-0 text-muted-foreground" />
-      <span className="text-[12px] text-muted-foreground w-20 shrink-0">{label}</span>
-      <span className={cn("text-[13px] text-foreground whitespace-nowrap", valueClassName)}>{value}</span>
+      <span className="text-[14px] text-muted-foreground w-20 shrink-0">{label}</span>
+      <span className={cn("text-[14px] text-foreground whitespace-nowrap", valueClassName)}>{value}</span>
     </div>
   );
 }

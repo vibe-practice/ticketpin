@@ -418,7 +418,7 @@ export function AdminRefundsClient() {
         align: "center" as const,
         width: "130px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[12px] text-muted-foreground">
+          <span className="whitespace-nowrap text-[14px] text-muted-foreground">
             {formatDateTime(String(v))}
           </span>
         ),
@@ -430,7 +430,7 @@ export function AdminRefundsClient() {
         align: "center" as const,
         width: "155px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap font-mono text-[12px] text-foreground">{String(v)}</span>
+          <span className="whitespace-nowrap font-mono text-[14px] text-foreground">{String(v)}</span>
         ),
       },
       {
@@ -441,7 +441,7 @@ export function AdminRefundsClient() {
         width: "80px",
         render: (_v: unknown, row: CancelRow) => (
           <div className="text-center">
-            <p className="text-[13px] font-medium text-foreground">{row.buyer_name}</p>
+            <p className="text-[14px] font-medium text-foreground">{row.buyer_name}</p>
             <p className="text-[11px] text-muted-foreground">{row.buyer_username}</p>
           </div>
         ),
@@ -454,7 +454,7 @@ export function AdminRefundsClient() {
         width: "200px",
         render: (v: unknown, row: CancelRow) => (
           <div className="text-center">
-            <p className="truncate text-[13px] text-foreground" title={String(v)}>
+            <p className="truncate text-[14px] text-foreground" title={String(v)}>
               {String(v)}
             </p>
             <p className="text-[11px] text-muted-foreground">
@@ -470,7 +470,7 @@ export function AdminRefundsClient() {
         align: "center" as const,
         width: "100px",
         render: (v: unknown) => (
-          <span className="whitespace-nowrap text-[13px] font-semibold text-foreground">
+          <span className="whitespace-nowrap text-[14px] font-semibold text-foreground">
             {Number(v).toLocaleString()}원
           </span>
         ),
@@ -500,7 +500,7 @@ export function AdminRefundsClient() {
         align: "center" as const,
         width: "80px",
         render: (v: unknown) => (
-          <span className="text-[12px] text-foreground">
+          <span className="text-[14px] text-foreground">
             {REASON_LABEL[v as CancellationReasonType]}
           </span>
         ),
@@ -557,7 +557,7 @@ export function AdminRefundsClient() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-foreground">취소/환불 관리</h1>
-            <p className="text-[12px] text-muted-foreground">
+            <p className="text-[14px] text-muted-foreground">
               결제 취소 현황을 조회하고 실패 건을 재처리합니다
             </p>
           </div>
@@ -714,45 +714,45 @@ export function AdminRefundsClient() {
             <div className="rounded-md border border-border bg-card p-4">
               <p className="mb-2 text-xs font-medium text-muted-foreground">주문 정보</p>
               <div className="space-y-1">
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">주문번호</span>
                   <span className="font-mono text-foreground">{expandedItem.order_number}</span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">상품명</span>
                   <span className="text-foreground">{expandedItem.product_name}</span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">단가 x 수량</span>
                   <span className="text-foreground">
                     {expandedItem.product_price.toLocaleString()}원 x {expandedItem.quantity}개
                   </span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">수수료 유형</span>
                   <span className="text-foreground">{FEE_TYPE_LABEL[expandedItem.fee_type]}</span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">건당 수수료</span>
                   <span className="text-foreground">
                     {expandedItem.fee_amount.toLocaleString()}원
                   </span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">총 결제금액</span>
                   <span className="font-semibold text-foreground">
                     {expandedItem.total_amount.toLocaleString()}원
                   </span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">구매자</span>
                   <span className="text-foreground">
                     {expandedItem.buyer_name} ({expandedItem.buyer_username})
                   </span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">바우처코드</span>
-                  <span className="truncate font-mono text-[12px] text-foreground" title={expandedItem.voucher_code}>
+                  <span className="truncate font-mono text-[14px] text-foreground" title={expandedItem.voucher_code}>
                     {expandedItem.voucher_code}
                   </span>
                 </div>
@@ -763,17 +763,17 @@ export function AdminRefundsClient() {
             <div className="rounded-md border border-border bg-card p-4">
               <p className="mb-2 text-xs font-medium text-muted-foreground">취소 상세</p>
               <div className="space-y-1">
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">취소 사유</span>
                   <span className="text-foreground">{REASON_LABEL[expandedItem.reason_type]}</span>
                 </div>
                 {expandedItem.reason_detail && (
                   <div className="mt-1">
                     <p className="text-[11px] text-muted-foreground">사유 상세</p>
-                    <p className="text-[13px] text-foreground">{expandedItem.reason_detail}</p>
+                    <p className="text-[14px] text-foreground">{expandedItem.reason_detail}</p>
                   </div>
                 )}
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">요청자</span>
                   <span
                     className={cn(
@@ -784,7 +784,7 @@ export function AdminRefundsClient() {
                     {CANCELLED_BY_LABEL[expandedItem.cancelled_by]}
                   </span>
                 </div>
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">취소일시</span>
                   <span className="text-foreground">{formatDateTime(expandedItem.created_at)}</span>
                 </div>
@@ -795,7 +795,7 @@ export function AdminRefundsClient() {
             <div className="rounded-md border border-border bg-card p-4">
               <p className="mb-2 text-xs font-medium text-muted-foreground">취소 처리</p>
               <div className="space-y-1">
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">취소금액</span>
                   <span className="font-semibold text-foreground">
                     {expandedItem.refund_amount.toLocaleString()}원
@@ -811,14 +811,14 @@ export function AdminRefundsClient() {
                   <div className="mt-2 rounded-md border border-neutral-200 bg-neutral-100/50 p-2">
                     <p className="mb-1 text-[11px] font-medium text-neutral-800">수수료 별도 결제</p>
                     <div className="space-y-0.5">
-                      <div className="flex justify-between text-[12px]">
+                      <div className="flex justify-between text-[14px]">
                         <span className="text-neutral-700">수수료 결제 여부</span>
                         <span className="font-medium text-neutral-900">
                           {expandedItem.voucher_fee_paid ? "결제완료" : "미결제"}
                         </span>
                       </div>
                       {expandedItem.voucher_fee_paid && expandedItem.voucher_fee_amount != null && (
-                        <div className="flex justify-between text-[12px]">
+                        <div className="flex justify-between text-[14px]">
                           <span className="text-neutral-700">수수료 환불 금액</span>
                           <span className="font-semibold text-neutral-900">
                             {expandedItem.voucher_fee_amount.toLocaleString()}원
@@ -826,7 +826,7 @@ export function AdminRefundsClient() {
                         </div>
                       )}
                       {expandedItem.voucher_fee_paid && expandedItem.voucher_fee_pg_transaction_id && (
-                        <div className="flex justify-between text-[12px]">
+                        <div className="flex justify-between text-[14px]">
                           <span className="text-neutral-700">수수료 PG 거래ID</span>
                           <span className="font-mono text-[11px] text-neutral-900">
                             {expandedItem.voucher_fee_pg_transaction_id}
@@ -842,7 +842,7 @@ export function AdminRefundsClient() {
                     </div>
                   </div>
                 )}
-                <div className="flex justify-between text-[13px]">
+                <div className="flex justify-between text-[14px]">
                   <span className="text-muted-foreground">취소상태</span>
                   <span
                     className={cn(
@@ -854,9 +854,9 @@ export function AdminRefundsClient() {
                   </span>
                 </div>
                 {expandedItem.pg_cancel_transaction_id && (
-                  <div className="flex justify-between text-[13px]">
+                  <div className="flex justify-between text-[14px]">
                     <span className="text-muted-foreground">PG 취소 ID</span>
-                    <span className="font-mono text-[12px] text-foreground">
+                    <span className="font-mono text-[14px] text-foreground">
                       {expandedItem.pg_cancel_transaction_id}
                     </span>
                   </div>
@@ -893,7 +893,7 @@ export function AdminRefundsClient() {
                 {expandedItem.refund_status === "completed" && (
                   <div className="mt-2 flex items-center gap-1 text-success">
                     <CheckCircle2 size={14} />
-                    <span className="text-[12px] font-medium">취소 처리 완료</span>
+                    <span className="text-[14px] font-medium">취소 처리 완료</span>
                   </div>
                 )}
               </div>

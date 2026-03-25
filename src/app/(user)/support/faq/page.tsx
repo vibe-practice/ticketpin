@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { HelpCircle, Loader2 } from "lucide-react";
+import { HelpCircle, Loader2, AlertCircle, RotateCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Accordion,
@@ -32,9 +32,11 @@ export default function FaqPage() {
   const [items, setItems] = useState<FaqItem[]>([]);
   const [categoryCounts, setCategoryCounts] = useState<Record<string, number>>({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const fetchFaqs = useCallback(async (category: FaqCategory) => {
     setIsLoading(true);
+    setIsError(false);
     try {
       const params = new URLSearchParams();
       if (category !== "전체") {
@@ -46,9 +48,11 @@ export default function FaqPage() {
       if (json.success) {
         setItems(json.data);
         setCategoryCounts(json.categoryCounts);
+      } else {
+        setIsError(true);
       }
     } catch {
-      // 에러 시 빈 목록 유지
+      setIsError(true);
     } finally {
       setIsLoading(false);
     }
@@ -96,7 +100,7 @@ export default function FaqPage() {
                   {cat}
                   <span
                     className={cn(
-                      "inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-1 text-[13px] font-semibold tabular-nums",
+                      "inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-1 text-[14px] font-semibold tabular-nums",
                       isActive
                         ? "bg-white/25 text-background"
                         : "bg-muted text-muted-foreground"
@@ -109,11 +113,29 @@ export default function FaqPage() {
             })}
           </div>
 
-          {/* 로딩 상태 */}
+          {/* 로딩 / 에러 / 빈 상태 */}
           {isLoading ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card py-16 text-center">
               <Loader2 size={32} className="mb-4 animate-spin text-muted-foreground/60" />
               <p className="text-[16px] text-muted-foreground">불러오는 중...</p>
+            </div>
+          ) : isError ? (
+            <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card py-16 text-center">
+              <AlertCircle size={44} className="mb-4 text-muted-foreground/40" />
+              <p className="text-[16px] font-semibold text-foreground">
+                데이터를 불러오지 못했습니다
+              </p>
+              <p className="mt-1 text-[15px] text-muted-foreground">
+                잠시 후 다시 시도해 주세요.
+              </p>
+              <button
+                type="button"
+                onClick={() => fetchFaqs(activeCategory)}
+                className="mt-4 inline-flex items-center gap-1.5 rounded-lg border border-border px-4 py-2 text-[14px] font-medium text-foreground transition hover:bg-muted/30"
+              >
+                <RotateCw size={14} strokeWidth={2} />
+                다시 시도
+              </button>
             </div>
           ) : items.length === 0 ? (
             /* 빈 상태 */

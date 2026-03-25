@@ -220,7 +220,7 @@ export function ProductFormModal({
 
             {/* ── 상품명 ──────────────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="name" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="name" className="text-[14px] font-medium text-foreground">
                 상품명 <span className="text-error">*</span>
               </Label>
               <Input
@@ -230,7 +230,7 @@ export function ProductFormModal({
                 {...register("name")}
               />
               {errors.name && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.name.message}
                 </p>
@@ -240,7 +240,7 @@ export function ProductFormModal({
             {/* ── 카테고리 + 판매 상태 ───────────────────── */}
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="category_id" className="text-[13px] font-medium text-foreground">
+                <Label htmlFor="category_id" className="text-[14px] font-medium text-foreground">
                   카테고리 <span className="text-error">*</span>
                 </Label>
                 <Select
@@ -259,7 +259,7 @@ export function ProductFormModal({
                   </SelectContent>
                 </Select>
                 {errors.category_id && (
-                  <p className="flex items-center gap-1 text-[12px] text-error">
+                  <p className="flex items-center gap-1 text-[14px] text-error">
                     <AlertCircle size={11} />
                     {errors.category_id.message}
                   </p>
@@ -267,7 +267,7 @@ export function ProductFormModal({
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <Label htmlFor="status" className="text-[13px] font-medium text-foreground">
+                <Label htmlFor="status" className="text-[14px] font-medium text-foreground">
                   판매 상태 <span className="text-error">*</span>
                 </Label>
                 <Select
@@ -288,7 +288,7 @@ export function ProductFormModal({
 
             {/* ── 판매가 ───────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="price" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="price" className="text-[14px] font-medium text-foreground">
                 판매가 (원) <span className="text-error">*</span>
               </Label>
               <Input
@@ -299,7 +299,7 @@ export function ProductFormModal({
                 {...register("price", { valueAsNumber: true })}
               />
               {errors.price && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.price.message}
                 </p>
@@ -308,7 +308,7 @@ export function ProductFormModal({
 
             {/* ── 수수료 ─────────────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label className="text-[13px] font-medium text-foreground">
+              <Label className="text-[14px] font-medium text-foreground">
                 수수료 <span className="text-error">*</span>
               </Label>
               <div className="flex items-center gap-3">
@@ -325,16 +325,16 @@ export function ProductFormModal({
                 >
                   <div className="flex items-center gap-1.5">
                     <RadioGroupItem value="percent" id="fee-percent" />
-                    <Label htmlFor="fee-percent" className="text-[13px] cursor-pointer">%</Label>
+                    <Label htmlFor="fee-percent" className="text-[14px] cursor-pointer">%</Label>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <RadioGroupItem value="fixed" id="fee-fixed" />
-                    <Label htmlFor="fee-fixed" className="text-[13px] cursor-pointer">원</Label>
+                    <Label htmlFor="fee-fixed" className="text-[14px] cursor-pointer">원</Label>
                   </div>
                 </RadioGroup>
               </div>
               {errors.fee_rate && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.fee_rate.message}
                 </p>
@@ -343,7 +343,7 @@ export function ProductFormModal({
 
             {/* ── 이미지 업로드 ──────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label className="text-[13px] font-medium text-foreground">상품 이미지</Label>
+              <Label className="text-[14px] font-medium text-foreground">상품 이미지</Label>
 
               {previewUrl ? (
                 <div className="relative w-32 h-32 rounded-xl overflow-hidden border border-border group">
@@ -392,7 +392,7 @@ export function ProductFormModal({
                     <ImageIcon size={18} className={isDragging ? "text-primary" : "text-muted-foreground"} />
                   </div>
                   <div className="text-center">
-                    <p className="text-[13px] font-medium text-foreground">
+                    <p className="text-[14px] font-medium text-foreground">
                       클릭하거나 드래그하여 업로드
                     </p>
                     <p className="text-[11px] text-muted-foreground mt-0.5">PNG, JPG, WEBP (최대 5MB)</p>
@@ -414,13 +414,13 @@ export function ProductFormModal({
                 variant="outline"
                 size="sm"
                 onClick={() => fileInputRef.current?.click()}
-                className="w-fit gap-1.5 h-8 text-[12px]"
+                className="w-fit gap-1.5 h-8 text-[14px]"
               >
                 <Upload size={13} />
                 파일 선택
               </Button>
               {fileError && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {fileError}
                 </p>
@@ -429,7 +429,7 @@ export function ProductFormModal({
 
             {/* ── 상품 설명 ──────────────────────────────── */}
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="description" className="text-[13px] font-medium text-foreground">
+              <Label htmlFor="description" className="text-[14px] font-medium text-foreground">
                 상품 설명
               </Label>
               <Textarea
@@ -440,7 +440,7 @@ export function ProductFormModal({
                 {...register("description")}
               />
               {errors.description && (
-                <p className="flex items-center gap-1 text-[12px] text-error">
+                <p className="flex items-center gap-1 text-[14px] text-error">
                   <AlertCircle size={11} />
                   {errors.description.message}
                 </p>
@@ -455,7 +455,7 @@ export function ProductFormModal({
               variant="outline"
               size="sm"
               onClick={onClose}
-              className="h-9 px-5 text-[13px]"
+              className="h-9 px-5 text-[14px]"
             >
               취소
             </Button>
@@ -463,7 +463,7 @@ export function ProductFormModal({
               type="submit"
               size="sm"
               disabled={isSubmitting}
-              className="h-9 px-6 text-[13px] bg-primary text-white hover:bg-brand-primary-dark"
+              className="h-9 px-6 text-[14px] bg-primary text-white hover:bg-brand-primary-dark"
             >
               {isSubmitting ? "저장 중..." : isEdit ? "수정 완료" : "상품 등록"}
             </Button>
