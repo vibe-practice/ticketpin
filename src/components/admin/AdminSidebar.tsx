@@ -207,7 +207,7 @@ export function AdminSidebar({
             )}
           >
             <p className="whitespace-nowrap text-sm font-bold text-white leading-tight">
-              티켓핀
+              티켓매니아
             </p>
             <p className="whitespace-nowrap text-[11px] font-medium text-neutral-400 leading-tight">
               관리자 콘솔

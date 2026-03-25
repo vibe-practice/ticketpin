@@ -5,8 +5,8 @@ import { getCategories } from "@/lib/supabase/queries";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | 티켓핀",
-    default: "티켓핀",
+    template: "%s | 티켓매니아",
+    default: "티켓매니아",
   },
 };
 

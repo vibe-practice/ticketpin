@@ -84,7 +84,7 @@ export async function sendAligoSms(params: AligoSendParams): Promise<AligoRespon
         receiver: params.receiver,
         msg: params.msg,
         msg_type: msgType,
-        title: msgType === "LMS" ? (params.title ?? "[티켓핀]") : undefined,
+        title: msgType === "LMS" ? (params.title ?? "[티켓매니아]") : undefined,
         testmode_yn: process.env.ALIGO_TESTMODE === "Y" ? "Y" : undefined,
       }),
     });
@@ -110,7 +110,7 @@ export async function sendAligoSms(params: AligoSendParams): Promise<AligoRespon
   formData.append("msg_type", msgType);
 
   if (msgType === "LMS") {
-    formData.append("title", params.title ?? "[티켓핀]");
+    formData.append("title", params.title ?? "[티켓매니아]");
   }
 
   if (process.env.ALIGO_TESTMODE === "Y") {

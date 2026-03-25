@@ -538,7 +538,7 @@ function Step3() {
         회원가입이 완료되었습니다.
       </h2>
       <p className="mb-8 text-sm text-muted-foreground">
-        티켓핀 회원이 되신 것을 환영합니다.
+        티켓매니아 회원이 되신 것을 환영합니다.
         <br />
         로그인하여 서비스를 이용해 주세요.
       </p>

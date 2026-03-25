@@ -102,7 +102,7 @@ export default function NoticePage() {
         <div className="container-main py-8">
           <h1 className="text-2xl font-bold text-foreground">공지사항</h1>
           <p className="mt-1 text-[16px] text-muted-foreground">
-            티켓핀의 서비스 공지, 이벤트, 점검 안내를 확인하세요.
+            티켓매니아의 서비스 공지, 이벤트, 점검 안내를 확인하세요.
           </p>
         </div>
       </div>

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "개인정보처리방침 | 티켓핀",
+  title: "개인정보처리방침 | 티켓매니아",
 };
 
 const SECTIONS = [
   {
     title: "1. 개인정보의 수집 항목 및 수집 방법",
-    content: `티켓핀(이하 '회사')는 서비스 제공을 위해 다음과 같은 개인정보를 수집합니다.
+    content: `티켓매니아(이하 '회사')는 서비스 제공을 위해 다음과 같은 개인정보를 수집합니다.
 
 가. 필수 수집 항목
 · 회원가입 시: 아이디, 비밀번호, 이름, 휴대폰 번호, 이메일

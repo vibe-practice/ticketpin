@@ -90,7 +90,7 @@ export function Footer() {
           {/* 사업자 정보 */}
           <div className="flex flex-col gap-1">
             <p className="text-[14px] leading-relaxed text-muted-foreground">
-              (주)티켓핀 &nbsp;|&nbsp; 대표: OOO &nbsp;|&nbsp; 사업자등록번호: 359-86-01899
+              (주)티켓매니아 &nbsp;|&nbsp; 대표: OOO &nbsp;|&nbsp; 사업자등록번호: 359-86-01899
             </p>
             <p className="text-[14px] leading-relaxed text-muted-foreground">
               통신판매업신고: 2025-서울성동-1648 &nbsp;|&nbsp; 주소: 서울특별시 성동구 성수일로8길 55, A동 6층 7호

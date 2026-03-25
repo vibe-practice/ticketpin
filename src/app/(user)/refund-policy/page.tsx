@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AlertCircle } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "환불/취소 정책 | 티켓핀",
+  title: "환불/취소 정책 | 티켓매니아",
 };
 
 const SECTIONS = [

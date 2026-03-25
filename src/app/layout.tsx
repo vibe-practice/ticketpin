@@ -11,11 +11,11 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "티켓핀 - 상품권 교환권 플랫폼",
-    template: "%s | 티켓핀",
+    default: "티켓매니아 - 상품권 교환권 플랫폼",
+    template: "%s | 티켓매니아",
   },
   description: "신뢰할 수 있는 상품권 교환권 플랫폼. 다양한 상품권을 간편하게 구매하세요.",
-  keywords: ["상품권", "교환권", "기프티콘", "티켓핀"],
+  keywords: ["상품권", "교환권", "기프티콘", "티켓매니아"],
 };
 
 export default function RootLayout({

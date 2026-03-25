@@ -103,7 +103,7 @@ INSERT INTO faqs (category, question, answer, is_visible, sort_order) VALUES
 (
   '선물',
   '비회원에게도 선물이 가능한가요?',
-  '현재 선물하기는 티켓핀 회원 간에만 지원됩니다. 수신자가 회원이 아닌 경우 먼저 회원가입을 완료한 후 선물을 받을 수 있습니다. 비회원 선물 기능은 향후 업데이트를 통해 지원할 예정입니다.',
+  '현재 선물하기는 티켓매니아 회원 간에만 지원됩니다. 수신자가 회원이 아닌 경우 먼저 회원가입을 완료한 후 선물을 받을 수 있습니다. 비회원 선물 기능은 향후 업데이트를 통해 지원할 예정입니다.',
   true,
   13
 ),
@@ -158,7 +158,7 @@ INSERT INTO faqs (category, question, answer, is_visible, sort_order) VALUES
 INSERT INTO notices (title, content, category, is_important, is_visible, view_count, created_by, created_at) VALUES
 (
   '임시 비밀번호 인증 방식 보안 강화 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 서비스 보안 강화를 위해 임시 비밀번호 인증 방식이 아래와 같이 변경됩니다.
 
@@ -185,7 +185,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '[필독] 개인정보처리방침 개정 안내 (2026년 3월)',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 개인정보 보호법 개정에 따라 개인정보처리방침이 아래와 같이 개정됩니다. 변경되는 주요 내용을 반드시 확인해 주시기 바랍니다.
 
@@ -216,7 +216,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '고객센터 운영 시간 변경 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 2026년 4월 1일부터 고객센터 운영 시간이 아래와 같이 변경됩니다.
 
@@ -239,7 +239,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '카카오페이 결제 수단 추가 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 2026년 3월 15일부터 카카오페이 결제 수단이 추가됩니다.
 
@@ -259,7 +259,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '3월 봄맞이 특가 이벤트 — 선택 상품 최대 5% 추가 할인',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 봄을 맞이하여 특별 할인 이벤트를 진행합니다.
 
@@ -288,7 +288,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '회원 가입 기념 웰컴 혜택 이벤트 상시 운영',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 신규 회원분들을 위한 웰컴 혜택 이벤트를 상시 운영합니다.
 
@@ -303,7 +303,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 · 본인 인증(휴대폰) 완료 회원에게만 적용됩니다
 · 1인 1회에 한하며, 중복 계정 생성 시 혜택이 회수될 수 있습니다
 
-티켓핀에 오신 것을 환영합니다. 감사합니다.',
+티켓매니아에 오신 것을 환영합니다. 감사합니다.',
   '이벤트',
   false,
   true,
@@ -313,7 +313,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '[완료] 서버 정기 점검 안내 — 2026년 2월 26일',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 서버 정기 점검이 완료되었습니다. 이용에 불편을 드려 죄송합니다.
 
@@ -340,7 +340,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '네이버페이 결제 수단 추가 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 네이버페이 결제 수단이 추가되었습니다.
 
@@ -354,7 +354,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '2월 발렌타인 데이 특별 이벤트 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 발렌타인 데이를 맞이하여 특별 이벤트를 진행합니다.
 
@@ -368,7 +368,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '[완료] 결제 시스템 긴급 점검 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 결제 시스템 긴급 점검이 완료되었습니다.
 
@@ -382,7 +382,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '설 연휴 고객센터 운영 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 설 연휴 기간 고객센터 운영 시간을 안내드립니다.
 
@@ -396,7 +396,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   '연말 감사 이벤트 — 전 상품 수수료 무료',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 연말을 맞이하여 전 상품 수수료 무료 이벤트를 진행합니다.
 
@@ -410,7 +410,7 @@ INSERT INTO notices (title, content, category, is_important, is_visible, view_co
 ),
 (
   'SMS 발송 시스템 개선 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 SMS 발송 시스템이 개선되었습니다.
 
@@ -424,7 +424,7 @@ SMS 발송 시스템이 개선되었습니다.
 ),
 (
   '[완료] 데이터베이스 마이그레이션 점검 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 데이터베이스 마이그레이션 점검이 완료되었습니다.
 
@@ -438,7 +438,7 @@ SMS 발송 시스템이 개선되었습니다.
 ),
 (
   '모바일 앱 출시 예정 안내',
-  '안녕하세요, 티켓핀입니다.
+  '안녕하세요, 티켓매니아입니다.
 
 모바일 앱 출시를 준비하고 있습니다. 많은 관심 부탁드립니다.
 

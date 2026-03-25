@@ -166,7 +166,7 @@ export function SiteHeader({ categories = [], isScrolled = false, isVisible = tr
             href="/"
             className="flex-shrink-0 text-[24px] font-bold tracking-[-0.04em] text-foreground transition-opacity hover:opacity-70"
           >
-            티켓핀
+            티켓매니아
           </Link>
 
           {/* 중앙: 검색창 (데스크탑) */}
@@ -384,7 +384,7 @@ export function SiteHeader({ categories = [], isScrolled = false, isVisible = tr
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="text-[22px] font-bold tracking-[-0.04em] text-foreground"
               >
-                티켓핀
+                티켓매니아
               </Link>
               <button
                 type="button"

@@ -15,7 +15,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "선물하기 안내 | 티켓핀",
+  title: "선물하기 안내 | 티켓매니아",
 };
 
 interface Step {
@@ -123,7 +123,7 @@ const NOTICES: NoticeItem[] = [
   {
     icon: UserCheck,
     title: "회원 간 선물만 가능",
-    desc: "선물하기는 티켓핀 회원 간에만 가능합니다. 비회원에게는 선물할 수 없으니, 받는 분이 먼저 회원가입을 완료해야 합니다.",
+    desc: "선물하기는 티켓매니아 회원 간에만 가능합니다. 비회원에게는 선물할 수 없으니, 받는 분이 먼저 회원가입을 완료해야 합니다.",
     variant: "info",
   },
   {

@@ -73,7 +73,7 @@ export default function FaqPage() {
         <div className="container-main py-8">
           <h1 className="text-2xl font-bold text-foreground">자주 묻는 질문</h1>
           <p className="mt-1 text-[16px] text-muted-foreground">
-            티켓핀 이용에 관한 자주 묻는 질문을 모았습니다.
+            티켓매니아 이용에 관한 자주 묻는 질문을 모았습니다.
           </p>
         </div>
       </div>

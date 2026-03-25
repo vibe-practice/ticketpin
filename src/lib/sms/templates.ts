@@ -35,7 +35,7 @@ export interface PurchaseTemplateParams {
  * - feeTotal이 있으면 수수료 별도 템플릿, 없으면 수수료 포함 템플릿
  */
 export function buildPurchaseMessage(params: PurchaseTemplateParams): string {
-  const base = `[티켓핀] 상품권 구매 완료
+  const base = `[티켓매니아] 상품권 구매 완료
 
 ${params.productName} ${params.quantity}매
 결제금액: ${formatAmount(params.totalAmount)}원
@@ -70,7 +70,7 @@ export interface ReissueTemplateParams {
 }
 
 export function buildReissueMessage(params: ReissueTemplateParams): string {
-  return `[티켓핀] 임시 비밀번호 재발행
+  return `[티켓매니아] 임시 비밀번호 재발행
 
 새 임시 비밀번호: ${params.tempPassword}
 (유효시간 20분)
@@ -95,7 +95,7 @@ export interface GiftTemplateParams {
 }
 
 export function buildGiftMessage(params: GiftTemplateParams): string {
-  const base = `[티켓핀] 상품권 선물 도착
+  const base = `[티켓매니아] 상품권 선물 도착
 
 ${params.senderName}(${params.senderUsername})님이 상품권을 보냈습니다.
 
@@ -130,7 +130,7 @@ export interface CancelTemplateParams {
 }
 
 export function buildCancelMessage(params: CancelTemplateParams): string {
-  return `[티켓핀] 결제 취소 완료
+  return `[티켓매니아] 결제 취소 완료
 
 주문번호: ${params.orderNumber}
 상품명: ${params.productName} ${params.quantity}매
@@ -149,7 +149,7 @@ export interface AdminResendTemplateParams {
 }
 
 export function buildAdminResendMessage(params: AdminResendTemplateParams): string {
-  return `[티켓핀] 임시 비밀번호 안내
+  return `[티켓매니아] 임시 비밀번호 안내
 
 아래 링크에서 상품권을 확인하세요.
 ${voucherUrl(params.voucherCode)}
@@ -184,7 +184,7 @@ export function buildPurchaseNotifyMessage(params: PurchaseNotifyTemplateParams)
       ? `수수료 : 별도 (${formatAmount(params.feeTotal)}원)`
       : `수수료 : 포함`;
 
-  return `[티켓핀] 매입 알림
+  return `[티켓매니아] 매입 알림
 
 선물 보낸 일시 : ${params.giftDateTime}
 상품명 : ${params.productName}
@@ -204,7 +204,7 @@ export interface PasswordResetTemplateParams {
 }
 
 export function buildPasswordResetMessage(params: PasswordResetTemplateParams): string {
-  return `[티켓핀] 비밀번호 초기화 안내
+  return `[티켓매니아] 비밀번호 초기화 안내
 
 관리자에 의해 비밀번호가 초기화되었습니다.
 아래 링크에서 새 비밀번호를 설정해주세요.

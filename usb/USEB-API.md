@@ -634,7 +634,7 @@ POST https://api3.useb.co.kr/status/business-registration
 
 ---
 
-## 티켓핀 연동 시 사용할 API 정리
+## 티켓매니아 연동 시 사용할 API 정리
 
 회원가입 시 사용할 API만 정리:
 

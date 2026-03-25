@@ -114,7 +114,7 @@ export async function POST(
     try {
       await sendAligoSms({
         receiver: smsReceiver,
-        msg: `[티켓핀] SMS 인증번호 변경: ${code} (${CODE_EXPIRY_MINUTES}분 이내 입력)`,
+        msg: `[티켓매니아] SMS 인증번호 변경: ${code} (${CODE_EXPIRY_MINUTES}분 이내 입력)`,
       });
     } catch (smsError) {
       console.error("[admin-phone-send] SMS 발송 실패:", smsError);

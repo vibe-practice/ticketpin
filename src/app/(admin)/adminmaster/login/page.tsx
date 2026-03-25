@@ -156,7 +156,7 @@ export default function AdminLoginPage() {
           </div>
 
           <h1 className="text-2xl font-bold tracking-tight text-white">
-            티켓핀
+            티켓매니아
           </h1>
           <p className="mt-1.5 text-sm font-medium tracking-widest text-neutral-400 uppercase">
             Admin Console

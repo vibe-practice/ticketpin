@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "이용방법 | 티켓핀",
+  title: "이용방법 | 티켓매니아",
 };
 
 interface Step {
@@ -175,7 +175,7 @@ export default function GuidePage() {
         <div className="container-main py-8">
           <h1 className="text-2xl font-bold text-foreground">이용방법</h1>
           <p className="mt-1 text-[16px] text-muted-foreground">
-            티켓핀 상품권 교환권 서비스 이용 절차를 안내합니다.
+            티켓매니아 상품권 교환권 서비스 이용 절차를 안내합니다.
           </p>
         </div>
       </div>

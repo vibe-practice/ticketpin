@@ -69,7 +69,7 @@ export function HomeSidebar() {
           /* 비로그인 상태 */
           <div>
             <p className="text-[16px] font-bold text-foreground">
-              지금 바로 티켓핀과 함께하세요
+              지금 바로 티켓매니아와 함께하세요
             </p>
             <Link
               href="/auth/login"

@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
     try {
       await sendAligoSms({
         receiver: smsReceiver,
-        msg: `[티켓핀] 업체 인증번호: ${code} (${CODE_EXPIRY_MINUTES}분 이내 입력)`,
+        msg: `[티켓매니아] 업체 인증번호: ${code} (${CODE_EXPIRY_MINUTES}분 이내 입력)`,
       });
     } catch (smsError) {
       console.error("[biz-verify-send] SMS 발송 실패:", smsError);

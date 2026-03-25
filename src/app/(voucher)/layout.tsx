@@ -7,7 +7,7 @@ export default function VoucherLayout({ children }: { children: React.ReactNode 
       <header className="border-b border-border">
         <div className="flex items-center justify-between max-w-3xl mx-auto px-4 sm:px-6 h-14">
           <Link href="/" className="text-lg font-bold text-foreground tracking-tight">
-            티켓핀
+            티켓매니아
           </Link>
           <Link
             href="/my/vouchers"

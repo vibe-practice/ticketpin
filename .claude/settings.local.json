@@ -44,7 +44,8 @@
       "WebFetch(domain:doc.useb.co.kr)",
       "WebFetch(domain:dataapi.co.kr)",
       "WebFetch(domain:docs-ekyc.useb.co.kr)",
-      "WebFetch(domain:www.alchera.ai)"
+      "WebFetch(domain:www.alchera.ai)",
+      "WebFetch(domain:kyc-demo.useb.co.kr)"
     ]
   }
 }

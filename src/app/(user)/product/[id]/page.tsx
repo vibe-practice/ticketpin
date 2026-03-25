@@ -17,11 +17,11 @@ export async function generateMetadata({
   const product = await getProductById(id);
 
   if (!product) {
-    return { title: "상품을 찾을 수 없습니다 | 티켓핀" };
+    return { title: "상품을 찾을 수 없습니다 | 티켓매니아" };
   }
 
   return {
-    title: `${product.name} | 티켓핀`,
+    title: `${product.name} | 티켓매니아`,
     description:
       product.description ?? `${product.name} 상품을 지금 바로 구매하세요.`,
   };

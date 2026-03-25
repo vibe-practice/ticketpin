@@ -1,4 +1,4 @@
-# 프로젝트 메모리 — 티켓핀 프론트엔드
+# 프로젝트 메모리 — 티켓매니아 프론트엔드
 
 ## 기술 스택 및 환경
 - Next.js 16 (App Router), TypeScript strict, Tailwind CSS 4, shadcn/ui

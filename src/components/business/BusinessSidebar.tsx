@@ -136,7 +136,7 @@ export function BusinessSidebar({
               )}
             >
               <p className="whitespace-nowrap text-sm font-bold text-white leading-tight">
-                티켓핀
+                티켓매니아
               </p>
               <p className="whitespace-nowrap text-[11px] font-medium text-muted-foreground leading-tight">
                 업체 포털

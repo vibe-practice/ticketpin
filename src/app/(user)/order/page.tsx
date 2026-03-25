@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { OrderPageClient } from "./OrderPageClient";
 
 export const metadata: Metadata = {
-  title: "주문/결제 | 티켓핀",
+  title: "주문/결제 | 티켓매니아",
   description: "상품권 구매 주문 및 결제 페이지",
 };
 

@@ -36,8 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .eq("id", id)
     .single();
 
-  if (!notice) return { title: "공지사항 | 티켓핀" };
-  return { title: `${notice.title} | 티켓핀` };
+  if (!notice) return { title: "공지사항 | 티켓매니아" };
+  return { title: `${notice.title} | 티켓매니아` };
 }
 
 function formatDate(iso: string): string {
