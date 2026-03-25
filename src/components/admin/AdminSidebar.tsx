@@ -232,13 +232,13 @@ export function AdminSidebar({
                       "group relative flex items-center rounded-lg transition-all duration-150",
                       collapsed ? "h-10 w-10 justify-center mx-auto" : "h-10 gap-3 px-3",
                       active
-                        ? "bg-primary/15 text-primary"
+                        ? "bg-white/10 text-white"
                         : "text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100"
                     )}
                   >
                     {/* 활성 좌측 바 */}
                     {active && (
-                      <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-primary" />
+                      <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-white" />
                     )}
                     <Icon
                       size={18}
@@ -282,12 +282,12 @@ export function AdminSidebar({
                       "group relative flex w-full items-center rounded-lg transition-all duration-150 cursor-pointer",
                       collapsed ? "h-10 w-10 justify-center mx-auto" : "h-10 gap-3 px-3",
                       isGroupActive
-                        ? "bg-primary/15 text-primary"
+                        ? "bg-white/10 text-white"
                         : "text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100"
                     )}
                   >
                     {isGroupActive && (
-                      <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-primary" />
+                      <span className="absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-white" />
                     )}
                     <Icon
                       size={18}
@@ -333,7 +333,7 @@ export function AdminSidebar({
                             className={cn(
                               "flex items-center gap-2.5 rounded-md px-2.5 py-2 text-[14px] font-medium transition-all duration-150",
                               childActive
-                                ? "text-primary"
+                                ? "text-white"
                                 : "text-neutral-400 hover:bg-neutral-800 hover:text-neutral-100"
                             )}
                           >

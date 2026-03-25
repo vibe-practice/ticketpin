@@ -47,7 +47,7 @@ export function CategoryNav({ categories }: CategoryNavProps) {
           type="button"
           onClick={() => setIsCategoryOpen(!isCategoryOpen)}
           className={cn(
-            "flex items-center gap-1 rounded-lg px-3 py-2 text-[15px] font-semibold transition-colors",
+            "flex items-center gap-1 rounded-lg px-3 py-2 text-[16px] font-semibold transition-colors",
             isCategoryOpen
               ? "bg-neutral-100 text-foreground"
               : "text-secondary-foreground hover:bg-neutral-50 hover:text-foreground"
@@ -65,7 +65,7 @@ export function CategoryNav({ categories }: CategoryNavProps) {
             <Link
               href="/category"
               onClick={() => setIsCategoryOpen(false)}
-              className="flex items-center px-4 py-2.5 text-[14px] font-semibold text-foreground hover:bg-neutral-50"
+              className="flex items-center px-4 py-2.5 text-[16px] font-semibold text-foreground hover:bg-neutral-50"
             >
               전체 상품권
             </Link>
@@ -76,7 +76,7 @@ export function CategoryNav({ categories }: CategoryNavProps) {
                 href={`/category/${cat.slug}`}
                 onClick={() => setIsCategoryOpen(false)}
                 className={cn(
-                  "flex items-center px-4 py-2.5 text-[14px] transition-colors hover:bg-neutral-50",
+                  "flex items-center px-4 py-2.5 text-[16px] transition-colors hover:bg-neutral-50",
                   pathname === `/category/${cat.slug}`
                     ? "font-semibold text-foreground"
                     : "font-medium text-secondary-foreground"
@@ -95,7 +95,7 @@ export function CategoryNav({ categories }: CategoryNavProps) {
           key={item.href}
           href={item.href}
           className={cn(
-            "rounded-lg px-3 py-2 text-[15px] font-semibold transition-colors",
+            "rounded-lg px-3 py-2 text-[16px] font-semibold transition-colors",
             pathname === item.href || pathname.startsWith(item.href + "/")
               ? "text-foreground"
               : "text-muted-foreground hover:bg-neutral-50 hover:text-foreground"
