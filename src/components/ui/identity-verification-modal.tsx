@@ -66,7 +66,7 @@ function IdentityVerificationModalInner({
   const [existingUsername, setExistingUsername] = useState<string | null>(null);
   const [notFound, setNotFound] = useState(false);
 
-  const { startVerification, isLoading, error } = useIdentityVerification({
+  const { startVerification, isLoading, error, popupRef } = useIdentityVerification({
     purpose,
     onVerified: (result) => {
       onVerified(result);
@@ -83,7 +83,11 @@ function IdentityVerificationModalInner({
   });
 
   const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen && !isLoading) {
+    if (!nextOpen) {
+      // 팝업이 열려 있으면 닫기
+      if (popupRef.current && !popupRef.current.closed) {
+        popupRef.current.close();
+      }
       onClose();
     }
   };

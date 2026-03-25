@@ -20,6 +20,7 @@ interface UseIdentityVerificationReturn {
   startVerification: () => Promise<void>;
   isLoading: boolean;
   error: string | null;
+  popupRef: React.RefObject<Window | null>;
 }
 
 export function useIdentityVerification({
@@ -216,7 +217,7 @@ ${Object.entries(formFields)
     }
   }, []);
 
-  return { startVerification, isLoading, error };
+  return { startVerification, isLoading, error, popupRef };
 }
 
 /** HTML attribute value escaping */
